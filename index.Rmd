@@ -1,0 +1,12 @@
+---
+title: 'Tim Covino git home page'
+author: "Tim Covino"
+date: "9/9/2021"
+output: html_document
+---
+
+Here you can find links to various ongoing projects. 
+
+[Online hydrology lessons](hydrology/index.html)
+
+[Thought on remote and online learning](online/remote_online.html)

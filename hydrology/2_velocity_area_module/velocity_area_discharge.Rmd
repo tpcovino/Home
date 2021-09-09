@@ -1,0 +1,67 @@
+---
+title: "Velocity area discharge"
+author: "tim covino"
+date: "9/7/2021"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+```
+
+```{r}
+library(tidyverse)
+library(plotly)
+```
+### This part you will need to change. Remember that it is best practice to work from projects. If you have a WR696 project with sub-folders you would open the project then navige to the velo_area (for example) folder and open your R markdown. The reason this is nice is that project will open with WR696 as the "working directory". Problems loading data are generally due to thinking you are in a different wd than you actually are. Projects essentially eliminate this issue. 
+```{r}
+cross <- read_csv("data/velo_area_data_R.csv")
+```
+
+```{r}
+
+cross <- cross %>% 
+  mutate(depth_m = depth_cm/100)
+
+
+cross <- cross %>% 
+  mutate(area_m2 = (lead(cross$width_m) - lag(cross$width_m)) / 2 *
+  cross$depth_m, q = area_m2 * velo_m_s)
+
+tot_q <- sum(cross$q, na.rm = TRUE)
+
+```
+
+```{r}
+cross_percent <- cross %>% 
+  mutate(q_per = (q/tot_q)*100)
+
+sections_exceeding <- cross_percent %>% 
+  filter(q_per > 5)
+
+mean_velo <- cross %>% 
+  summarize(mean_velo = mean(velo_m_s))
+
+total_area <- cross %>% 
+  summarize(total_area = sum(area_m2, na.rm = TRUE))
+```
+
+```{r}
+fig <- cross %>% 
+  mutate(neg_depth = depth_m * -1) %>% 
+  ggplot(aes(x = width_m, y = neg_depth)) +
+  geom_point() +
+  geom_line() +
+  ylab("Depth (m)") +
+  xlab("Width (m)") +
+  theme_linedraw(base_size = 16) +
+  ylim(-15, 0)
+
+ggplotly(fig)
+
+```
+
+
