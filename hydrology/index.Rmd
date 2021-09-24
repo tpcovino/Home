@@ -8,20 +8,21 @@ output:
     toc_float: true
     toc_depth: 3
 ---
-# Rating curve code
+# Some guidance with R coding for hydrological analysis
+### Rating curve code
  - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html)
 
-# Velocity-area discharge code
+### Velocity-area discharge code
  - [Code for analyzing velocity-area data](2_velocity_area_module/velocity_area_discharge.html)
 
-# Some tidyverse
+### Some tidyverse
  - [A little tidyverse code for cleaning data](7_rating_curve/tidyverse.html)
 
-# Historic data in R
+### Historic data in R
 
  - [Climate data annalysis in R](historic_data/historic_data.html)
 
-# R intro
+### R intro
 
  - [Introductory R markdown](R_intro/R_intro_696.html)
 
