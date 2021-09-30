@@ -173,7 +173,7 @@ The logger will ask if you really want to do this – because when you send the 
 
 Calculations using pre-collected data provided [here](https://www.dropbox.com/s/hkpucfp1g7lhlj3/DG_Assessment.xlsx?dl=0){target="_blank"}: 
 
-If you wish to work in R, this [example code](https://www.dropbox.com/sh/yvx0s3fxojezbv6/AAABhrXRhyHL6PMypRMlY8hPa?dl=0) will help you
+If you wish to work in R, this [example code](https://www.dropbox.com/sh/9660x1z6uwgf83o/AADboHizOahex1Tk40iwVPsBa?dl=0) will help you
 
 ## Breakthrough Curve Analysis (10 pts)
 
