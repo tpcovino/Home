@@ -9,6 +9,9 @@ output:
     toc_depth: 3
 ---
 # Some guidance with R coding for hydrological analysis
+### Dilution guaging analysis in R
+ - [Code for analyzing BTCs in R](3_dilution_gauging.html)
+
 ### Rating curve code
  - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html)
 
