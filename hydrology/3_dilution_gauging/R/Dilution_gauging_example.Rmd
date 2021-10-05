@@ -1,0 +1,120 @@
+---
+title: "Dilution gauging example"
+author: "Tim Covino"
+date: "10/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+library(tidyverse)
+library(plotly)
+library(lubridate)
+library(tibbletime)
+
+```
+
+```{r}
+df <- read_csv('data/corrected_conductivity_working.csv')
+
+df_tt <- as_tbl_time(df, index = Time)
+```
+
+## We can enter some input data, such as the distance, the mass and the time of injection. From these we can calculate Q and some velocities. 
+```{r}
+dist <- 20
+
+mass3 <- 312.6
+
+injTime3 <- "15:41:45"
+
+```
+
+## We can use the plotly package to make an intereactive plot. This allows us to hover on the figure and determine what period of data we want for each BTC. 
+
+```{r}
+ggplotly(df_tt %>% 
+           ggplot(aes(x = Time, y = Cond_cor))+ 
+           geom_point()
+           )
+```
+
+## We see that we have 3 BTCs. We want to break those into separate data frames. Let's do that for injection 3 now. We know it started at 15:41:45 and we can cut it off at 15:49:30. We can use the tibble time package to filter by time. 
+
+```{r}
+# Here we filter from the injection time that we defined above to the end of the time series. 
+inj_3 <- df_tt %>% 
+  filter_time(injTime3 ~ "15:49:30")
+
+# Then we do a background correction. 
+inj_3 <- inj_3 %>% 
+  mutate(bg_sc = Cond_cor - 0.756) %>% 
+  filter(bg_sc >0)
+```
+
+## This is the section where we do the intgration. 
+
+```{r}
+inj_3 <- inj_3 %>% 
+  mutate(NaCl = bg_sc/2) %>% 
+  mutate(IntC_s1 = NaCl + lag(NaCl, default = 0)) %>% 
+  mutate(IntC = cumsum(IntC_s1 * 0.5 * 5)) %>% 
+  mutate(recovery = IntC/max(IntC))
+```
+
+## From that integration Q is calculated as: 
+
+```{r}
+Q3 <- mass3/max(inj_3$IntC) 
+```
+
+## We want some velocities: peak, 5%, median and 95%. I'll do 5% here. We will use some indexing to return the row at which recovery equals 5%. 
+
+```{r}
+# This just makes a column with time since injection in seconds. 
+inj_3 <- inj_3 %>% 
+  mutate(time_since = Run_time - 3860)
+
+# Using plotly I know the peak was at 40 s
+peak = 40
+
+# So the velocity to peak is: 
+peak_velo <- dist/peak
+
+# Then we can do the indexing and calculate the arrival velocity, which is the velocity to 5% recovery. 
+fiveRcovery.idx1 <-which.min(abs(inj_3$recovery - .05))
+
+five_time <- inj_3[5, 11]
+
+five_velo <- dist/five_time
+
+```
+
+
+## Then we can make a figure of the recovery. 
+```{r}
+inj_3 %>% 
+  ggplot(aes(x = time_since, y = IntC)) +
+  geom_point() +
+  ylab("Integral NaCl (g*s/L)") + 
+  xlab("Time") +
+  theme_linedraw(base_size = 16) +
+  ggtitle("Injection 3")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
