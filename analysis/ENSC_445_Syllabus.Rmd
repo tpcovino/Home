@@ -4,6 +4,12 @@ author: "Tim Covino"
 date: "3/10/2022"
 output: html_document
 ---
+<style type="text/css">
+  body{
+  font-size: 16pt;
+}
+</style>
+
 
 **Instructor**: Dr. Tim Covino
 
