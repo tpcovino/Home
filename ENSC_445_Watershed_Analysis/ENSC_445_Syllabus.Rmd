@@ -1,0 +1,66 @@
+---
+title: "ENSC 445 Watershed Analysis"
+author: "Tim Covino"
+date: "3/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+```
+
+**Instructor**: Dr. Tim Covino
+
+**Class times**: T 14:00 – 15:15; Th 14:00 – 15:15
+
+**Course overview and objectives**: (1) provide theoretical understanding and practical experience with the most common analysis and modeling techniques relevant to watershed hydrology; and (2) provide training in analyzing, simulating, and presenting scientific data in written and oral formats.
+
+**Approach**: This class will be largely hands-on, and students will be conducting watersheds analyses and modeling exercises. We will follow a typical weekly format of Tuesday in-class lecture, Thursday hands-on computing work, and time spent working through online modules outside of class. The online modules are required and are intended to prepare students for the in-class work on Thursday’s. Accordingly, this class will follow a semi-flipped format that includes in-class lecture, at-home lecture and exercises, and in-class work sessions. 
+
+**Course structure**: Tuesday lectures will provide theoretical understanding and Thursday computing labs will be focused on skill development in watershed analysis and modeling. Labs will typically be due the Friday following the Thursday work session (i.e., 8-days following in-class session).  
+
+**Resources**: We will be using R and R-studio for the analysis and modeling we will do in this class. A video to the basics and installation of R and R-studio can be found here. Some students may wish to utilize other modeling and computing resources for their term project. This is encouraged and I will help as much as possible, but the course will focus on working in R, and accordingly more resources and support will be available. Course materials can be found here.   
+
+**Tentative schedule, subject to change**:
+
+Week 1: Introduction, overview and technical skills
+
+Week 2: Watershed boundaries, delineation and terrain analysis
+
+Week 3: Hydrologic processes, climate and water balance
+
+Week 4: Trend detection and analysis, non-parametric approaches
+
+Week 5: Surface water: Rating curves and hydrographs
+
+Week 6: Precipitation variability, interpolation schemes and data sources
+
+Week 7: Evapotranspiration, physical processes, and modeling approaches
+
+Week 8: Spring break
+
+Week 9: Term project overview, project brainstorm, identify data/models necessary to complete project
+
+Week 10: Erosional processes and modeling
+
+Week 11: Land cover change and implications for watershed hydrology
+
+Week 12: Statistical vs process-based models and their implementation
+
+Week 13: Water quality: analysis and prediction
+
+Week 14: Writing as rewriting
+
+Week 15: Compelling presentations
+
+Week 16: Final presentations
+
+**Grading**:<br>
+Online module assignments: 25% <br>
+Weekly lab assignments: 50% <br>
+Final presentation: 10% <br>
+Final report and presentation: 15% <br>
+
+
+
