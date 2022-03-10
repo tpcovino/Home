@@ -7,6 +7,4 @@ output: html_document
 
 [Online hydrology lessons](hydrology/index.html)
 
-[ENSC 445 Watershed Analysis](ENSC_445_Watershed_Analysis/index.html)
-
-New index
+[ENSC 445 Watershed Analysis](analysis/index.html)
