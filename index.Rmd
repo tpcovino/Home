@@ -9,4 +9,4 @@ Here you can find links to various ongoing projects.
 
 [Online hydrology lessons](hydrology/index.html)
 
-[Thoughts on remote and online learning](online/remote_online.html)
+[ENSC 445 Watershed Analysis]()
