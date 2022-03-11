@@ -1,7 +1,7 @@
 ---
-title: "Evapotranspiration Penman-Monteith vs. Blaney-Criddle"
-author: "Daniel Dominguez, Maryam Sahaar, Brian Steen, and Tim Covino"
-date: "updated March 2022"
+title: "Estimating Evapotranspiration using Penman-Monteith and Blaney-Criddle"
+author: 
+date: 
 output: 
   html_document:
     toc: true
