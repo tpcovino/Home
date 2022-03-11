@@ -5,6 +5,6 @@ date: "3/10/2022"
 output: html_document
 ---
 
-[Online hydrology lessons](hydrology/index.html)
+[Online hydrology lessons](hydrology/index.html){target="_blank"}
 
-[ENSC 445 Watershed Analysis](analysis/index.html)
+[ENSC 445 Watershed Analysis](watershed_analysis/index.html){target="_blank"}

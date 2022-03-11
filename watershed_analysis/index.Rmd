@@ -1,7 +1,7 @@
 ---
-title: "Landing page for ENSC 445"
-author: "Tim Covino"
-date: "3/10/2022"
+title: "Landing page for Watershed Analysis (ENSC 445)"
+author: 
+date: 
 output: html_document
 ---
 
