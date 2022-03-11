@@ -6,3 +6,5 @@ output: html_document
 ---
 
 [Syllabus/schedule for ENSC 445 Watershed Analysis](ENSC_445_Syllabus.html)
+
+[ET module](et/ET_PM_vs_BC.html)

@@ -1,8 +1,0 @@
----
-title: "Landing page for ENSC 445"
-author: "Tim Covino"
-date: "3/10/2022"
-output: html_document
----
-
-[Syllabus/schedule for ENSC 445 Watershed Analysis](ENSC_445_Syllabus.html)

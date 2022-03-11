@@ -13,23 +13,25 @@ editor_options:
 
 # Summary
 
-The term evapotranspiration ET is commonly used for two water loss processes from land surface to atmosphere (Evaporation and Transpiration).  Evaporation is the process where water liquid is converted to water vapor from sources such as soil surface, wet vegetation, pavement, lakes, oceans, etc. Transpiration consists of the vaporization of liquid water within the plant and subsequent loss of water through leaf stomata. Evaporation and transpiration occur simultaneously, and both are affected by solar radiation, air temperature, vapor pressure deficit, and wind speed. In this study, we are focusing on measuring evapotranspiration using two widely used ET equations, Blaney-Criddle and Penman-Monteith, and discuss their strengths and weaknesses by applying it to two climatically different regions. The appropriateness of the applied equations will be discussed in detail for each climatic region.
+The term evapotranspiration ET is commonly used for two water loss processes from land surface to atmosphere (Evaporation and Transpiration).  Evaporation is the process where water liquid is converted to water vapor from sources such as soil surface, wet vegetation, pavement, lakes, oceans, etc. Transpiration consists of the vaporization of liquid water within the plant and subsequent loss of water through leaf stomata. Evaporation and transpiration occur simultaneously, and both are affected by solar radiation, air temperature, vapor pressure deficit, and wind speed. In this study, we are focusing on estimating evapotranspiration using two widely used ET modeling approaches, Blaney-Criddle and Penman-Monteith, and discuss their strengths and weaknesses by applying them in two climatically different regions. The appropriateness of the applied models and associated equations will be discussed in detail for each climatic region.
 
 ## Overall Learning Objectives:
 
-At the end of this module, students will be able to explain the key variables for calculating ET and what environmental factors directly affect it. Additionally, students will estimate ET using Penman-Monteith and Blaney-Criddle methods, identify how these ET methods differ methodologically, and discern which method should be considered based on a climatic region. 
+At the end of this module, students will be able to explain the key variables for estimating ET and what environmental factors directly affect it. Additionally, students will estimate ET using Penman-Monteith and Blaney-Criddle methods, identify how these ET methods differ, and discern which method should be considered based on a climatic region. 
 
-## Required Reading and Links:
+## Required Readings and Videos:
 
-[Evaporation Introduction (Video)](https://www.youtube.com/watch?v=4765Sg2mKco){target="_blank"}
+### Reading:
+#### [Evaporation and the water cycle:](https://www.usgs.gov/special-topic/water-science-school/science/evaporation-and-water-cycle?qt-science_center_objects=0#qt-science_center_objects){target="_blank"}
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+#### [Crop Water Needs (FAO56)](http://www.fao.org/3/s2022e/s2022e07.htm#:~:text=The%20Blaney%2DCriddle%20method%20always,temperature%20is%2028%C2%B0C.){target="_blank"}
 
-[Evaporation and the Water Cycle](https://www.usgs.gov/special-topic/water-science-school/science/evaporation-and-water-cycle?qt-science_center_objects=0#qt-science_center_objects){target="_blank"}
+#### [Step by Step Calculation of Penman-Monteith Evapotranspiration (FAO-56 Method) ](https://edis.ifas.ufl.edu/ae459){target="_blank"}
 
-[Crop Water Needs (FAO56)](http://www.fao.org/3/s2022e/s2022e07.htm#:~:text=The%20Blaney%2DCriddle%20method%20always,temperature%20is%2028%C2%B0C.){target="_blank"}
+#### Evaporation and Evapotransporation Video:
 
-[Step by Step Calculation of the Penman-Monteith Evapotranspiration (FAO-56 Method) ](https://edis.ifas.ufl.edu/ae459){target="_blank"}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
 
 # 1. Evapotranspiration (ET) Introduction
 
@@ -41,13 +43,12 @@ Evapotranspiration (ET) is used to describe the processes of evaporation, where 
 
 Aside from weather factors, crop type and development need to be considered when gauging ET in agricultural settings. In similar environmental settings, crop height, roughness, reflection, root characteristics, and ground cover affect ET rates. Other management and environmental factors affecting ET include soil salinity, fertility, permeability, pest presence and control, ground cover, plant density, and volumetric water content. Cultivation and irrigation methods can alter the microclimate of crops, such as no-till practices, mulching, as well as adding windbreaks.
 
-[Youtube video: What is evapotranspiration?](https://www.youtube.com/watch?v=EuW9Sd3i_mY){target="_blank"}”
+#### Evapotranspiration in agricultural settings:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EuW9Sd3i_mY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EuW9Sd3i_mY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
-When measuring ET, standardizing crop evapotranspiration, ETC, refers to large productive fields of crops grown under optimal soil water, management, and environmental conditions. If conditions deviate from standard ETC, correction factors are necessary to reflect any effects from environmental or management conditions.
 
-###  c. Energy factors required for ET 
+###  c. Energy and ET 
 
 We can measure evapotranspiration by determining the amounts of energy available through radiant energy or sensible heat. In applying laws of energy conservation, an energy balance equation can be derived:
 Rn = G + l ET + H + A, where 
@@ -60,30 +61,31 @@ With the exception of advection, all of these factors can be negative. Heat stor
 
 In addition to readily available energy, water and a vapor pressure deficit are necessary for ET to occur. 
 Reference evapotranspiration, or ETO, is evapotranspiration from a hypothetical grass reference crop with particular characteristics that are not short of water. This is used to examine evaporation independent of crop type, development (such as the stage of growth), and management, and it assumes abundant water with no soil factors affecting ET. As climatic parameters are the only factors affecting ETO, it can be evaluated using weather data. 
+
 ETC is crop evapotranspiration for a specific crop cover under standard conditions, assuming a healthy crop with adequate fertilizer, abundant soil water, grown in large fields, and able to reach full production. ETC is different for each crop due to anatomy of plants and their aerodynamic properties, regardless of climatic conditions. Crop coefficients, KC, are determined as ratios of ETC/ETO. KC changes throughout a growing season. 
 
 ![](images/Crop_1.png)
 
-[Figure 1](https://www.google.com/url?q=http://www.fao.org/3/X0490E/x0490e0a.htm%23factors%2520determining%2520the%2520crop%2520coefficient&sa=D&ust=1607216950112000&usg=AOvVaw2V3a8_1H5CgviYD_Ynxo5r){target="_blank"}: The effect of evaporation on Kc. The horizontal line represents Kc when the soil surface is kept continuously wet. The curved line corresponds to Kc when the soil surface is kept dry but the crop receives sufficient water to sustain full transpiration. Figure and caption courtesy of FAO.
-Not all crop evapotranspiration happens under perfect conditions, however. ETC adj is ETC that happens under non-standard conditions, such as higher soil salinity, disease or pests, low soil fertility, or high or low water quantities, all of which may affect and lower the rate of ETC. Accounting for ETC adj is calculated with a water stress coefficient KS, or adjusting KC. 
+[Figure 1](https://www.google.com/url?q=http://www.fao.org/3/X0490E/x0490e0a.htm%23factors%2520determining%2520the%2520crop%2520coefficient&sa=D&ust=1607216950112000&usg=AOvVaw2V3a8_1H5CgviYD_Ynxo5r){target="_blank"}: The effect of evaporation on Kc. The horizontal line represents Kc when the soil surface is kept continuously wet. The curved line corresponds to Kc when the soil surface is kept dry but the crop receives sufficient water to sustain full transpiration. Figure and caption courtesy of Food and Agricultural Organization of the United Nations (FAO).
+ 
 
 ![](images/Crop_2.png)
 
 [Figure 2](https://www.google.com/url?q=http://www.fao.org/3/X0490E/x0490e0a.htm%23factors%2520determining%2520the%2520crop%2520coefficient&sa=D&ust=1607216950111000&usg=AOvVaw0ZRVB7U4_ujZgqA301MZBF){target="_blank"}: Extreme ranges expected in Kc for full grown crops as climate and weather change. Figure and caption courtesy of FAO. 
 
-###  d. Measuring and estimating ET meteorologically
+###  d. Evaporation and ET measurements
 
-Evaporation is commonly measured using a Class A evaporation pan, which is used to measure how much water directly evaporates daily. Evapotranspiration is also measured using an atmometer, which uses different covers on the top of the device to approximate different reference crops. Both methods were covered during the Meteorological Measurements module. Please refer to the module write up and lecture for further explanation. 
+Evaporation is commonly measured using a Class A evaporation pan, which is used to measure how much water directly evaporates daily. Evapotranspiration is also measured using an atmometer, which uses different covers on the top of the device to approximate different reference crops. More information can be found in the [Meteorological Measurements module](met_lab/met_lab.html). 
 
 How to use a Class A evaporation pan. Note that the measurement in the pan is being taken with dial calipers rather than reading the hook gauge itself. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kSMA94T4SJc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kSMA94T4SJc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
 # 2. Modeling ET
 
 ###  a. Penman-Monteith
 
-Penman equations operate on an energy balance and mass transfer method to estimate evaporation from open water, bare soil, and grass using climatological data:
+The Penman approach is an energy balance and mass transfer method to estimate evaporation from open water, bare soil, and grass using climatological data as input:
 
 ![](images/Penman_1.png){width=50%}
 
@@ -98,7 +100,7 @@ There are further derivations of Penman-Montieth, but for this assessment part o
 
 ![](images/Penman_3.png){width=50%}
 
-where, PE = potential evaporation in mm d-1, Rn = net radiation in mm d-1 ,T = mean air temperature at 2 m height in °C., Δ = slope of the saturation vapor pressure-temperature curve (kPa C-1), γ = psychrometric constant (kPa C-1). u = mean daily wind speed in m s-1, e* = saturation vapor pressure in kPa. ea = mean actual vapor pressure at 2 m height in kPa.
+where, PE = potential evaporation in mm d-1, Rn = net radiation in mm d-1 ,T = mean air temperature at 2 m height in °C, Δ = slope of the saturation vapor pressure-temperature curve (kPa C-1), γ = psychrometric constant (kPa C-1), u = mean daily wind speed in m s-1, e* = saturation vapor pressure in kPa. ea = mean actual vapor pressure at 2 m height in kPa.
 
 λ = latent heat of vaporization.
 For the assessment part of this module, use the following:
@@ -123,7 +125,7 @@ where e*(T) is the saturation vapor pressure for either Tmax or Tmin.  T values 
 
 ### b. Blaney-Criddle
 
-Blaney-Criddle is much more simplistic compared to the Penman-Monteith. It is more commonly used when meteorological data is unavailable and calculates evapotranspiration for a reference crop. The method always uses mean monthly values for both temperature and reference evapotranspiration. As the FAO notes, Blaney-Criddle is not very accurate and only provides a rough estimate. Under extreme conditions, the method is inaccurate. During windy and dry events in sunny areas, ETO is underestimated, and in humid, calm events in cloudy areas, ETO is overestimated.  
+Blaney-Criddle is much more simplistic compared to Penman-Monteith. It is more commonly used when meteorological data is unavailable and calculates evapotranspiration for a reference crop. The method always uses mean monthly values for both temperature and reference evapotranspiration. As the FAO notes, Blaney-Criddle is not very accurate and only provides a rough estimate. Under extreme conditions, the method is inaccurate. During windy and dry events in sunny areas, ETO is underestimated, and in humid, calm events in cloudy areas, ETO is overestimated.  
 
 ETo = p ·(0.46·Tmean + 8) 
 
@@ -145,32 +147,31 @@ If available, the mean daily temperature is calculated as:
 
 The mean daily percentage of annual daytime hours, p, is calculated based on the latitude of the site. 
 
-Table 1: Mean daily percentage (p) of annual daytime hours for different latitudes. Table and caption courtesy FAO.
+#### Table 1: Mean daily percentage (p) of annual daytime hours for different latitudes. Table and caption courtesy FAO.
 
 ![](images/Blaney_table.png)
 
 ###  c. Equation differences
 
-Ideally, we would be able to determine the evapotranspiration for a reference crop to determine its water needs. However, there are multiple variables required, and ETC and ETC adj have numerous coefficients that make daily calculations ponderous. For example, the FAO provides guidance on determining crop coefficients for single and dual crops with both available water and water stress under initial, mid and late-season changes for natural, non-typical and non-pristine vegetation under several management practices. It is easy to assign a single value crop reference as Blaney-Criddle does, but this does not give an accurate rate of ET. 
+Numerous variables are necessary to calculate Penman-Montieth, but for the sake of this module, we will simplify to an open water simulation (assuming water is readily available) and thus we will estiamte potential evaporation. Potential evaporation is the upward bound of evapotranspiration as water is unlimited and is able to move freely into the air above the land surface. Rather than Penman-Montieth, we are using the derivation by Shuttleworth that standardizes measurement heights at two meters for wind speed, temperature, and humidity. In comparison to Penman-Montieth, Shuttleworth excludes ground heat flux, G, assuming that when taken at daily time steps, G is negligible. The Shuttleworth equation also does not factor in aerodynamic resistance, ra, as surface roughness is not a variable commonly measured at weather stations. Similarly, surface resistance, rs, is difficult to, and often not, measured as it describes how water moves through roots, xylem, leaves and soil on a daily basis.
 
-Numerous variables are necessary to calculate Penman-Montieth, but for the sake of this module, it will be simplified to open water (assuming water is readily available) and thus is potential evaporation. Potential evaporation is the upward bound of evapotranspiration as water is unlimited and is able to move freely into the air above the land surface. Rather than Penman-Montieth, we are using the derivation by Shuttleworth that standardizes measurement heights at two meters for wind speed, temperature, and humidity. In comparison to Penman-Montieth, Shuttleworth excludes ground heat flux, G, assuming that when taken at daily time steps, G is negligible. The Shuttleworth equation also does not factor in aerodynamic resistance, ra, as surface roughness is not a variable commonly measured at weather stations. Similarly, surface resistance, rs, is also not variable measured since it comprises how water moves through roots, xylem, leaves and soil on a daily basis.
-
-For the basis of this module, students will compare the upper limit of evaporation using the Shuttleworth equation vs. the temperature based Blaney-Criddle. 
+For the basis of this module, students will compare the upper limit of evaporation using the Shuttleworth equation vs. the temperature based Blaney-Criddle approach. 
 
 ###  d. Data Source
 
-[SCAN Network](https://www.wcc.nrcs.usda.gov/scan/scan_brochure.pdf){target="_blank"}”
+[SCAN Network](https://www.nrcs.usda.gov/Internet/FSE_DOCUMENTS/nrcseprd775006.pdf){target="_blank"}
 
 
-Using SCAN Network
-Used to monitor soil health
-Primarily in an agriculture setting
-Drought Monitoring
-Predicting regional shifts in irrigation water requirements
+### Overview of the SCAN Network:
+- Used to monitor soil health
+- Primarily in an agriculture setting
+- Drought Monitoring
+- Predicting regional shifts in irrigation water requirements
+<br>
+<br>
 
-Table 2. SCAN network variables and methods of collection
-
-![](images/SCAN.png)
+#### Table 2. Standard SCAN site configuration. 
+![](images/Table_2.png)
 
 ###  e. How we chose our sites
 
@@ -178,9 +179,7 @@ Two sites were chosen that had the necessary data available in order to conduct 
 
 ###  f. Demonstrate how to calculate the variables and modeling in R.
 
-[R tutorial](https://www.youtube.com/embed/JQ-0cVKFcZo){target="_blank"}
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JQ-0cVKFcZo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JQ-0cVKFcZo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
 # 3. Synthesis and answer key (50 points)
 
