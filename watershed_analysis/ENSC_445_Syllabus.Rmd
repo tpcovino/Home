@@ -1,7 +1,7 @@
 ---
 title: "ENSC 445 Watershed Analysis"
-author: "Tim Covino"
-date: "3/10/2022"
+author: 
+date: 
 output: html_document
 ---
 <style type="text/css">
@@ -15,14 +15,19 @@ output: html_document
 
 **Class times**: T 14:00 – 15:15; Th 14:00 – 15:15
 
+<br>
 **Course overview and objectives**: (1) provide theoretical understanding and practical experience with the most common analysis and modeling techniques relevant to watershed hydrology; and (2) provide training in analyzing, simulating, and presenting scientific data in written and oral formats.
 
+<br>
 **Approach**: This class will be largely hands-on, and students will be conducting watersheds analyses and modeling exercises. We will follow a typical weekly format of Tuesday in-class lecture, Thursday hands-on computing work, and time spent working through online modules outside of class. The online modules are required and are intended to prepare students for the in-class work on Thursday’s. Accordingly, this class will follow a semi-flipped format that includes in-class lecture, at-home lecture and exercises, and in-class work sessions. 
 
+<br>
 **Course structure**: Tuesday lectures will provide theoretical understanding and Thursday computing labs will be focused on skill development in watershed analysis and modeling. Labs will typically be due the Friday following the Thursday work session (i.e., 8-days following in-class session).  
 
-**Resources**: We will be using R and R-studio for the analysis and modeling we will do in this class. A video to the basics and installation of R and R-studio can be found here. Some students may wish to utilize other modeling and computing resources for their term project. This is encouraged and I will help as much as possible, but the course will focus on working in R, and accordingly more resources and support will be available. Course materials can be found here.   
+<br>
+**Resources**: We will be using R and R-studio for the analysis and modeling we will do in this class. A video to the basics and installation of R and R-studio can be found here. Some students may wish to utilize other modeling and computing resources for their term project. This is encouraged and I will help as much as possible, but the course will focus on working in R, and accordingly more resources and support will be available. Course materials can be found [here](https://tpcovino.github.io/Git_home/watershed_analysis/index.html){target="_blank"}.   
 
+<br>
 **Tentative schedule, subject to change**:
 
 Week 1: Introduction, overview and technical skills
@@ -57,11 +62,12 @@ Week 15: Compelling presentations
 
 Week 16: Final presentations
 
+<br>
 **Grading**:<br>
 Online module assignments: 25% <br>
 Weekly lab assignments: 50% <br>
 Final presentation: 10% <br>
-Final report and presentation: 15% <br>
+Final report: 15% <br>
 
 
 
