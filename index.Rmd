@@ -5,6 +5,6 @@ date:
 output: html_document
 ---
 
-[Online Hydrology Lessons (WR 696)](hydrology/index.html){target="_blank"}
+[Watershed Measurements](hydrology/index.html){target="_blank"}
 
 [Watershed Analysis (ENSC 445)](watershed_analysis/index.html){target="_blank"}
