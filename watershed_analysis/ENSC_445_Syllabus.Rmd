@@ -38,7 +38,7 @@ Week 3: Hydrologic processes, climate and water balance
 
 Week 4: Trend detection and analysis, non-parametric approaches
 
-Week 5: Surface water: Rating curves and hydrographs
+Week 5: Surface water: Rating curves, hydrographs and frequency analysis
 
 Week 6: Precipitation variability, interpolation schemes and data sources
 
