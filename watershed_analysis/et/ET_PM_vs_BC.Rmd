@@ -75,7 +75,9 @@ The mean daily percentage of annual daytime hours, p, is calculated based on the
 
 ###  Data Source
 
-[SCAN Network](https://www.nrcs.usda.gov/Internet/FSE_DOCUMENTS/nrcseprd775006.pdf){target="_blank"}
+[SCAN 808, Gallatin County, MT](https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&elements=&networks=SCAN&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=all&activeOnly=true&activeForecastPointsOnly=false&hucLabels=false&hucIdLabels=false&hucParameterLabels=false&stationLabels=&overlays=&hucOverlays=&basinOpacity=100&basinNoDataOpacity=100&basemapOpacity=100&maskOpacity=0&mode=stations&openSections=dataElement,parameter,date,basin,elements,location,networks&controlsOpen=true&popup=808:MT:SCAN&popupMulti=&popupBasin=&base=esriNgwm&displayType=inventory&basinType=6&dataElement=PREC&depth=-8&parameter=PCTAVG&frequency=DAILY&duration=mtd&customDuration=&dayPart=E&year=2018&month=11&day=1&monthPart=E&forecastPubMonth=6&forecastPubDay=1&forecastExceedance=50&seqColor=1&divColor=3&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1981&referenceEnd=2010&minimumYears=20&hucAssociations=true&lat=44.981&lon=-104.050&zoom=6.0){target="_blank"}
+
+[SCAN 209, Leon County, FL](https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&elements=&networks=SCAN&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=all&activeOnly=true&activeForecastPointsOnly=false&hucLabels=false&hucIdLabels=false&hucParameterLabels=false&stationLabels=&overlays=&hucOverlays=&basinOpacity=100&basinNoDataOpacity=100&basemapOpacity=100&maskOpacity=0&mode=stations&openSections=dataElement,parameter,date,basin,elements,location,networks&controlsOpen=true&popup=2009:FL:SCAN&popupMulti=&popupBasin=&base=esriNgwm&displayType=inventory&basinType=6&dataElement=PREC&depth=-8&parameter=PCTAVG&frequency=DAILY&duration=mtd&customDuration=&dayPart=E&year=2018&month=11&day=1&monthPart=E&forecastPubMonth=6&forecastPubDay=1&forecastExceedance=50&seqColor=1&divColor=3&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1981&referenceEnd=2010&minimumYears=20&hucAssociations=true&lat=35.243&lon=-81.920&zoom=6.0){target="_blank"}
 
 
 ### Overview of the SCAN Network
@@ -89,7 +91,7 @@ The mean daily percentage of annual daytime hours, p, is calculated based on the
 
 ###  Sites
 
-We will use 2 SCAN sites that have the necessary data to complete this analysis. We will use each method described above to estimate ET for Florida (2009) and Utah (2167) SCAN sites. Accordingly, we will be evaluating differences in model estimates across widely differening climate. 
+We will use 2 SCAN sites that have the necessary data to complete this analysis. We will use each method described above to estimate ET for Florida (2009) and Montana (808) SCAN sites. Accordingly, we will be evaluating differences in model estimates across widely differening climate. 
 
 
 ###  Analysis
@@ -102,13 +104,13 @@ In class on Thursday I will demonstrate the basic approaches to modeling ET in R
 1.   In your own words how do the Penman-Montieth and Blaney-Criddle equations differ? What variables does each consider? (5 points)
 
 
-2. Provide a time series of daily values of estimated ET derived from the Penman-Montieth method for the Florida and Utah sites for the 2018-2020 calendar years. (5 points)
+2. Provide a time series of daily values of estimated ET derived from the Penman-Montieth method for the Florida and Montana sites for the 2018-2021 calendar years. (5 points)
 
 
 3. Sum your data to monthly and annual values. Provide a figure displaying monthly and annual ET totals for each site. (5 points)
 
 
-4. Provide a time series of monthly values of estimated ET derived from the Blaney-Criddle method for the Florida and Utah sites for the 2018-2020 calendar years. (5 points)
+4. Provide a time series of monthly values of estimated ET derived from the Blaney-Criddle method for the Florida and Montana sites for the 2018-2021 calendar years. (5 points)
 
 
 5. Sum your data to annual values. Provide a figure displaying monthly and annual ET totals for each site. (5 points)

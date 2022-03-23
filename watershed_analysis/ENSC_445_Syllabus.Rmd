@@ -19,7 +19,7 @@ output: html_document
 **Course overview and objectives**: (1) provide theoretical understanding and practical experience with the most common analysis and modeling techniques relevant to watershed hydrology; and (2) provide training in analyzing, simulating, and presenting scientific data in written and oral formats.
 
 <br>
-**Approach**: This class will be largely hands-on, and students will be conducting watershed analyses and modeling exercises. We will follow a typical weekly format of Tuesday in-class lecture, Thursday hands-on computational work, and time spent working through online modules outside of class. The online modules are required and are intended to prepare students for the in-class work on Thursday’s. Accordingly, this class will follow a semi-flipped format that includes in-class lecture, at-home lecture and exercises, and in-class work sessions. 
+**Approach**: This class will be largely hands-on, and students will be conducting watershed analyses and modeling exercises. We will follow a typical weekly format of Tuesday in-class lecture, Thursday hands-on computational work, and time spent working through online modules outside of class. The online modules are required and are intended to prepare students for the in-class work during lab on Thursday. Accordingly, this class will follow a semi-flipped format that includes in-class lecture, at-home lecture and exercises, and in-class work sessions. 
 
 <br>
 **Course structure**: Tuesday lectures will provide theoretical understanding and Thursday computing labs will be focused on skill development in watershed analysis and modeling. Labs will typically be due the Friday following the Thursday work session (i.e., 8-days following in-class session).  

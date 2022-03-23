@@ -7,4 +7,4 @@ output: html_document
 
 [Syllabus/schedule for ENSC 445 Watershed Analysis](ENSC_445_Syllabus.html){target="_blank"}
 
-[ET module](et/ET_PM_vs_BC.html){target="_blank"}
+[Estimating Evapotranspiration using Penman-Monteith and Blaney-Criddle methods](et/ET_PM_vs_BC.html){target="_blank"}
