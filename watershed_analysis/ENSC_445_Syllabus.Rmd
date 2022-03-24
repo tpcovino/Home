@@ -27,9 +27,7 @@ output: html_document
 
 <br>
 **Course structure**: Tuesday lectures will provide theoretical understanding and Thursday computing labs will be focused on skill development in watershed analysis and modeling. Labs will typically be due the Friday following the Thursday work session (i.e., 8-days following in-class session).  
-
-<br>
-**Resources**: We will be using R and R Studio for much of the analysis and modeling we will do in this class. An introduction to the basics and installation of R and R Studio can be found [here](https://csu-r.github.io/Module1/install-r-r-studio.html){target="_blank"}. Some students may wish to utilize other modeling and computing resources for their term project. This is encouraged and I will help as much as possible, but the course will focus on working in R, and accordingly more resources and support will be available for R/R Studio. Course materials can be found [here](https://tpcovino.github.io/Git_home/watershed_analysis/index.html){target="_blank"}.   
+  
 
 <br>
 **Tentative schedule, subject to change**:
