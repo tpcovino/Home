@@ -21,11 +21,11 @@ At the end of this module, students will understand the key processes driving ev
 
 ## Required Readings:
 
-[Evapotranspiration](https://www.fao.org/3/x0490e/x0490e04.htm#chapter%201%20%20%20introduction%20to%20evapotranspiration)
+[Evapotranspiration](https://www.fao.org/3/x0490e/x0490e04.htm#chapter%201%20%20%20introduction%20to%20evapotranspiration){target="_blank"}
 
-[Penman-Monteith](https://www.fao.org/3/x0490e/x0490e06.htm#chapter%202%20%20%20fao%20penman%20monteith%20equation)
+[Penman-Monteith](https://www.fao.org/3/x0490e/x0490e06.htm#chapter%202%20%20%20fao%20penman%20monteith%20equation){target="_blank"}
 
-[Blaney-Criddle](https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0)
+[Blaney-Criddle](https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0){target="_blank"}
 
 #### Evapotranspiration
 
