@@ -10,62 +10,62 @@ output:
 ---
 # Some guidance with R coding for hydrological analysis
 ### Dilution guaging analysis in R
- - [Code for analyzing BTCs in R](3_dilution_gauging/R/Dilution_gauging_example.html)
+ - [Code for analyzing BTCs in R](3_dilution_gauging/R/Dilution_gauging_example.html){target="_blank"}
 
 ### Rating curve code
- - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html)
+ - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html){target="_blank"}
 
 ### Velocity-area discharge code
- - [Code for analyzing velocity-area data](2_velocity_area_module/velocity_area_discharge.html)
+ - [Code for analyzing velocity-area data](2_velocity_area_module/velocity_area_discharge.html){target="_blank"}
 
 ### Some tidyverse
- - [A little tidyverse code for cleaning data](7_rating_curve/tidyverse.html)
+ - [A little tidyverse code for cleaning data](7_rating_curve/tidyverse.html){target="_blank"}
 
 ### Historic data in R
 
- - [Climate data annalysis in R](historic_data/historic_data.html)
+ - [Climate data annalysis in R](historic_data/historic_data.html){target="_blank"}
 
 ### R intro
 
- - [Introductory R markdown](R_intro/R_intro_696.html)
+ - [Introductory R markdown](R_intro/R_intro_696.html){target="_blank"}
 
 # Hydrology labs and assignments
 
 ### Meteorological Measurements 
 
-  - [Meteorological Measurements lecture and text](5_met_lab/5_met_lab.html)
+  - [Meteorological Measurements lecture and text](5_met_lab/5_met_lab.html){target="_blank"}
   
 ### Hydrographs & Rating Curves 
 
-  - [Hydrographs & Rating Curves lecture and text](7_rating_curve/7_rating_curve.html)
+  - [Hydrographs & Rating Curves lecture and text](7_rating_curve/7_rating_curve.html){target="_blank"}
 
 
 ### Velocity Area 
   
-  - [Velocity Area lecture and text](2_velocity_area_module/2_velocity_area_module.html)
+  - [Velocity Area lecture and text](2_velocity_area_module/2_velocity_area_module.html){target="_blank"}
 
   
 ### Udall Natural Area
-  - [Udall assignment](Udall_Natural_Area/Udall.html)
+  - [Udall assignment](Udall_Natural_Area/Udall.html){target="_blank"}
   
 ### Groundwater
   
-  - [Groundwater lecture and text](Groundwater/Groundwater.html)
+  - [Groundwater lecture and text](Groundwater/Groundwater.html){target="_blank"}
   
 ### Fluvial Geomorphology 
 
-  - [Fluvial Geomorphology lecture and text](6_geomorph/6_geomorph.html)
+  - [Fluvial Geomorphology lecture and text](6_geomorph/6_geomorph.html){target="_blank"}
   
 
   
 ###  Stream Health 
 
-  - [Stream Health lecture and text](4_stream_health/4_stream_health.html)
+  - [Stream Health lecture and text](4_stream_health/4_stream_health.html){target="_blank"}
 
 
 ### Dilution Gauging 
 
-  - [Dilution Gauging lecture and text](3_dilution_gauging/3_dilution_gauging.html)
+  - [Dilution Gauging lecture and text](3_dilution_gauging/3_dilution_gauging.html){target="_blank"}
 
   
 
