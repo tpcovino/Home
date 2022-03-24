@@ -15,6 +15,8 @@ output: html_document
 
 **Class times**: T 14:00 – 15:15; Th 14:00 – 15:15
 
+**Office hours**: W 14:00 - 15:15; or by appointment
+
 **Website**: https://tpcovino.github.io/Git_home/watershed_analysis/index.html
 
 <br>
@@ -32,37 +34,37 @@ output: html_document
 <br>
 **Tentative schedule, subject to change**:
 
-Week 1: Introduction, overview and technical skills
+Week 1: Introduction, overview and technical skills. Working in R and R Studio. 
 
-Week 2: Watershed boundaries, delineation and terrain analysis
+Week 2: Watershed boundaries, delineation and terrain analysis.
 
-Week 3: Hydrologic processes, climate and water balance
+Week 3: Hydrologic processes, climate and water balance. Trend detection and analysis, non-parametric approaches.
 
-Week 4: Trend detection and analysis, non-parametric approaches
+Week 4: Statistical vs process-based models and their implementation. 
 
-Week 5: Surface water: Rating curves, hydrographs and frequency analysis
+Week 5: Surface water: Rating curves, hydrographs, frequency analysis and modeling approaches.
 
-Week 6: Precipitation variability, interpolation schemes and data sources
+Week 6: Precipitation variability, interpolation schemes and data sources.
 
-Week 7: Evapotranspiration, physical processes, and modeling approaches
+Week 7: Evapotranspiration, physical processes, and modeling approaches.
 
-Week 8: Spring break
+Week 8: Spring break.
 
-Week 9: Term project overview, project brainstorm, identify data/models necessary to complete project
+Week 9: Term project overview, project brainstorm, identify data/models necessary to complete project.
 
-Week 10: Erosional processes and modeling
+Week 10: Groundwater, physical processes, data availability, and modeling approaches. 
 
-Week 11: Land cover change and implications for watershed hydrology
+Week 11: Erosional processes and modeling.
 
-Week 12: Statistical vs process-based models and their implementation
+Week 12: Water quality: analysis and prediction.
 
-Week 13: Water quality: analysis and prediction
+Week 13: Land cover change, remote sensing, and implications for watershed hydrology.
 
-Week 14: Writing as rewriting
+Week 14: Writing as rewriting.
 
-Week 15: Compelling presentations
+Week 15: Compelling presentations.
 
-Week 16: Final presentations
+Week 16: Final presentations.
 
 <br>
 **Grading**:<br>
