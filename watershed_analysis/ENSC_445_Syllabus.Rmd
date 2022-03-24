@@ -15,6 +15,8 @@ output: html_document
 
 **Class times**: T 14:00 – 15:15; Th 14:00 – 15:15
 
+**Website**: https://tpcovino.github.io/Git_home/watershed_analysis/index.html
+
 <br>
 **Course overview and objectives**: (1) provide theoretical understanding and practical experience with the most common analysis and modeling techniques relevant to watershed hydrology; and (2) provide training in analyzing, simulating, and presenting scientific data in written and oral formats.
 
