@@ -32,7 +32,7 @@ output: html_document
 <br>
 **Tentative schedule, subject to change**:
 
-Week 1: Introduction, overview and technical skills. Working in R and R Studio. 
+Week 1: Introduction, overview and technical skills.
 
 Week 2: Watershed boundaries, delineation and terrain analysis.
 
