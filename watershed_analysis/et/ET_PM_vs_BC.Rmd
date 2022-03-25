@@ -119,6 +119,6 @@ In class on Thursday I will demonstrate the basic approaches to modeling ET in R
 6. On an annual basis, which site has more total ET? Is this consistent through time? Is this consistent between each of the models you have used? (5 points)
 
 
-7. Use your background understanding and modeling results to discuss under which environmental and meterological conditions you think the models would provide similar estimates and under which conditions they would diverge. (10 points)
+7. Use your background understanding and modeling results to discuss under which environmental and meteorological conditions you think the models would provide similar estimates and under which conditions they would diverge. (10 points)
 
 8. Use your background understanding and modeling results to discuss the benefits and advantages to using temperature based vs energy based approaches to modeling ET. (10 points)
