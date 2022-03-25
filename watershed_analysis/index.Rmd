@@ -4,7 +4,6 @@ author:
 date: 
 output: html_document
 ---
-Class website:
 
 https://tpcovino.github.io/Git_home/watershed_analysis/index.html
 
