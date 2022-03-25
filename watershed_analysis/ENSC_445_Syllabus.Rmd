@@ -11,7 +11,7 @@ output: html_document
 </style>
 
 
-**Instructor**: Dr. Tim Covino - test
+**Instructor**: Dr. Tim Covino - testv2
 
 **Class times**: T 14:00 – 15:15; Th 14:00 – 15:15
 
