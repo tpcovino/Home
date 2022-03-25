@@ -5,6 +5,8 @@ date:
 output: html_document
 ---
 
+https://tpcovino.github.io/Git_home/watershed_analysis/index.html
+
 [Syllabus for ENSC 445/545 Watershed Analysis](ENSC_445_Syllabus.html){target="_blank"}
 
 [Lab on Estimating Evapotranspiration using Penman-Monteith and Blaney-Criddle methods](et/ET_PM_vs_BC.html){target="_blank"}
