@@ -1,5 +1,5 @@
 ---
-title: 'Tim Covino git home page'
+title: 'Tim Covino home page'
 author: 
 date: 
 output: html_document
