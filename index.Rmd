@@ -1,6 +1,6 @@
 ---
 title: 'Tim Covino git home page'
-author: 
+author: Tim
 date: 
 output: html_document
 ---
