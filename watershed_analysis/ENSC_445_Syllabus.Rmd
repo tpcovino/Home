@@ -1,5 +1,5 @@
 ---
-title: "ENSC 445 Watershed Analysis"
+title: "ENSC 445/545 Watershed Analysis"
 author: 
 date: 
 output: html_document

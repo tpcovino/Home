@@ -1,11 +1,11 @@
 ---
-title: "Landing page for Watershed Analysis (ENSC 445)"
+title: "Landing page for Watershed Analysis (ENSC 445/545)"
 author: 
 date: 
 output: html_document
 ---
 
-[Syllabus for ENSC 445 Watershed Analysis](ENSC_445_Syllabus.html){target="_blank"}
+[Syllabus for ENSC 445/545 Watershed Analysis](ENSC_445_Syllabus.html){target="_blank"}
 
 [Lab on Estimating Evapotranspiration using Penman-Monteith and Blaney-Criddle methods](et/ET_PM_vs_BC.html){target="_blank"}
 
