@@ -10,10 +10,11 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
+https://tpcovino.github.io/Git_home/watershed_analysis/et/ET_PM_vs_BC.html
 
 # Summary
 
-Evapotranspiration (ET) refers to the combined losses of water from the land surface to the atmosphere via evaporation and transpiration. Transpiration is loss of water from plants to the atmosphere and often accounts for a majority of total ET. Due to challenges in measuring ET, many estimation approaches have been developed. In this lab we will use two common methods: the Penman-Monteith and the Blaney-Criddle approaches to estimating ET. Please work through the lab, including required readings and video, up to the synthesis questions prior to lab on Thursday. During Thursday lab we will work on modeling ET in R and I will get you started on the project. You are welcome to collaborate with your colleagues in class but all work submitted and all responses must be your own.
+Evapotranspiration (ET) refers to the combined losses of water from the land surface to the atmosphere via evaporation and transpiration. Transpiration is loss of water from plants to the atmosphere and often accounts for a majority of total ET. Due to challenges in measuring ET, many estimation approaches have been developed. In this lab we will use two common methods: the Penman-Monteith and the Blaney-Criddle approaches to estimating ET. Please work through the lab, including required readings and videos, up to the synthesis questions prior to lab on Thursday. During Thursday lab we will work on modeling ET in R and I will get you started on the project. You are welcome to collaborate with your colleagues in class but all work submitted and all responses must be your own.
 
 ## Overall Learning Objectives:
 
@@ -27,9 +28,13 @@ At the end of this module, students will understand the key processes driving ev
 
 [Blaney-Criddle](https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0){target="_blank"}
 
-#### Evapotranspiration
+### Evapotranspiration
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+### Transpiration and Cohesion-Tension Theory
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jLc4JT522VA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
 
 # Modeling ET
@@ -86,8 +91,6 @@ The mean daily percentage of annual daytime hours, p, is calculated based on the
 - Drought Monitoring
 - Predicting regional shifts in irrigation water requirements
 <br>
-<br>
-
 
 ###  Sites
 
