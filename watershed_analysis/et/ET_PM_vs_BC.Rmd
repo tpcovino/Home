@@ -28,11 +28,11 @@ At the end of this module, students will understand the key processes driving ev
 
 [Blaney-Criddle](https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0){target="_blank"}
 
-[Step-by-step calculation of refernce ET using the FAO-56  Penman-Monteith](https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf)
+[Step-by-step calculation of refernce ET using the FAO-56  Penman-Monteith](https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf){target="_blank"}
 
 ## Supplemental reading: 
 
-[The surface energy budget](http://www.met.reading.ac.uk/~swrhgnrj/teaching/MT23E/mt23e_notes.pdf)
+[The surface energy budget](http://www.met.reading.ac.uk/~swrhgnrj/teaching/MT23E/mt23e_notes.pdf){target="_blank"}
 
 
 ### Evapotranspiration
@@ -49,7 +49,9 @@ At the end of this module, students will understand the key processes driving ev
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jLc4JT522VA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
-### Understanding ET in irrigated systems is important becaue the large majority of water used globally is for irrigation. See [Qin et al., (2020)](https://www.nature.com/articles/s41558-020-0746-8) for suplemental reading on changing snowmelt and irrigated agriculture. 
+### Understanding ET in irrigated systems is important becaue the large majority of water used globally is for irrigation. See [Qin et al., (2020)](https://www.nature.com/articles/s41558-020-0746-8){target="_blank"} for suplemental reading on changing snowmelt and irrigated agriculture. 
+
+![](images/Qin.png){width=100%} 
 
 ![](images/Qin_et_al_2020.png){width=100%} 
 
