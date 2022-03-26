@@ -1,5 +1,5 @@
 ---
-title: "Estimating Evapotranspiration using Penman-Monteith and Blaney-Criddle methods"
+title: "Estimating Evapotranspiration using Blaney-Criddle and Penman-Monteith methods"
 author: 
 date: 
 output: 
@@ -32,7 +32,6 @@ At the end of this module, students will understand the key processes driving ev
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EuW9Sd3i_mY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
 ### Gas exchange in plants
 
@@ -43,8 +42,35 @@ At the end of this module, students will understand the key processes driving ev
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jLc4JT522VA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
+### Understanding ET in irrigated systems is important becaue the large majority of water used globally is for irrigation. See [here](https://www.nature.com/articles/s41558-020-0746-8) (Qin et al., 2020) for suplemental reading on changing snowmelt and irrigated agriculture. 
+
+![](images/Qin_et_al_2020.png){width=100%} 
+
+
+### Reference evapotranspiration
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gtV_RpXsMJI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
 # Modeling ET
+
+### Blaney-Criddle
+
+Blaney-Criddle is a relatively simplistic model compared to Penman-Monteith, which is explained below. Blaney-Criddle is commonly used when meteorological data are unavailable and calculates evapotranspiration for a reference crop using mean monthly temperature. 
+
+ET$_o$ = p(0.46Tmean + 8) 
+
+where, ET$_o$ = Reference crop evapotranspiration (in mm/day) as an average for a one month period
+
+T mean = mean daily temperature (°C)
+
+p = mean daily percentage of annual daytime hours
+
+The mean daily percentage of annual daytime hours, p, is calculated based on the latitude of the site. 
+
+#### Table 1: Mean daily percentage (p) of annual daytime hours for different latitudes. Table and caption courtesy FAO.
+
+![](images/Blaney_table.png)
+
 
 ###  Penman-Monteith
 
@@ -62,26 +88,6 @@ where ρa = air density (kg m^-^3), $C_p$ = specific heat of dry air (J kg^-1^ K
 
 [Supplemental reading for Penman-Monteith](https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf)
 
-### Blaney-Criddle
-
-Blaney-Criddle is a more simplistic model compared to Penman-Monteith. It is more commonly used when meteorological data are unavailable and calculates evapotranspiration for a reference crop using mean monthly temperature. 
-
-
-ETo = p(0.46Tmean + 8) 
-
-where, ETo = Reference crop evapotranspiration (in mm/day) as an average for a one month period 
-
-T mean = mean daily temperature (°C)
-
-p = mean daily percentage of annual daytime hours
-
-
-
-The mean daily percentage of annual daytime hours, p, is calculated based on the latitude of the site. 
-
-#### Table 1: Mean daily percentage (p) of annual daytime hours for different latitudes. Table and caption courtesy FAO.
-
-![](images/Blaney_table.png)
 
 
 
