@@ -16,11 +16,11 @@ https://tpcovino.github.io/Git_home/watershed_analysis/et/ET_PM_vs_BC.html
 
 Evapotranspiration (ET) refers to the combined losses of water from the land surface to the atmosphere via evaporation and transpiration. Transpiration is loss of water from plants to the atmosphere and often accounts for a majority of total ET. Due to challenges in measuring ET, many estimation approaches have been developed. In this lab we will use two common methods: the Blaney-Criddle and FAO-56 Penman-Monteith approaches to estimating ET. Please work through the lab, including required readings and videos, up to the synthesis questions prior to lab on Thursday. During Thursday lab we will work on modeling ET in R and I will get you started on the project. You are welcome to collaborate with your colleagues in class but all work submitted and all responses must be your own.
 
-## Overall Learning Objectives:
+## Overall learning objectives
 
 At the end of this module, students will understand the key processes driving evaporation and transpiration. Additionally, students will estimate ET using the Blaney-Criddle and FAO-56 Penman-Monteith methods, evaluate differences in ET between sites of widely different climates, identify how the two ET models differ, and evaluate the advantages and disadvantages of each.
 
-## Required readings:
+## Required readings
 
 [Evapotranspiration](https://www.fao.org/3/x0490e/x0490e04.htm#chapter%201%20%20%20introduction%20to%20evapotranspiration){target="_blank"}
 
@@ -30,10 +30,11 @@ At the end of this module, students will understand the key processes driving ev
 
 [Step-by-step calculation of refernce ET using the FAO-56  Penman-Monteith](https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf){target="_blank"}
 
-## Supplemental reading: 
+## Supplemental reading 
 
 [The surface energy budget](http://www.met.reading.ac.uk/~swrhgnrj/teaching/MT23E/mt23e_notes.pdf){target="_blank"}
 
+[Agricultural risks from changing snowmelt (Qin et al., 2020)](https://www.nature.com/articles/s41558-020-0746-8){target="_blank"}
 
 ### Evapotranspiration
 
@@ -98,7 +99,7 @@ Lastly, the Food and Agricultural Organization of the United Nations (FAO) recom
 Where, $ET_o$ is reference ET (mm day^-1^), T is temperature (^o^C), and $u_2$ is wind speed (m s^-1^) at 2 m above the ground. 
 
 
-###  Data Source
+###  Data source
 
 [SCAN 808, Gallatin County, MT](https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&elements=&networks=SCAN&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=all&activeOnly=true&activeForecastPointsOnly=false&hucLabels=false&hucIdLabels=false&hucParameterLabels=false&stationLabels=&overlays=&hucOverlays=&basinOpacity=100&basinNoDataOpacity=100&basemapOpacity=100&maskOpacity=0&mode=stations&openSections=dataElement,parameter,date,basin,elements,location,networks&controlsOpen=true&popup=808:MT:SCAN&popupMulti=&popupBasin=&base=esriNgwm&displayType=inventory&basinType=6&dataElement=PREC&depth=-8&parameter=PCTAVG&frequency=DAILY&duration=mtd&customDuration=&dayPart=E&year=2018&month=11&day=1&monthPart=E&forecastPubMonth=6&forecastPubDay=1&forecastExceedance=50&seqColor=1&divColor=3&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1981&referenceEnd=2010&minimumYears=20&hucAssociations=true&lat=44.981&lon=-104.050&zoom=6.0){target="_blank"}
 

@@ -250,19 +250,20 @@ div.tocify {
 <h1>Summary</h1>
 <p>Evapotranspiration (ET) refers to the combined losses of water from the land surface to the atmosphere via evaporation and transpiration. Transpiration is loss of water from plants to the atmosphere and often accounts for a majority of total ET. Due to challenges in measuring ET, many estimation approaches have been developed. In this lab we will use two common methods: the Blaney-Criddle and FAO-56 Penman-Monteith approaches to estimating ET. Please work through the lab, including required readings and videos, up to the synthesis questions prior to lab on Thursday. During Thursday lab we will work on modeling ET in R and I will get you started on the project. You are welcome to collaborate with your colleagues in class but all work submitted and all responses must be your own.</p>
 <div id="overall-learning-objectives" class="section level2">
-<h2>Overall Learning Objectives:</h2>
+<h2>Overall learning objectives</h2>
 <p>At the end of this module, students will understand the key processes driving evaporation and transpiration. Additionally, students will estimate ET using the Blaney-Criddle and FAO-56 Penman-Monteith methods, evaluate differences in ET between sites of widely different climates, identify how the two ET models differ, and evaluate the advantages and disadvantages of each.</p>
 </div>
 <div id="required-readings" class="section level2">
-<h2>Required readings:</h2>
+<h2>Required readings</h2>
 <p><a href="https://www.fao.org/3/x0490e/x0490e04.htm#chapter%201%20%20%20introduction%20to%20evapotranspiration" target="_blank">Evapotranspiration</a></p>
 <p><a href="https://www.fao.org/3/x0490e/x0490e06.htm#chapter%202%20%20%20fao%20penman%20monteith%20equation" target="_blank">Penman-Monteith</a></p>
 <p><a href="https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0" target="_blank">Blaney-Criddle</a></p>
 <p><a href="https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf" target="_blank">Step-by-step calculation of refernce ET using the FAO-56 Penman-Monteith</a></p>
 </div>
 <div id="supplemental-reading" class="section level2">
-<h2>Supplemental reading:</h2>
+<h2>Supplemental reading</h2>
 <p><a href="http://www.met.reading.ac.uk/~swrhgnrj/teaching/MT23E/mt23e_notes.pdf" target="_blank">The surface energy budget</a></p>
+<p><a href="https://www.nature.com/articles/s41558-020-0746-8" target="_blank">Agricultural risks from changing snowmelt (Qin et al., 2020)</a></p>
 <div id="evapotranspiration" class="section level3">
 <h3>Evapotranspiration</h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1">
@@ -314,7 +315,7 @@ div.tocify {
 <p>Where, <span class="math inline">\(ET_o\)</span> is reference ET (mm day<sup>-1</sup>), T is temperature (<sup>o</sup>C), and <span class="math inline">\(u_2\)</span> is wind speed (m s<sup>-1</sup>) at 2 m above the ground.</p>
 </div>
 <div id="data-source" class="section level3">
-<h3>Data Source</h3>
+<h3>Data source</h3>
 <p><a href="https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&amp;elements=&amp;networks=SCAN&amp;states=!&amp;counties=!&amp;hucs=&amp;minElevation=&amp;maxElevation=&amp;elementSelectType=all&amp;activeOnly=true&amp;activeForecastPointsOnly=false&amp;hucLabels=false&amp;hucIdLabels=false&amp;hucParameterLabels=false&amp;stationLabels=&amp;overlays=&amp;hucOverlays=&amp;basinOpacity=100&amp;basinNoDataOpacity=100&amp;basemapOpacity=100&amp;maskOpacity=0&amp;mode=stations&amp;openSections=dataElement,parameter,date,basin,elements,location,networks&amp;controlsOpen=true&amp;popup=808:MT:SCAN&amp;popupMulti=&amp;popupBasin=&amp;base=esriNgwm&amp;displayType=inventory&amp;basinType=6&amp;dataElement=PREC&amp;depth=-8&amp;parameter=PCTAVG&amp;frequency=DAILY&amp;duration=mtd&amp;customDuration=&amp;dayPart=E&amp;year=2018&amp;month=11&amp;day=1&amp;monthPart=E&amp;forecastPubMonth=6&amp;forecastPubDay=1&amp;forecastExceedance=50&amp;seqColor=1&amp;divColor=3&amp;scaleType=D&amp;scaleMin=&amp;scaleMax=&amp;referencePeriodType=POR&amp;referenceBegin=1981&amp;referenceEnd=2010&amp;minimumYears=20&amp;hucAssociations=true&amp;lat=44.981&amp;lon=-104.050&amp;zoom=6.0" target="_blank">SCAN 808, Gallatin County, MT</a></p>
 <p><a href="https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&amp;elements=&amp;networks=SCAN&amp;states=!&amp;counties=!&amp;hucs=&amp;minElevation=&amp;maxElevation=&amp;elementSelectType=all&amp;activeOnly=true&amp;activeForecastPointsOnly=false&amp;hucLabels=false&amp;hucIdLabels=false&amp;hucParameterLabels=false&amp;stationLabels=&amp;overlays=&amp;hucOverlays=&amp;basinOpacity=100&amp;basinNoDataOpacity=100&amp;basemapOpacity=100&amp;maskOpacity=0&amp;mode=stations&amp;openSections=dataElement,parameter,date,basin,elements,location,networks&amp;controlsOpen=true&amp;popup=2009:FL:SCAN&amp;popupMulti=&amp;popupBasin=&amp;base=esriNgwm&amp;displayType=inventory&amp;basinType=6&amp;dataElement=PREC&amp;depth=-8&amp;parameter=PCTAVG&amp;frequency=DAILY&amp;duration=mtd&amp;customDuration=&amp;dayPart=E&amp;year=2018&amp;month=11&amp;day=1&amp;monthPart=E&amp;forecastPubMonth=6&amp;forecastPubDay=1&amp;forecastExceedance=50&amp;seqColor=1&amp;divColor=3&amp;scaleType=D&amp;scaleMin=&amp;scaleMax=&amp;referencePeriodType=POR&amp;referenceBegin=1981&amp;referenceEnd=2010&amp;minimumYears=20&amp;hucAssociations=true&amp;lat=35.243&amp;lon=-81.920&amp;zoom=6.0" target="_blank">SCAN 209, Leon County, FL</a></p>
 </div>
