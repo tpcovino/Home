@@ -93,7 +93,7 @@ Lastly, the Food and Agricultural Organization of the United Nations (FAO) recom
 
 ![](images/FAO-56.png){width=50%}
 
-Where, $ET_o$ is reference ET (mm/day^-1^), T is temperature (^o^C), and $u_2$ is wind speed (m s^-1^) at 2 m above the ground. 
+Where, $ET_o$ is reference ET (mm day^-1^), T is temperature (^o^C), and $u_2$ is wind speed (m s^-1^) at 2 m above the ground. 
 
 
 ###  Data Source
