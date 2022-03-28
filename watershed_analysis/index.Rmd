@@ -1,6 +1,6 @@
 ---
 title: "Landing page for Watershed Analysis (ENSC 445/545)"
-author: 
+author: "Tim Covino teaching seminar Montana State University March 31, 2022"
 date: 
 output: html_document
 ---
