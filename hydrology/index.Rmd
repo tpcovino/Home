@@ -1,5 +1,5 @@
 ---
-title: "Interactive Hydrology Lessons for Watershed Measurements"
+title: "Interactive-Online Hydrology Lessons"
 author: 
 date: 
 output:
@@ -8,26 +8,10 @@ output:
     toc_float: true
     toc_depth: 3
 ---
-# Some guidance with R coding for hydrological analysis
-### Dilution guaging analysis in R
- - [Code for analyzing BTCs in R](3_dilution_gauging/R/Dilution_gauging_example.html){target="_blank"}
 
-### Rating curve code
- - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html){target="_blank"}
+https://tpcovino.github.io/Git_home/hydrology/index.html
 
-### Velocity-area discharge code
- - [Code for analyzing velocity-area data](2_velocity_area_module/velocity_area_discharge.html){target="_blank"}
 
-### Some tidyverse
- - [A little tidyverse code for cleaning data](7_rating_curve/tidyverse.html){target="_blank"}
-
-### Historic data in R
-
- - [Climate data annalysis in R](historic_data/historic_data.html){target="_blank"}
-
-### R intro
-
- - [Introductory R markdown](R_intro/R_intro_696.html){target="_blank"}
 
 # Hydrology labs and assignments
 
@@ -68,7 +52,26 @@ output:
   - [Dilution Gauging lecture and text](3_dilution_gauging/3_dilution_gauging.html){target="_blank"}
 
   
+# Some guidance with R coding for hydrological analysis
+### Dilution guaging analysis in R
+ - [Code for analyzing BTCs in R](3_dilution_gauging/R/Dilution_gauging_example.html){target="_blank"}
 
+### Rating curve code
+ - [Code for analyzing rating curve data in R](7_rating_curve/Poudre_rating_curve.html){target="_blank"}
+
+### Velocity-area discharge code
+ - [Code for analyzing velocity-area data](2_velocity_area_module/velocity_area_discharge.html){target="_blank"}
+
+### Some tidyverse
+ - [A little tidyverse code for cleaning data](7_rating_curve/tidyverse.html){target="_blank"}
+
+### Historic data in R
+
+ - [Climate data annalysis in R](historic_data/historic_data.html){target="_blank"}
+
+### R intro
+
+ - [Introductory R markdown](R_intro/R_intro_696.html){target="_blank"}
   
 
 
