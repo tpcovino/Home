@@ -18,7 +18,7 @@ Evapotranspiration (ET) refers to the combined losses of water from the land sur
 
 ## Overall learning objectives
 
-At the end of this module, students will understand the key processes driving evaporation and transpiration. Additionally, students will estimate ET using the Blaney-Criddle and FAO-56 Penman-Monteith methods, evaluate differences in ET between sites of widely different climates, identify how the two ET models differ, and evaluate the advantages and disadvantages of each.
+At the end of this module, students will understand the key processes driving evaporation and transpiration. Additionally, students will estimate ET using the Blaney-Criddle and FAO-56 Penman-Monteith methods, evaluate differences in ET between sites of different climates, identify how the two ET models differ, and evaluate the advantages and disadvantages of each.
 
 ## Required readings
 
