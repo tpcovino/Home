@@ -1,8 +1,11 @@
 ---
 title: "ENSC 445/545 Watershed Analysis"
 author: 
-date: 
-output: html_document
+date:
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 <style type="text/css">
   body{
@@ -18,7 +21,8 @@ output: html_document
 **Office hours**: W 14:00 - 15:15; or by appointment
 
 **Website**: https://tpcovino.github.io/Git_home/watershed_analysis/index.html
-
+<br>
+![](syllabus_image.png){width=100%}
 <br>
 **Course overview and objectives**: (1) provide theoretical understanding and practical experience with the most common analysis and modeling techniques relevant to watershed hydrology; and (2) provide training in analyzing, simulating, and presenting scientific data in written and oral formats.
 
