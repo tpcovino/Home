@@ -46,29 +46,22 @@ First, we locate a cross-section with convergent flow, few obstructions or eddie
 
 To determine stream discharge we typically measure velocity using a current meter and a top-setting wading rod. As a side-note, in the absence of this equipment, velocity (and discharge) can be estimated using the float method (see ‘Float method’ below). The top-setting wading rod is useful because it helps us to set the current meter to the ‘correct’ depth for measuring average velocity. 
 
-see supplemental video here:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YUzyt8I-Svs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
 
-For example, when the stream is 2.5 feet (76.2 cm) deep or shallower, we can use the six-tenths depth method as this has been empirically determined to be a good representation of average velocity along a vertical profile in streams that are less than 2.5 feet deep. In deeper rivers we need to take two velocity measurements: one at two-tenths and one at eight-tenths depth and then average these two values in order to get a representative value for average velocity along the vertical profile. Accordingly, when the stream is less than 2.5 feet deep you will use the six-tenths depth method; and when it is deeper than 2.5 feet you will use the 0.2 and 0.8 method. As a note, six-tenths depth is four-tenths up from the bottom (see Figure 3). 
+When the stream is 2.5 feet (76.2 cm) deep or shallower, we can use the six-tenths depth method as this has been empirically determined to be a good representation of average velocity along a vertical profile in streams that are less than 2.5 feet deep. In deeper rivers we need to take two velocity measurements: one at two-tenths and one at eight-tenths depth and then average these two values in order to get a representative value for average velocity along the vertical profile. Accordingly, when the stream is less than 2.5 feet deep you will use the six-tenths depth method; and when it is deeper than 2.5 feet you will use the 0.2 and 0.8 method. As a note, six-tenths depth is four-tenths up from the bottom (see Figure 3). 
 
 ![](images/vertical_velocity_fig.jpg)
 
-## 1.4: To use the top setting wading rod
 
 The depth of the water is read on the graduated hex main rod. Then the round setting rod is adjusted to the depth of the water, the current meter is automatically positioned for the 0.6-depth method (0.4-depth position up from the streambed). Setting the unit to half the water depth will place the meter at the 0.8-depth (0.2-depth position up from the streambed). Conversely, setting the unit to twice the water depth will place the meter at the 0.2-depth (0.8-depth position up from the streambed). The latter two positions correspond to the conventional two-position method. 
 
-## 1.5: Steps to making velocity-area measurements
-
-First, we locate a cross-section with convergent flow, few obstructions or eddies, that is safe to wade across. Once we have selected a cross-section we then begin taking our measurements moving laterally across the channel. When doing so we aim to have no more than 5% of the total flow in any sub-section (Figure 2). A decent rule of thumb is to take ~25 measurements of width, depth and velocity across the cross-section. Keep in mind that we are aiming to have no more than 5% in any sub-section, so we can space our measurements closer together where there is more flow (e.g., in the thalweg) and farther apart where there is less flow (e.g., on channel margins). 
-
-see supplemental video here:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/kx9LJQ3JuLA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"> data-external="1"</iframe> 
 
 # Field work
 
-Now that you have an understanding of the velocity-area method, work with your field team to take measurements at a field site of your choosing. Note: you will collect your field data together with your group members, but each person will submit their own responses to the **Assessment** and **Field Data Analysis and Synthesis Questions** sections. 
+Now that you have an understanding of the velocity-area method, work with your field team to take measurements. Note: you will collect your field data together with your group members, but each person will submit their own responses to the **Assessment** and **Field Data Analysis and Synthesis Questions** sections. 
 
 Materials:
 
@@ -86,7 +79,7 @@ Materials:
 
 ### 2.1: Float Method
 
-1.	Along the experimental reach, select a section of thalweg that is about 20 meters long and free of obstructions.
+1.	Along the experimental reach, select a section of thalweg that is about 10 meters long and free of obstructions.
 
 2.	Measure the distance so you know the travel length exactly.
 
@@ -98,9 +91,9 @@ Materials:
 
 ### 2.2: Velocity Area Method
 
-1.	Along the experimental reach, select an appropriate cross-section for making a discharge measurement. Keep in mind the criteria that an ideal section has: **uniform, straight flow, relatively little turbulence, few if any obstructions, no eddies, and it is SAFE to wade across**. String your field tape across your cross-section with rebar stakes at each bank.
+1.	Along the experimental reach, select an appropriate cross-section for making a discharge measurement. Keep in mind the criteria that an ideal section has: **uniform, straight flow, relatively little turbulence, few if any obstructions, no eddies, and it is SAFE to wade across**. String your field tape across your cross-section with rebar stakes at each bank (or use a tree, whichever is easiest).
  
-2.	Measure the stream discharge at your designated cross-section, using about 25 subsections, and velocity measurements at 0.6 times the depth at the midpoint of each subsection. If the stream or river you are measuring is more than 2.5 feet deep you should take velocity measurements at 0.2 and 0.8 depths. You should aim for no more than 5% of the flow in any one segment of your cross-section.
+2.	Measure the stream discharge at your designated cross-section, using about 25 subsections, and velocity measurements at 0.6 times the depth at each subsection. If the stream or river you are measuring is more than 2.5 feet deep you should take velocity measurements at 0.2 and 0.8 depths. You should aim for no more than 5% of the flow in any one segment of your cross-section.
 
 3.	Repeat Step 2 two additional times in order to give all your teammates an opportunity to use the current meter. Change the spacing of your 25 measurements along your cross-section to test what works best in order to meet the USGS requirement of less than 5% of flow in each cell.
 
@@ -114,32 +107,6 @@ Materials:
 
     d.	See Figure 3 for an example of a vertical velocity profile:
 
-# Assessment (20 pts) 
-Calculations using pre-collected data provided [here](https://www.dropbox.com/s/q7iqgav5majd6f1/velo_area_assessment_data_v2.xlsx?dl=0){target="_blank"} 
-
-### 3.1: Velocity Area Method (Continued)
-
-Use the provided field data to answer the following questions. Note highlighted green rows and columns are data that have been collected in the field. Yellow highlighted rows and columns are what you will be solving for following the directions below:
-
-**1.	Use the provided float velocity data to generate the following table (5 pts) **
-
-![](images/table_1.jpg)   
-
-a.	What does multiplying by 0.85 achieve?
-
-**2.  Use provided cross-section data to generate the following table (10 pts) **
-
-![](images/table_2.jpg)
-
-a.	Does this meet USGS Standards? If not, how could you collect this data differently to ensure that it meets the USGS standards?
-
-**3.	Compare data (5 pts) **
-
-a.	How does the mean velocity from part 2 compare to the mean float velocity from part 1? Explain why these values differ.
-
-b.	Why might you want to use the float method instead of the velocity-area?
-
-![](images/vertical_velocity_fig.jpg)
 
 ### Field Data Analysis and Synthesis Questions: Using your field-collected data (40 pts)
 
@@ -172,7 +139,7 @@ b.	Generate the table below  comparing the thalweg velocities measured using the
     
 ![](images/table_3.jpg)    
   
-c.	Comment on the comparability of measures obtained from each of the four techniques used to measure velocity. Do you get reasonable velocity values from low-cost approaches such as float method? Conversely, do you obtain much better data from the expensive current meter? Provide an example of a situation where you would recommend: float, and current meter. (5 pts)
+c.	Comment on the comparability of measures obtained from each of the techniques used to measure velocity. Do you get reasonable velocity values from low-cost approaches such as float method? Conversely, do you obtain much better data from the expensive current meter? Provide an example of a situation where you would recommend: float, and  one where you would recommend using current meter. (5 pts)
 
 d.  You have a thalweg profile; we use 0.6 depth to approximate the average vertical velocity when making velocity area Q measurements. Use your data to determine if this assumption is valid for your measurements. (10 pts)
 

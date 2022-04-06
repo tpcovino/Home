@@ -1,0 +1,42 @@
+---
+title: "Sierra test"
+author: "Tim Covino"
+date: "4/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+site <- c(1, 2, 3)
+df <- data.frame(site)
+
+ex_df <-data.frame(Site = rep(c(1:5),each=6))
+
+name_df <- data.frame(site_name = c('joe_creek', 'bean_trail', 'orange_outlet', 'sane_mountain', 'fuzzy_lake'),
+            Site = c(1:5))
+
+ex_name_df <- merge(ex_df, name_df, by = 'Site', all.x =TRUE)
+
+# example df
+df_num <- data.frame(numcol = c(1,2,3,4,5,6,7,8,9,10))
+
+# add column of letters based on numbers
+df_num$letters <- sapply(df_num, function(i) toupper(letters[i]))
+
+df_1 <- df %>% 
+  filter(site == 1) %>% 
+  mutate(new_site = "A")
+
+df_2 <- df %>% 
+  filter(site == 2) %>% 
+  mutate(new_site = "B")
+
+df_3 <- df %>% 
+  filter(site == 3) %>% 
+  mutate(new_site = "C")
+
+df_full <- rbind(df_1, df_2, df_3)
+
+```
+
