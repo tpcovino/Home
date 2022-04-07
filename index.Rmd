@@ -5,6 +5,6 @@ date:
 output: html_document
 ---
 
-[Watershed Measurements](hydrology/index.html){target="_blank"}
+[CSU Classes](hydrology/index.html){target="_blank"}
 
 [Watershed Analysis (ENSC 445/545)](watershed_analysis/index.html){target="_blank"}
