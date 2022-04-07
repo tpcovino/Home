@@ -1,7 +1,7 @@
 ---
-title: "Sierra test"
+title: "Sierra GW NWIS code"
 author: "Tim Covino"
-date: "4/5/2022"
+date: "4/7/2022"
 output: html_document
 ---
 
@@ -18,7 +18,7 @@ library(dataRetrieval)
 
 ```
 
-#Put two data frames together by site. This will create a column of usable site names. 
+## Put two data frames together by site. This will create a column of usable site names. 
 ```{r}
 ex_df <-data.frame(Site = rep(c(1:5),each=6))
 
@@ -28,7 +28,7 @@ name_df <- data.frame(site_name = c('joe_creek', 'bean_trail', 'orange_outlet', 
 ex_name_df <- merge(ex_df, name_df, by = 'Site', all.x =TRUE)
 ```
 
-# Here we can download some GW data. The raw data are instantaneous values (15 min) and the gw are daily values. I'm commenting out the NWIS download so that this will knit.
+## Here we can download some GW data. The raw data are instantaneous values (15 min) and the gw are daily values. I'm commenting out the NWIS download so that this will knit.
 ```{r}
 # NOT RUN {
 site_id <- '373930118491602'
@@ -45,7 +45,7 @@ endDate <- "2022-04-06"
 
 ```
 
-# Next we need to take daily values for the rawData. Because I have commented out the download this is also commented out - again so it will knit. 
+## Next we need to take daily values for the rawData. Because I have commented out the download this is also commented out - again so it will knit. 
 ```{r}
 # dv <- rawData %>% 
 #   mutate(day = day(dateTime), month = month(dateTime), year = year(dateTime)) %>% 
@@ -63,11 +63,11 @@ endDate <- "2022-04-06"
 
 ```
 
-# Last we can rbind the two data frames together and write it to csv to save. Again - commented out. 
+## Last we can rbind the two data frames together and write it to csv to save. Again - commented out. In the write_csv bit I am writing the file to a folder on my computer so you will need to update that path if you want to do this part. It is pretty helpful, this way you just have it all saved in a csv in a tidy format so moving forward you can just read_csv and do your work. You don't have to keep going through the download and clean process.  
 ```{r}
 #full <- rbind(gw, dv)
 
-#write_csv(full, here('hydrology/measurements_code/data', 'full.csv'))
+#write_csv(full, here('hydrology/src_classes_spring_2022/data', 'full.csv'))
 ```
 
 
