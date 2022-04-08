@@ -1,10 +1,10 @@
 ---
-title: 'Tim Covino home page'
+title: 'Home page'
 author: 
 date: 
 output: html_document
 ---
 
-[CSU Classes](hydrology/index.html){target="_blank"}
+[Online modules](hydrology/index.html){target="_blank"}
 
 [Watershed Analysis (ENSC 445/545)](watershed_analysis/index.html){target="_blank"}

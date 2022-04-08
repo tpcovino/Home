@@ -1,7 +1,7 @@
 ---
 title: "Velocity area discharge"
-author: "tim covino"
-date: "9/7/2021"
+author: 
+date: 
 output: html_document
 ---
 

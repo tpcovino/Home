@@ -1,7 +1,7 @@
 ---
 title: "Sierra GW NWIS code"
-author: "Tim Covino"
-date: "4/7/2022"
+author: 
+date: 
 output: html_document
 ---
 

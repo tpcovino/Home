@@ -1,6 +1,6 @@
 ---
 title: "Udall"
-author: Tim Covino
+author: 
 date: 
 output: 
   html_document:

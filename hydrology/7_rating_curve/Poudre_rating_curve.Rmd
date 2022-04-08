@@ -1,7 +1,7 @@
 ---
 title: "Poudre rating curve"
-author: "Tim Covino"
-date: "9/2/2021"
+author: 
+date: 
 output: html_document
 ---
 
@@ -12,11 +12,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = F
 ```
 
 ```{r}
-#New packages
+#Packages needed for this project
 library(dataRetrieval)
 library(broom)
-
-#Packages you should already have installed 
 library(tidyverse)
 library(lubridate)
 
@@ -44,7 +42,7 @@ meas <- meas %>%
   select(measurement_dateTime, gage_height_va, discharge_va,  measured_rating_diff) %>% 
   rename(Date = 1, gage_height = 2, discharge = 3, rating = 4) %>% 
   mutate(year = year(Date)) %>% 
-  filter(year %in% 2008:2020, rating == "Good")
+  filter(year %in% 2008:2021, rating == "Good")
 
 str(meas)
 ```
