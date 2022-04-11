@@ -85,7 +85,7 @@ Materials:
 
 3.	Release an orange and time how long it takes to travel across the length you have measured out.
 
-4.	Repeat this 5 times in order to get an average.
+4.	Repeat this 3 times in order to get an average.
 
 5.	*Remember that the surface velocity is higher than the average velocity so we generally scale the surface velocity by 0.85 to approximate the average velocity.
 
