@@ -107,6 +107,33 @@ Materials:
 
     d.	See Figure 3 for an example of a vertical velocity profile:
 
+### Assessment using pre-colected data (15 pts)
+
+Float data: [here](https://www.dropbox.com/s/t7l9451ctizcxza/float_data.csv?dl=0)
+
+Cross section data: [here](https://www.dropbox.com/s/ozczeu49alw3nin/velo_area_data_R.csv?dl=0)
+
+Use the provided field data to answer the following questions.
+
+**1.	Use the provided float velocity data to generate the following table (5 pts) **
+
+![](images/table_1.jpg)   
+
+a.	What does multiplying by 0.85 achieve?
+
+**2.  Use provided cross-section data to generate the following table (5 pts) **
+
+![](images/table_2.jpg)
+
+a.	Does this meet USGS Standards? If not, how could you collect this data differently to ensure that it meets the USGS standards?
+
+**3.	Compare data (5 pts) **
+
+a.	How does the mean velocity from part 2 compare to the mean float velocity from part 1? Explain why these values differ.
+
+b.	Why might you want to use the float method instead of the velocity-area?
+
+![](images/vertical_velocity_fig.jpg)
 
 ### Field Data Analysis and Synthesis Questions: Using your field-collected data (40 pts)
 
