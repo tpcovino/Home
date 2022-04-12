@@ -41,7 +41,7 @@ What is your idea for the assessment section?
 
 Do you have access to data for the assessment?
 
-## Final Project Module (60 pts, online submission 5/22):
+## Final Project Module (60 pts, online submission 5/12):
 Your module should include the following sections:
 
 1. Summary (10 pts): Overview including the highlights of the measurement technique (what, why, and how).
