@@ -1,0 +1,52 @@
+---
+title: "csasn_precip"
+author: "tim covino"
+date: "11/20/2020"
+output: html_document
+---
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(stringsAsFactors = FALSE)
+
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggthemes)
+library(scales)
+library(cowplot)
+library(hablar)
+
+```
+
+
+```{r}
+p <- read_csv(here('/data/precip.csv'))
+```
+
+
+```{r}
+
+min <- as.Date('2011-06-01')
+max <- as.Date('2011-10-10')
+
+png(filename = 'ms/response_to_review/figs/rain_f2.png', width=6, height=2,
+    units='in',res=300)
+
+
+ggplot(p, aes(x = Date, y = P_mm)) +
+  geom_col(size = 2, color = 'blue') +
+  theme_few(base_size = 20) +
+  scale_y_reverse(breaks = c(0, 5, 10)) +
+  ylab(expression(Rain~(mm~d^-1))) +
+  xlab('') +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  scale_x_date(limits = c(min, max)) 
+
+
+
+dev.off()
+
+```
+

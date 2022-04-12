@@ -1,0 +1,154 @@
+---
+title: "csasn_tascc_no3"
+author: "tim covino"
+date: "9/19/2020"
+output: html_document
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(viridis) 
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(plotly)
+library(ggthemes)
+library(broom)
+library(dplyr)
+install.packages("psych")          
+library("psych")                   
+```
+
+##Load data
+```{r}
+df <- read_csv(here('data', 'I8_out_9_2_11_a.csv'))
+Date = '9/2/11'
+Site = 'I8-Out'
+```
+
+##Truncate data set to clip tails if needed
+```{r}
+ggplotly(ggplot(df,aes(x=Time, y=Cl)) +
+  geom_point() + 
+  theme_few())
+
+
+df <- df %>%  
+  mutate(Time = as_hms(Time)) %>% 
+      filter(Time >= hms::as_hms('13:20:00'),
+             Time <= hms::as_hms('14:04:00'))
+
+```
+
+
+## Some TASCC stuff: here is Inj-A, which is Cl, and NO3
+```{r}
+#Let's declare some variables
+NaCl_inj <- 4017.07
+NaNO3 <- 45.6
+cl_inj <- NaCl_inj*(0.6066) 
+no3_n_inj <- NaNO3*(0.1648)
+
+
+Q <- 43.8
+w <- 2.5
+dist <- 260
+no3_cl_inj <- (no3_n_inj/cl_inj)
+log_no3_cl_inj <- log(no3_cl_inj)
+
+```
+
+##Background corrections
+```{r}
+#Now background correct the BTC data
+bg_no3 <- min(df$NO3_N, na.rm = TRUE)
+df <- mutate(df, cor_no3 = NO3_N - bg_no3*0.9975)
+
+
+df <- mutate(df, cl_ug = Cl*1000)
+bg_cl <- min(df$cl_ug, na.rm = TRUE)
+df <- mutate(df, cor_cl = cl_ug - bg_cl*0.9975) 
+
+```
+
+##Calculate total concentration
+```{r}
+df <- mutate(df, con_no3 = no3_cl_inj * cor_cl)
+df <- mutate(df, con_amb_no3 = con_no3 + bg_no3)
+
+df <- df %>%
+  rowwise() %>% 
+  mutate(tot_no3 = geometric.mean(c(con_amb_no3, NO3_N), na.rm=T)) 
+```
+
+##Make TASCC calcs
+```{r}
+#create a vector of nutrient to conservative tracer ratios and calculate Sw-add values
+df <- mutate(df, dt = Time - 13:02)
+             
+             
+df <- mutate(df, no3_cl = cor_no3/cor_cl)
+df <- mutate(df, no3_cl = replace (no3_cl, which(no3_cl>no3_cl_inj), NA))
+df <- mutate(df, log_no3_cl = log(no3_cl))
+df <- mutate(df, diff = log_no3_cl - log_no3_cl_inj)
+df <- mutate(df, kw_no3 = diff/dist) 
+df <- mutate(df, sw_no3 = -1/kw_no3)
+```
+
+
+##Plot Sw vs. concentration and inspect relationship
+```{r}
+
+ggplotly(ggplot(df, aes(x = Time, y = sw_no3)) +
+  geom_point(size = 3) +
+  geom_line() +
+  theme_few())
+
+ggplotly(ggplot(df, aes(x =tot_no3, y = sw_no3, color = btc)) +
+  geom_point() +
+  #geom_line() +
+  theme_few() +
+  stat_smooth(aes(group = 1), method='lm', color = 'black'))
+
+```
+
+
+##Remove outliers through visual inspection. It is often necessary to remove values on the tails. 
+```{r}
+
+df <- mutate(df, sw_no3 = replace (sw_no3, which(sw_no3<0), NA))  ##Enforce non-negativity. This is a double check as we've already done this with removing nut/cl values above the injectate value.
+df <- mutate(df, sw_no3 = replace (sw_no3, which(sw_no3>20000), NA))  ##Remove high outliers
+
+```
+
+
+##Fit linear model and retrieve paramater values
+```{r}
+sw_no3.lm = lm(sw_no3 ~ tot_no3, data=df)
+summary(sw_no3.lm)
+```
+
+##Do conversions to get other ambient spiralling metrics
+```{r}
+#get Sw-amb value from summary of sw.lm
+Sw_amb_no3 = 678.46  # units are m
+
+#Convert Sw-amb to U-amb
+U_amb_no3 = ((Q * bg_no3)/(Sw_amb_no3 *w)) * 60  # units are ug/m2/min
+
+#Convert U-amb to Vf-amb
+Vf_amb_no3 = U_amb_no3/bg_no3  # units are mm/mi
+
+sum <- c(Vf_amb_no3, Date, Site) 
+print(sum)   
+
+
+```
+
+
+
+

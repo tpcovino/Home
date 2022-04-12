@@ -1,0 +1,166 @@
+---
+title: "DOC and nutrient time series"
+author: "tim covino"
+date: "11/20/2020"
+output: html_document
+---
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(stringsAsFactors = FALSE)
+
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggthemes)
+library(scales)
+library(cowplot)
+library(hablar)
+```
+
+
+```{r}
+
+df <- read_csv(here('data/q_c_11_2_20.csv'))
+
+c <- read_csv(here('data/doc.csv'))
+
+```
+
+
+```{r}
+c <- c %>% 
+  mutate(date = mdy(date)) %>%
+  mutate(month = month(date)) %>% 
+  mutate(year = year(date)) %>% 
+  mutate(day = day(date))
+
+pin_c <- c %>% 
+  filter(site == "P-In")
+
+pin_cav <- mutate(pin_c) %>% 
+  group_by(year, month, day) %>% 
+  summarize(c_av = mean(doc, na.rm = TRUE)) %>%
+  convert(num(day)) %>% 
+  mutate(date = make_date(year, month, day)) %>% 
+  mutate(site = "P-In") %>% 
+  select(-year, - month, -day)
+
+i8in_c <- c %>% 
+  filter(site == "I8-In")
+
+i8in_cav <- mutate(i8in_c) %>% 
+  group_by(year, month, day) %>% 
+  summarize(c_av = mean(doc, na.rm = TRUE)) %>%
+  convert(num(day)) %>% 
+  mutate(date = make_date(year, month, day)) %>% 
+  mutate(site = "I8-In") %>% 
+  select(-year, - month, -day)
+
+i8out_c <- c %>% 
+  filter(site == "I8-Out")
+
+i8out_cav <- mutate(i8out_c) %>% 
+  group_by(year, month, day) %>% 
+  summarize(c_av = mean(doc, na.rm = TRUE)) %>%
+  convert(num(day)) %>% 
+  mutate(date = make_date(year, month, day)) %>% 
+  mutate(site = "I8-Out") %>% 
+  select(-year, - month, -day)
+
+c_all <- rbind(i8in_cav, i8out_cav, pin_cav)
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_no3.png',width=5, height=3,
+    units='in',res=300)
+
+n1 <- ggplot(df_elev, aes(x = Date, y = NO3, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 10)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(NO[3]-N~(mu*g~L^-1)))
+
+dev.off()
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_nh4.png',width=5, height=3,
+    units='in',res=300)
+
+n2 <- ggplot(df_elev, aes(x = Date, y = NH4, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  scale_y_continuous(breaks = c(0, 20, 40)) +
+  ylab(expression(NH[4]-N~(mu*g~L^-1)))
+
+dev.off()
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_po4.png',width=5, height=3,
+    units='in',res=300)
+
+n3 <- ggplot(df_elev, aes(x = Date, y = PO4, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(PO[4]-P~(mu*g~L^-1)))
+
+dev.off()
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_doc.png',width=5, height=3,
+    units='in',res=300)
+
+n4 <- ggplot(c_all, aes(x = date, y = c_av, color = site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(DOC~(mg~L^-1))) +
+  scale_y_continuous(limits = c(0, 7), breaks = c(0, 2, 4, 6))
+
+dev.off()
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_conc.png',width=9, height=5,
+    units='in',res=300)
+
+plot_grid(n4, n2, n1, n3, ncol = 2, nrow = 2, align = "hv")
+
+dev.off()
+```
+

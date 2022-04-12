@@ -1,0 +1,25 @@
+---
+title: "csasn_legends"
+author: "tim covino"
+date: "11/20/2020"
+output: html_document
+---
+
+Plot for generating legends
+```{r}
+png(filename = 'ms/response_to_review/figs/nutrient_legend.png',width=6, height=3,
+    units='in',res=300)
+
+ggplot(data_elev, aes(x = Date, y = Conc, color = nutrient)) +
+  geom_point() +
+  geom_line(linetype = 'dashed') +
+  theme_few(base_size = 20) +
+  labs(y = "NO3", x = "Date") +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme(legend.position= 'right') +
+  scale_color_manual(values = c("dodgerblue", "darkgreen", "deeppink")) 
+
+dev.off()
+
+```
+

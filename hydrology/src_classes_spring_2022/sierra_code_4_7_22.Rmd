@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = F
 library(tidyverse)
 library(here)
 library(dataRetrieval)
-
+library(lubridate)
 ```
 
 ## Put two data frames together by site. This will create a column of usable site names. 
@@ -37,22 +37,27 @@ startDate <- "1992-01-19"
 endDate <- "2022-04-06"
 # }
 # NOT RUN {
-# rawData <- readNWISuv(site_id,parameterCd,startDate,endDate)
+rawData <- readNWISuv(site_id,parameterCd,startDate,endDate)
 # 
-# gw <- readNWISdv(site_id,parameterCd,startDate,endDate) %>% 
-#   select(-agency_cd, -X_72019_00003_cd) %>% 
-#   rename(water_depth = X_72019_00003, site = site_no)
+gw <- readNWISdv(site_id,parameterCd,startDate,endDate) %>% 
+   select(-agency_cd, -X_72019_00003_cd) %>% 
+   rename(water_depth = X_72019_00003, site = site_no)
 
 ```
 
 ## Next we need to take daily values for the rawData. Because I have commented out the download this is also commented out - again so it will knit. 
 ```{r}
-# dv <- rawData %>% 
-#   mutate(day = day(dateTime), month = month(dateTime), year = year(dateTime)) %>% 
-#   group_by(year, month, day) %>% 
-#   summarize(water_depth = mean(X_72019_00000)) 
-# 
-# dv$Date <- as.Date(with(dv,paste(year, month, day,sep="-")),"%Y-%m-%d") 
+dv <- rawData %>% 
+  mutate(day = day(dateTime), month = month(dateTime), year = year(dateTime)) %>%
+  group_by(year, month, day) %>%
+  summarize(water_depth = mean(X_72019_00000))
+
+dv$Date <- as.Date(with(dv,paste(year, month, day,sep="-")),"%Y-%m-%d") 
+
+
+q_month_means <- q_month_means %>% 
+  mutate(day = 1)
+
 # 
 # dv$site <- "373930118491602"
 # 

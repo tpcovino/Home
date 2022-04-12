@@ -1,0 +1,116 @@
+---
+title: "csasn_tascc"
+author: "tim covino"
+date: "9/19/2020"
+output: html_document
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(dplyr)
+install.packages("psych")          # Install psych package
+library("psych")                   # Load psych package
+```
+
+##Load data
+```{r}
+i8 <- read_csv(here('ms/data', 'I8_out_9_2_11.csv'))
+```
+
+
+## Some TASCC stuff: here is Inj-A, which is Cl, NO3, and PO4
+```{r}
+#Let's declare some variables
+NaCl_inj <- 4017
+Cl_inj <- NaCl_inj*(0.607)
+KH2PO4_inj <- 78
+PO4_P_inj <- KH2PO4_inj*(0.228)
+NaNO3_inj <- 46
+NO3-N_inj <- NaNO3_inj*(0.165)
+Q <- 151
+w <- 3
+dist <- 260
+p_cl_inj <- (PO4_P_inj/Cl_inj)
+log_p_cl_inj <- log(p_cl_inj)
+
+#Now background correct the BTC data
+bg_n <- min(i8$NO3_N)
+i8 <- mutate(i8, cor_n = NO3_N - bg_n)
+
+bg_p <- 2.5
+i8 <- mutate(i8, cor_p = PO4_P - 2.5)
+
+i8 <- mutate(i8, Cl = Cl*1000)
+bg_cl <- 2450
+i8 <- mutate(i8, cor_cl = Cl - 2450)
+
+
+#create a vector of nutrient to conservative tracer ratios and calculate Sw-add values
+i8 <- mutate(i8, p_cl = cor_p/cor_cl)
+i8 <- mutate(i8, log_p_cl = log(p_cl))
+i8 <- mutate(i8, diff = log_p_cl - log_p_cl_inj)
+i8 <- mutate(i8, kw = diff/dist) 
+i8 <- mutate(i8, sw = -1/kw)
+```
+
+##Calculate total concentration
+```{r}
+i8 <- mutate(i8, con_p = p_cl_inj * cor_cl)
+i8 <- mutate(i8, con_amb_p = con_p + 2.5)
+
+
+
+i8 <- i8 %>%
+  rowwise() %>% 
+  mutate(tot_p = geometric.mean(c(con_amb_p, PO4_P), na.rm=T)) 
+
+```
+
+
+##Plot Sw vs. concentration and inspect relationship
+```{r}
+ggplot(i8, aes(x = tot_p, y = sw)) +
+  geom_point(size = 3) +
+  theme_few() +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+```
+
+
+##Remove outliers through visual inspection. It is often necessary to remove values on the tails. 
+```{r}
+
+i8 <- mutate(i8, sw = replace (sw, which(sw<0), NA))
+i8 <- mutate(i8, sw = replace (sw, which(sw>1000), NA))
+```
+
+
+##Fit linear model and retrieve paramater values
+```{r}
+sw.lm = lm(sw ~ tot_p, data=i8)
+summary(sw.lm)
+```
+
+##Do conversions to get other ambient spiralling metrics
+```{r}
+#get Sw-amb value from summary of sw.lm
+Sw_amb = 107.9  # units are m
+
+#Convert Sw-amb to U-amb
+U_amb = ((Q * bg_p)/(Sw_amb *w)) * 60  # units are ug/m2/min
+
+#Convert U-amb to Vf-amb
+Vf_amb = U_amb/bg_p  # units are mm/min
+
+```
+
+

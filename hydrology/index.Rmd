@@ -50,6 +50,10 @@ https://tpcovino.github.io/Git_home/hydrology/index.html
 ### Dilution Gauging 
 
   - [Dilution Gauging lecture and text](3_dilution_gauging/3_dilution_gauging.html){target="_blank"}
+  
+
+### Term project
+  - [Term project](term_project/term_project.html){target="_blank"}
 
   
 # Some guidance with R coding for hydrological analysis

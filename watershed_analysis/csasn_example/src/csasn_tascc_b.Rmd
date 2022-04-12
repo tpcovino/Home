@@ -1,0 +1,136 @@
+---
+title: "csasn_tassc_b"
+author: "tim covino"
+date: "9/19/2020"
+output: html_document
+---
+
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(dplyr)
+install.packages("psych")          # Install psych package
+library("psych")                   # Load psych package
+```
+
+##Load data
+```{r}
+i8b <- read_csv(here('data', 'I8_out_9_2_11_b.csv'))
+```
+
+##Truncate data set to clip tails
+```{r}
+
+i8b <- i8b %>%  
+  mutate(Time = as_hms(Time)) %>% 
+      filter(Time >= hms::as_hms('15:41:00'),
+             Time <= hms::as_hms('15:57:00'))
+
+```
+
+
+## Some TASCC stuff: here is Inj-B, which is Cl, and NH4
+```{r}
+#Let's declare some variables
+NaCl_inj <- 3993.47
+NH4Cl <- 79.46
+Cl_inj <- NaCl_inj*(0.6066) + NH4Cl*(0.6627)
+NH4_N_inj <- NH4Cl*(0.261908)
+
+
+Q <- 43.8
+w <- 2.5
+dist <- 260
+nh4_cl_inj <- (NH4_N_inj/Cl_inj)
+log_nh4_cl_inj <- log(nh4_cl_inj)
+
+```
+
+##Background corrections
+```{r}
+#Now background correct the BTC data
+bg_nh4 <- min(i8b$NH4_N, na.rm = TRUE)
+i8b <- mutate(i8b, cor_nh4 = NH4_N - bg_nh4*0.9975)
+
+
+i8b <- mutate(i8b, cl_ug = Cl*1000)
+bg_cl <- min(i8b$cl_ug, na.rm = TRUE)
+i8b <- mutate(i8b, cor_cl = cl_ug - bg_cl*0.9975) #i8 <- mutate(i8, cor_cl = Cl - 2450)
+
+```
+
+##Calculate total concentration
+```{r}
+i8b <- mutate(i8b, con_nh4 = nh4_cl_inj * cor_cl)
+i8b <- mutate(i8b, con_amb_nh4 = con_nh4 + bg_nh4)
+
+i8b <- i8b %>%
+  rowwise() %>% 
+  mutate(tot_nh4 = geometric.mean(c(con_amb_nh4, NH4_N), na.rm=T)) 
+```
+
+##Make TASCC calcs
+```{r}
+#create a vector of nutrient to conservative tracer ratios and calculate Sw-add values
+i8b <- mutate(i8b, nh4_cl = cor_nh4/cor_cl)
+i8b <- mutate(i8b, log_nh4_cl = log(nh4_cl))
+i8b <- mutate(i8b, diff = log_nh4_cl - log_nh4_cl_inj)
+i8b <- mutate(i8b, kw = diff/dist) 
+i8b <- mutate(i8b, sw = -1/kw)
+```
+
+
+##Plot Sw vs. concentration and inspect relationship
+```{r}
+ggplot(i8b, aes(x = Time, y = sw)) +
+  geom_point(size = 3) +
+  theme_few()
+
+ggplot(i8b, aes(x = tot_nh4, y = sw)) +
+  geom_point(size = 3) +
+  theme_few() +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+```
+
+
+##Remove outliers through visual inspection. It is often necessary to remove values on the tails. 
+```{r}
+
+i8b <- mutate(i8b, sw = replace (sw, which(sw<0), NA))
+i8b <- mutate(i8b, sw = replace (sw, which(sw>100), NA))
+
+```
+
+
+##Fit linear model and retrieve paramater values
+```{r}
+sw.lm = lm(sw ~ tot_nh4, data=i8b)
+summary(sw.lm)
+```
+
+##Do conversions to get other ambient spiralling metrics
+```{r}
+#get Sw-amb value from summary of sw.lm
+Sw_amb = 279.36  # units are m
+
+#Convert Sw-amb to U-amb
+U_amb = ((Q * bg_nh4)/(Sw_amb *w)) * 60  # units are ug/m2/min
+
+#Convert U-amb to Vf-amb
+Vf_amb = U_amb/bg_nh4  # units are mm/min
+
+```
+
+
+
+

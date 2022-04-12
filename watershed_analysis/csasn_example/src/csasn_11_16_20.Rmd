@@ -1,0 +1,1079 @@
+---
+title: "csasn_10_28_19"
+author: "Tim Covino"
+date: "October 28, 2019"
+output: word_document
+---
+
+```{r setup, echo=F, message=F }
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(rnoaa)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(plotly)
+library(ggthemes)
+library(broom)
+library(dplyr)
+library(scales)
+library(readxl)
+library(cowplot)
+library(xlsx)
+```
+
+## R Markdown
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+data <- read_csv(here('/data', 'csasn_vf_metab_env_p_values_long_11_13_20.csv'))
+
+na <- read_csv(here('/data', 'csasn_vf_metab_env_p_values_NA.csv')) #this includes the 0 uptake measurements
+
+par <- read_xlsx(here('data/PAR_2011.xlsx'))
+
+c <- read_xlsx(here('data/Q_C_rain_data.xlsx'))
+
+```
+
+data wrangling
+```{r}
+
+data <- data %>%
+  mutate(Date = mdy(Date)) %>%
+  mutate(ID = paste(Site, nutrient, sep=" ")) %>%
+  mutate(year = year(Date))
+
+str(d2)
+
+  
+d2 <- data %>%
+  filter(year == 2011)
+
+par <- par %>%
+  rename(par = `PAR (quantum)`)
+
+par <- par %>%
+  filter(Date >= ('2011-06-04') & Date <= ('2011-09-09'))
+
+lims <- as.POSIXct(strptime(c("2011-06-01","2011-09-15"), format = "%Y-%m-%d")) 
+
+
+```
+
+Ggplotly for exploration
+```{r}
+
+
+po4 <- data %>% 
+  filter(nutrient == 'PO4-P')
+
+nh4 <- data %>% 
+  filter(nutrient == 'NH4-N')
+
+no3 <- data %>% 
+  filter(nutrient == 'NO3-N')
+
+f <- ggplot(no3, aes(x = Date, y = Vf, color = 'Site')) + 
+  geom_point() + 
+  geom_line() +
+  theme_few()
+
+
+g <- ggplotly(f)
+
+g       
+max(df$PO4)
+```
+
+
+Plot time series of Vf
+```{r}
+png(filename = 'ms/response_to_review/figs/Vf_time_series.png',width=9,height=5,
+    units='in',res=300)
+
+ggplot(data, aes(x = Date, y = Vf, shape = ID, color = ID)) +
+  geom_point(size = 4) +
+  theme_few(base_size = 18) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(V[f-amb]~(mm~min^-1))) +
+  xlab('') +
+  scale_x_datetime(limits = lims) +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  #theme(legend.position = c(0.3, 0.75)) +
+  #theme(text = element_text(size=16)) +
+  scale_shape_manual(values = c(16, 16, 16, 15, 15, 15, 17, 17, 17)) +
+  scale_color_manual(values = c('dodgerblue', 'darkgreen', 'deeppink', 'dodgerblue', 'darkgreen',  'deeppink', 'dodgerblue', 'darkgreen', 'deeppink'))
+
+dev.off()
+
+```
+
+Plot time series of PAR
+```{r}
+png(filename = 'ms/response_to_review/figs/par_time_series.png',width=8,height=2.5, units='in', res=300)
+
+ggplot(par, aes(x = Date, y = par)) +
+  geom_point(size = 2, color = 'red') +
+  geom_line(color = 'red', linetype = 'dashed') +
+  theme_few(base_size = 14) +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PAR~(mu*mol~m^-2~d^-1))) +
+  xlab('') +
+  scale_x_datetime(date_labels = "%m/%d/%y", limits = lims) +
+  theme(legend.position = 'none') #+
+  theme(text = element_text(size=16)) 
+
+dev.off()
+
+```
+
+Plot time series of nutrient concs.
+
+```{r}
+ggplot(d2, aes(x = Date, y = Conc, color = nutrient)) +
+  geom_point(size = 2) +
+  geom_line(linetype = 'dashed') +
+  theme_few(base_size = 14) 
+
+head(d2)
+
+```
+
+Plot NH4-Vf vs Temperature
+```{r}
+png(filename = 'ms/response_to_review/figs/temp_NH4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+t1 <- ggplot(na, aes(x = Temp, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Temperature~(degree*C))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+
+temp_NH4_Vf.lm = lm(NH4_Vf ~ Temp, data=na)
+summary(temp_NH4_Vf.lm)
+
+```
+
+
+Plot NO3-Vf vs Temperature
+```{r}
+png(filename = 'ms/response_to_review/figs/temp_NO3_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+t2 <- ggplot(na, aes(x = Temp, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Temperature~(degree*C))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+temp_NO3_Vf.lm = lm(NO3_Vf ~ Temp, data=na)
+summary(temp_NO3_Vf.lm)
+
+```
+
+
+Plot P-Vf vs Temperature
+```{r}
+png(filename = 'ms/response_to_review/figs/temp_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+t3 <- ggplot(na, aes(x = Temp, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Temperature~(degree*C))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+
+dev.off()
+
+temp_P_Vf.lm = lm(P_Vf ~ Temp, data=na)
+summary(temp_P_Vf.lm)
+
+```
+
+
+Plot NH4-Vf vs PAR
+```{r}
+png(filename = 'ms/response_to_review/figs/PAR_NH4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+p1 <- ggplot(na, aes(x = PAR, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(PAR~(mu*mol~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+PAR_NH4_Vf.lm = lm(NH4_Vf ~ PAR, data=na)
+summary(PAR_NH4_Vf.lm)
+```
+
+
+Plot NO3-Vf vs PAR
+```{r}
+png(filename = 'ms/response_to_review/figs/PAR_NO3_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+p2 <- ggplot(na, aes(x = PAR, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(PAR~(mu*mol~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+PAR_NO3_Vf.lm = lm(NO3_Vf ~ PAR, data=na)
+summary(PAR_NO3_Vf.lm)
+```
+
+
+Plot P-Vf vs PAR
+```{r}
+png(filename = 'ms/response_to_review/figs/PAR_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+p3 <- ggplot(na, aes(x = PAR, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(PAR~(mu*mol~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+
+dev.off()
+
+PAR_P_Vf.lm = lm(P_Vf ~ PAR, data=na)
+summary(PAR_P_Vf.lm)
+```
+
+
+Plot NH4-Vf vs Q
+```{r}
+png(filename = 'ms/response_to_review/figs/Q_NH4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+q1 <- ggplot(na, aes(x = Q, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Q~(L~s^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+Q_NH4_Vf.lm = lm(NH4_Vf ~ Q, data=na)
+summary(Q_NH4_Vf.lm)
+```
+
+
+Plot NO3-Vf vs Q
+```{r}
+png(filename = 'ms/response_to_review/figs/Q_NO3_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+q2 <- ggplot(na, aes(x = Q, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Q~(L~s^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+Q_NO3_Vf.lm = lm(NO3_Vf ~ Q, data=na)
+summary(Q_NO3_Vf.lm)
+```
+
+
+Plot P-Vf vs Q
+```{r}
+png(filename = 'ms/response_to_review/figs/Q_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+q3 <- ggplot(na, aes(x = Q, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Q~(L~s^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))  
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+Q_P_Vf.lm = lm(P_Vf ~ Q, data=na)
+summary(Q_P_Vf.lm)
+```
+
+Create grid of physical regressions (Figure 5)
+```{r}
+png(filename = 'ms/response_to_review/figs/phys_regs.png',width=9, height=9,
+    units='in',res=300)
+
+plot_grid(t1, t2, t3, p1, p2, p3, q1, q2, q3, ncol = 3, nrow = 3, align = 'hv')
+
+dev.off()
+
+```
+
+
+
+Plot Vf vs NH4 concentration
+```{r}
+png(filename = 'ms/response_to_review/figs/conc_NH4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+c1 <- ggplot(na, aes(x = NH4, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Ambient~NH[4]-N~(mu*g~L^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+NH4_conc_Vf.lm = lm(NH4_Vf ~ NH4, data=na)
+summary(NH4_conc_Vf.lm)
+
+```
+
+
+Plot Vf vs NO3 concentration
+```{r}
+png(filename = 'ms/response_to_review/figs/conc_NO3_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+c2 <- ggplot(na, aes(x = NO3, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(Ambient~NO[3]-N~(mu*g~L^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+NO3_conc_Vf.lm = lm(NO3_Vf ~ NO3, data=na)
+summary(NO3_conc_Vf.lm)
+
+```
+
+
+Plot Vf vs PO4 concentration
+```{r}
+png(filename = 'ms/response_to_review/figs/conc_NO3_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+c3 <- ggplot(na, aes(x = PO4, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  ylim(0, 41) +
+  xlab(expression(Ambient~PO[4]-P~(mu*g/L))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+
+c3
+dev.off()
+
+P_conc_Vf.lm = lm(P_Vf ~ PO4, data=na)
+summary(P_conc_Vf.lm)
+
+```
+
+
+Create grid of concentration regressions (Figure 6)
+```{r}
+png(filename = 'ms/response_to_review/figs/conc_regs.png',width=10, height=3,
+    units='in',res=300)
+
+plot_grid(c1, c2, c3, ncol = 3, nrow = 1, align = 'hv')
+
+dev.off()
+
+```
+
+
+#Plot NH4_Vf vs ER
+```{r}
+png(filename = 'ms/response_to_review/figs/ER_NH4_Vf.png', width=4, height=4,
+    units='in',res=300)
+
+m1 <- ggplot(na, aes(x = ER, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(ER~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+  
+
+dev.off()
+
+#Get summary stats for lm
+ER_NH4_Vf.lm = lm(NH4_Vf ~ ER, data = na)
+summary(ER_NH4_Vf.lm)
+```
+
+
+#Plot NO3_Vf vs ER
+```{r}
+png(filename = 'ms/response_to_review/figs/ER_NO3_Vf.png', width=4, height=4,
+    units='in',res=300)
+
+m2 <- ggplot(na, aes(x = ER, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(ER~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+  
+
+dev.off()
+
+#Get summary stats for lm
+ER_NO3_Vf.lm = lm(NO3_Vf ~ ER, data = na)
+summary(ER_NO3_Vf.lm)
+```
+
+
+#Plot P_Vf vs ER
+```{r}
+png(filename = 'ms/response_to_review/figs/ER_PO4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+m3 <- ggplot(na, aes(x = ER, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(ER~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+ER_P_Vf.lm = lm(P_Vf ~ ER, data=na)
+summary(ER_P_Vf.lm)
+
+```
+
+
+#Plot NH4_Vf vs GPP
+```{r}
+png(filename = 'ms/response_to_review/figs/GPP_NH4_Vf.png',width=4, height=4,
+    units='in',res=300)
+
+m4 <- ggplot(na, aes(x = GPP, y = NH4_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(GPP~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+#Get summary stats for lm
+GPP_NH4_Vf.lm = lm(NH4_Vf ~ GPP, data = na)
+summary(GPP_NH4_Vf.lm)
+```
+
+
+#Plot NO3_Vf vs GPP
+```{r}
+png(filename = 'ms/response_to_review/figs/GPP_NO3_Vf.png',width=4, height=4,
+    units='in',res=300)
+
+m5 <- ggplot(na, aes(x = GPP, y = NO3_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(GPP~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+#Get summary stats for lm
+GPP_NO3_Vf.lm = lm(NO3_Vf ~ GPP, data = na)
+summary(GPP_NO3_Vf.lm)
+```
+
+
+#Plot P_Vf vs GPP
+```{r}
+png(filename = 'ms/response_to_review/figs/GPP_PO4_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+m6 <- ggplot(na, aes(x = GPP, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few(base_size = 14) +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm~min^-1))) +
+  ylim(0, 41) +
+  xlab(expression(GPP~(mg~O[2]~m^-2~d^-1))) +
+  theme(legend.position = 'none') +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))
+
+dev.off()
+
+GPP_PVf.lm = lm(P_Vf ~ GPP, data = na)
+summary(GPP_PVf.lm)
+```
+
+
+Create grid of metabolic regressions (Figure 7)
+```{r}
+png(filename = 'ms/response_to_review/figs/met_regs.png',width=10, height=6,
+    units='in',res=300)
+
+plot_grid(m1, m2, m3, m4, m5, m6, ncol = 3, nrow = 2, align = 'hv')
+
+dev.off()
+
+```
+
+
+
+The chunks above are used for the figures in the paper. The chunks below are to evaluate the linear models at each individual site, as opposed to linear regressions on aggregated data. 
+
+Do regressions for I8-In alone
+```{r}
+i8in <- data %>%
+  filter(Site == 'I8-In')
+
+i8in_wide <- i8in %>% 
+  pivot_wider(names_from = nutrient, values_from = Conc)
+
+i8in_nh4 <- i8in %>% 
+  filter(nutrient == 'NH4-N')
+
+i8in_po4 <- i8in %>% 
+  filter(nutrient == 'PO4-P')
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-In
+i8in_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = i8in_nh4)
+summary(i8in_temp_NH4_Vf.lm)
+rm(i8in_temp_NH4_Vf.lm)
+
+i8in_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = i8in_nh4)
+summary(i8in_PAR_NH4_Vf.lm)
+rm(i8in_PAR_NH4_Vf.lm)
+
+i8in_Q_NH4_Vf.lm = lm(Vf ~ Q, data = i8in_nh4)
+summary(i8in_Q_NH4_Vf.lm)
+rm(i8in_Q_NH4_Vf.lm)
+
+i8in_N_NH4_Vf.lm = lm(Vf ~ Conc, data = i8in_nh4)
+summary(i8in_N_NH4_Vf.lm)
+rm(i8in_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-In
+i8in_temp_NO3_Vf.lm = lm(NO3_Vf ~ Temp, data = i8in_no3)
+summary(i8in_temp_NO3_Vf.lm)
+rm(i8in_temp_NO3_Vf.lm)
+
+i8in_PAR_NO3_Vf.lm = lm(NO3_Vf ~ PAR, data = i8in_no3)
+summary(i8in_PAR_NO3_Vf.lm)
+rm(i8in_PAR_NO3_Vf.lm)
+
+i8in_Q_NO3_Vf.lm = lm(NO3_Vf ~ Q, data = i8in_no3)
+summary(i8in_Q_NO3_Vf.lm)
+rm(i8in_Q_NO3_Vf.lm)
+
+i8in_N_NO3_Vf.lm = lm(NO3_Vf ~ NO3, data = i8in_no3)
+summary(i8in_N_NO3_Vf.lm)
+rm(i8in_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_temp_PVf.lm = lm(Vf ~ Temp, data = i8in_po4)
+summary(i8in_temp_PVf.lm)
+rm(i8in_temp_PVf.lm)
+
+
+i8in_PAR_PVf.lm = lm(Vf ~ PAR, data = i8in_po4)
+summary(i8in_PAR_PVf.lm)
+rm(i8in_PAR_PVf.lm)
+
+i8in_Q_PVf.lm = lm(Vf ~ Q, data = i8in_po4)
+summary(i8in_Q_PVf.lm)
+rm(i8in_Q_PVf.lm)
+
+i8in_P_PVf.lm = lm(Vf ~ Conc, data = i8in_po4)
+summary(i8in_P_PVf.lm)
+rm(i8in_P_PVf.lm)
+
+
+```
+
+
+Generic plotting for visual assessment of data
+```{r}
+
+ggplot(i8in,aes(x=PO4, y=P_Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm', color = "black")
+
+```
+
+
+Do regressions for I8-Out alone
+```{r}
+i8out <- data %>%
+  filter(Site == 'I8-Out')
+
+i8out_nh4 <- i8out %>% 
+  filter(nutrient == 'NH4-N')
+
+i8out_no3 <- i8out %>% 
+  filter(nutrient == 'NO3-N')
+
+i8out_po4 <- i8out %>% 
+  filter(nutrient == 'PO4-P')
+
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-Out
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-Out
+i8out_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = i8out_nh4)
+summary(i8out_temp_NH4_Vf.lm)
+rm(i8out_temp_NH4_Vf.lm)
+
+i8out_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = i8out_nh4)
+summary(i8out_PAR_NH4_Vf.lm)
+rm(i8out_PAR_NH4_Vf.lm)
+
+i8out_Q_NH4_Vf.lm = lm(Vf ~ Q, data = i8out_nh4)
+summary(i8out_Q_NH4_Vf.lm)
+rm(i8out_Q_NH4_Vf.lm)
+
+i8out_N_NH4_Vf.lm = lm(Vf ~ Conc, data = i8out_nh4)
+summary(i8out_N_NH4_Vf.lm)
+rm(i8out_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-Out
+i8out_temp_NO3_Vf.lm = lm(Vf ~ Temp, data = i8out_no3)
+summary(i8out_temp_NO3_Vf.lm)
+rm(i8out_temp_NO3_Vf.lm)
+
+i8out_PAR_NO3_Vf.lm = lm(Vf ~ PAR, data = i8out_no3)
+summary(i8out_PAR_NO3_Vf.lm)
+rm(i8out_PAR_NO3_Vf.lm)
+
+i8out_Q_NO3_Vf.lm = lm(Vf ~ Q, data = i8out_no3)
+summary(i8out_Q_NO3_Vf.lm)
+rm(i8out_Q_NO3_Vf.lm)
+
+i8out_N_NO3_Vf.lm = lm(Vf ~ Conc, data = i8out_no3)
+summary(i8out_N_NO3_Vf.lm)
+rm(i8out_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_temp_PVf.lm = lm(Vf ~ Temp, data = i8out_po4)
+summary(i8out_temp_PVf.lm)
+rm(i8out_temp_PVf.lm)
+
+i8out_PAR_PVf.lm = lm(Vf ~ PAR, data = i8out_po4)
+summary(i8out_PAR_PVf.lm)
+rm(i8out_PAR_PVf.lm)
+
+i8out_Q_PVf.lm = lm(Vf ~ Q, data = i8out_po4)
+summary(i8out_Q_PVf.lm)
+rm(i8out_Q_PVf.lm)
+
+i8out_P_PVf.lm = lm(Vf ~ Conc, data = i8out_po4)
+summary(i8out_P_PVf.lm)
+rm(i8out_P_PVf.lm)
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(i8out_po4, aes(x = Conc, y = Vf)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression(Temperature~(degree*C))) +
+  geom_smooth(method='lm')
+
+```
+
+
+Do regressions for P-In alone
+```{r}
+pin <- data %>%
+  filter(Site == 'P-In')
+
+pin_nh4 <- pin %>% 
+  filter(nutrient == 'NH4-N')
+
+pin_no3 <- pin %>% 
+  filter(nutrient == 'NO3-N')
+
+pin_po4 <- pin %>% 
+  filter(nutrient == 'PO4-P')
+
+```
+
+
+Here are the regressions of physical parameters vs Vf for P-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = pin_nh4)
+summary(pin_temp_NH4_Vf.lm)
+rm(pin_temp_NH4_Vf.lm)
+
+pin_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = pin_nh4)
+summary(pin_PAR_NH4_Vf.lm)
+rm(pin_PAR_NH4_Vf.lm)
+
+pin_Q_NH4_Vf.lm = lm(Vf ~ Q, data = pin_nh4)
+summary(pin_Q_NH4_Vf.lm)
+rm(pin_Q_NH4_Vf.lm)
+
+pin_N_NH4_Vf.lm = lm(Vf ~ Conc, data = pin_nh4)
+summary(pin_N_NH4_Vf.lm)
+rm(pin_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at P-In
+pin_temp_NO3_Vf.lm = lm(Vf ~ Temp, data = pin_no3)
+summary(pin_temp_NO3_Vf.lm)
+rm(pin_temp_NO3_Vf.lm)
+
+pin_PAR_NO3_Vf.lm = lm(Vf ~ PAR, data = pin_no3)
+summary(pin_PAR_NO3_Vf.lm)
+rm(pin_PAR_NO3_Vf.lm)
+
+pin_Q_NO3_Vf.lm = lm(Vf ~ Q, data = pin_no3)
+summary(pin_Q_NO3_Vf.lm)
+rm(pin_Q_NO3_Vf.lm)
+
+pin_N_NO3_Vf.lm = lm(Vf ~ Conc, data = pin_no3)
+summary(pin_N_NO3_Vf.lm)
+rm(pin_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at P-In
+pin_temp_PVf.lm = lm(Vf ~ Temp, data = pin_po4)
+summary(pin_temp_PVf.lm)
+rm(pin_temp_PVf.lm)
+
+pin_PAR_PVf.lm = lm(Vf ~ PAR, data = pin_po4)
+summary(pin_PAR_PVf.lm)
+rm(pin_PAR_PVf.lm)
+
+pin_Q_PVf.lm = lm(Vf ~ Q, data = pin_po4)
+summary(pin_Q_PVf.lm)
+rm(pin_Q_PVf.lm)
+
+pin_P_PVf.lm = lm(Vf ~ Conc, data = pin_po4)
+summary(pin_P_PVf.lm)
+rm(pin_P_PVf.lm)
+
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(pin, aes(x=PAR, y=P_Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression(Temperature~(degree*C))) +
+  geom_smooth(method='lm')
+
+```
+
+
+Aggregate regression analyses on physical params for NH4
+```{r}
+
+nh4 <- data %>% 
+  filter(nutrient == 'NH4-N')
+
+nh4_temp_Vf.lm = lm(Vf ~ Temp, data = nh4)
+summary(nh4_temp_Vf.lm)
+rm(nh4_temp_Vf.lm)
+
+nh4_PAR_Vf.lm = lm(Vf ~ PAR, data = nh4)
+summary(nh4_PAR_Vf.lm)
+rm(nh4_PAR_Vf.lm)
+
+nh4_Q_Vf.lm = lm(Vf ~ Q, data = nh4)
+summary(nh4_Q_Vf.lm)
+rm(nh4_Q_Vf.lm)
+
+nh4_conc_Vf.lm = lm(Vf ~ Conc, data = nh4)
+summary(nh4_conc_Vf.lm)
+rm(nh4_conc_Vf.lm)
+
+```
+
+
+
+
+Here are the regressions for Vf and metabolism at I8-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-In
+i8in_ER_NH4_Vf.lm = lm(NH4_Vf ~ ER, data = i8in)
+summary(i8in_ER_NH4_Vf.lm)
+
+i8in_GPP_NH4_Vf.lm = lm(NH4_Vf ~ GPP, data = i8in)
+summary(i8in_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-In
+i8in_ER_NO3_Vf.lm = lm(NO3_Vf ~ ER, data = i8in)
+summary(i8in_ER_NO3_Vf.lm)
+
+i8in_GPP_NO3_Vf.lm = lm(NO3_Vf ~ GPP, data = i8in)
+summary(i8in_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_ER_PVf.lm = lm(P_Vf ~ ER, data = i8in)
+summary(i8in_ER_PVf.lm)
+
+i8in_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8in)
+summary(i8in_GPP_PVf.lm)
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(i8in, aes(x=GPP, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+```
+
+
+Here are the regressions for Vf and metabolism at I8-Out
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-Out
+i8out_ER_NH4_Vf.lm = lm(NH4_Vf ~ ER, data = i8out)
+summary(i8out_ER_NH4_Vf.lm)
+
+i8out_GPP_NH4_Vf.lm = lm(NH4_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-Out
+i8out_ER_NO3_Vf.lm = lm(NO3_Vf ~ ER, data = i8out)
+summary(i8out_ER_NO3_Vf.lm)
+
+i8out_GPP_NO3_Vf.lm = lm(NO3_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_ER_PVf.lm = lm(P_Vf ~ ER, data = i8out)
+summary(i8out_ER_PVf.lm)
+
+i8out_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_PVf.lm)
+
+
+
+
+```
+
+
+Here are the regressions for Vf and metabolism at P-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_ER_NH4_Vf.lm = lm(NH4_Vf ~ ER, data = pin)
+summary(pin_ER_NH4_Vf.lm)
+
+pin_GPP_NH4_Vf.lm = lm(NH4_Vf ~ GPP, data = pin)
+summary(pin_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_ER_NO3_Vf.lm = lm(NO3_Vf ~ ER, data = pin)
+summary(pin_ER_NO3_Vf.lm)
+
+pin_GPP_NO3_Vf.lm = lm(NO3_Vf ~ GPP, data = pin)
+summary(pin_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at P-In
+pin_ER_PVf.lm = lm(P_Vf ~ ER, data = pin)
+summary(pin_ER_PVf.lm)
+
+pin_GPP_PVf.lm = lm(P_Vf ~ GPP, data = pin)
+summary(pin_GPP_PVf.lm)
+
+
+#nitrate is 6/28
+
+
+```
+
+
+
+Below this is plotting and older stuff as of 9/14/20
+
+Regression for Vf and metabolism at I8-Out
+```{r}
+ggplot(i8out, aes(x=GPP, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_GPP_NVf.lm = lm(N_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_NVf.lm)
+
+ggplot(i8out, aes(x=ER, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("ER (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_ER_NVf.lm = lm(N_Vf ~ ER, data = i8out)
+summary(i8out_ER_NVf.lm)
+```
+
+
+```{r}
+ggplot(i8out, aes(x=GPP, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_PVf.lm)
+```
+
+
+
+```{r}
+ggplot(i8out, aes(x=ER, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("ER (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+#Get summary stats for lm
+i8out_ER_PVf.lm = lm(P_Vf ~ ER, data = i8out)
+summary(i8out_ER_PVf.lm)
+```
+
+
+
+```{r}
+ggplot(i8in, aes(x=GPP, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+#Get summary stats for lm
+i8in_ER_PVf.lm = lm(P_Vf ~ ER, data = i8in)
+summary(i8in_ER_PVf.lm)
+```
+
+
+
+
+
+
+
+

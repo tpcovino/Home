@@ -1,0 +1,39 @@
+---
+title: "N:P plot for review"
+author: "tim covino"
+date: "12/12/2020"
+output: html_document
+---
+
+```{r setup, echo=F, message=F }
+library(tidyverse)
+library(lubridate)
+library(here)
+```
+
+```{r}
+np <- read_csv(here('data', 'np.csv'))
+
+data <- read_csv(here('data/csasn_vf_metab_env_p_values_long_11_13_20.csv'))
+
+wide <- data %>% 
+  pivot_wider(
+    names_from = Site,
+    values_from = Conc, 
+  )
+  
+
+
+p <- ggplot(np, aes(x = np, y = vf_p, color = Site)) + 
+  geom_point() +
+  ylab('PO4-P Vf-amb') +
+  xlab('N:P') +
+  theme_bw(base_size = 14) +
+  theme(legend.position = c(0.8, 0.6))
+
+p
+n2
+
+cowplot::plot_grid(n1, n2, p, rows = 1)
+```
+

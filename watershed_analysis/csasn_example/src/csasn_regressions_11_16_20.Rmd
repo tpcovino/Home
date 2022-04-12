@@ -1,0 +1,478 @@
+---
+title: "csasn regressions"
+author: "tim covino"
+date: "11/16/2020"
+output: html_document
+---
+
+
+```{r setup, echo=F, message=F }
+library(tidyverse)
+library(lubridate)
+library(here)
+library(scales)
+library(readxl)
+
+```
+
+
+```{r}
+data <- read_csv(here('data', 'csasn_vf_metab_env_p_values_long_11_13_20.csv'))
+
+na <- read_csv(here('data', 'csasn_vf_metab_env_p_values_NA.csv')) #this includes the 0 uptake measurements
+  
+
+par <- read_xlsx(here('data/PAR_2011.xlsx'))
+
+c <- read_xlsx(here('data/Q_C_rain_data.xlsx'))
+
+
+```
+
+
+Do regressions for I8-In alone
+```{r}
+i8in <- data %>%
+  filter(Site == 'I8-In')
+
+i8in_wide <- i8in %>% 
+  pivot_wider(names_from = nutrient, values_from = Conc)
+
+write.table(i8in_wide, file = 'ms/i8_in_wide.txt', sep = ',', quote = FALSE, row.names = F)
+
+i8in_nh4 <- i8in %>% 
+  filter(nutrient == 'NH4-N')
+
+i8in_no3 <- i8in %>% 
+  filter(nutrient == 'NO3-N')
+
+i8in_po4 <- i8in %>% 
+  filter(nutrient == 'PO4-P')
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-In
+i8in_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = i8in_nh4)
+summary(i8in_temp_NH4_Vf.lm)
+rm(i8in_temp_NH4_Vf.lm)
+
+i8in_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = i8in_nh4)
+summary(i8in_PAR_NH4_Vf.lm)
+rm(i8in_PAR_NH4_Vf.lm)
+
+i8in_Q_NH4_Vf.lm = lm(Vf ~ Q, data = i8in_nh4)
+summary(i8in_Q_NH4_Vf.lm)
+rm(i8in_Q_NH4_Vf.lm)
+
+i8in_N_NH4_Vf.lm = lm(Vf ~ Conc, data = i8in_nh4)
+summary(i8in_N_NH4_Vf.lm)
+rm(i8in_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-In
+i8in_temp_NO3_Vf.lm = lm(NO3_Vf ~ Temp, data = i8in_no3)
+summary(i8in_temp_NO3_Vf.lm)
+rm(i8in_temp_NO3_Vf.lm)
+
+i8in_PAR_NO3_Vf.lm = lm(NO3_Vf ~ PAR, data = i8in_no3)
+summary(i8in_PAR_NO3_Vf.lm)
+rm(i8in_PAR_NO3_Vf.lm)
+
+i8in_Q_NO3_Vf.lm = lm(NO3_Vf ~ Q, data = i8in_no3)
+summary(i8in_Q_NO3_Vf.lm)
+rm(i8in_Q_NO3_Vf.lm)
+
+i8in_N_NO3_Vf.lm = lm(NO3_Vf ~ NO3, data = i8in_no3)
+summary(i8in_N_NO3_Vf.lm)
+rm(i8in_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_temp_PVf.lm = lm(Vf ~ Temp, data = i8in_po4)
+summary(i8in_temp_PVf.lm)
+rm(i8in_temp_PVf.lm)
+
+
+i8in_PAR_PVf.lm = lm(Vf ~ PAR, data = i8in_po4)
+summary(i8in_PAR_PVf.lm)
+rm(i8in_PAR_PVf.lm)
+
+i8in_Q_PVf.lm = lm(Vf ~ Q, data = i8in_po4)
+summary(i8in_Q_PVf.lm)
+rm(i8in_Q_PVf.lm)
+
+i8in_P_PVf.lm = lm(Vf ~ Conc, data = i8in_po4)
+summary(i8in_P_PVf.lm)
+rm(i8in_P_PVf.lm)
+
+
+```
+
+
+Generic plotting for visual assessment of data
+```{r}
+
+ggplotly(ggplot(i8out_po4,aes(x = GPP, y = Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16)) #+
+  #xlab(expression ("GPP (g/m"^2*"/d)")) +
+  #geom_smooth(method='lm', color = "black"))
+
+```
+
+
+Do regressions for I8-Out alone
+```{r}
+i8out <- data %>%
+  filter(Site == 'I8-Out')
+
+i8out_nh4 <- i8out %>% 
+  filter(nutrient == 'NH4-N')
+
+i8out_no3 <- i8out %>% 
+  filter(nutrient == 'NO3-N')
+
+i8out_po4 <- i8out %>% 
+  filter(nutrient == 'PO4-P')
+
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-Out
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-Out
+i8out_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = i8out_nh4)
+summary(i8out_temp_NH4_Vf.lm)
+rm(i8out_temp_NH4_Vf.lm)
+
+i8out_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = i8out_nh4)
+summary(i8out_PAR_NH4_Vf.lm)
+rm(i8out_PAR_NH4_Vf.lm)
+
+i8out_Q_NH4_Vf.lm = lm(Vf ~ Q, data = i8out_nh4)
+summary(i8out_Q_NH4_Vf.lm)
+rm(i8out_Q_NH4_Vf.lm)
+
+i8out_N_NH4_Vf.lm = lm(Vf ~ Conc, data = i8out_nh4)
+summary(i8out_N_NH4_Vf.lm)
+rm(i8out_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-Out
+i8out_temp_NO3_Vf.lm = lm(Vf ~ Temp, data = i8out_no3)
+summary(i8out_temp_NO3_Vf.lm)
+rm(i8out_temp_NO3_Vf.lm)
+
+i8out_PAR_NO3_Vf.lm = lm(Vf ~ PAR, data = i8out_no3)
+summary(i8out_PAR_NO3_Vf.lm)
+rm(i8out_PAR_NO3_Vf.lm)
+
+i8out_Q_NO3_Vf.lm = lm(Vf ~ Q, data = i8out_no3)
+summary(i8out_Q_NO3_Vf.lm)
+rm(i8out_Q_NO3_Vf.lm)
+
+i8out_N_NO3_Vf.lm = lm(Vf ~ Conc, data = i8out_no3)
+summary(i8out_N_NO3_Vf.lm)
+rm(i8out_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_temp_PVf.lm = lm(Vf ~ Temp, data = i8out_po4)
+summary(i8out_temp_PVf.lm)
+rm(i8out_temp_PVf.lm)
+
+i8out_PAR_PVf.lm = lm(Vf ~ PAR, data = i8out_po4)
+summary(i8out_PAR_PVf.lm)
+rm(i8out_PAR_PVf.lm)
+
+i8out_Q_PVf.lm = lm(Vf ~ Q, data = i8out_po4)
+summary(i8out_Q_PVf.lm)
+rm(i8out_Q_PVf.lm)
+
+i8out_P_PVf.lm = lm(Vf ~ Conc, data = i8out_po4)
+summary(i8out_P_PVf.lm)
+rm(i8out_P_PVf.lm)
+
+```
+
+
+Do regressions for P-In alone
+```{r}
+pin <- data %>%
+  filter(Site == 'P-In')
+
+pin_nh4 <- pin %>% 
+  filter(nutrient == 'NH4-N')
+
+pin_no3 <- pin %>% 
+  filter(nutrient == 'NO3-N')
+
+pin_po4 <- pin %>% 
+  filter(nutrient == 'PO4-P')
+
+```
+
+
+Here are the regressions of physical parameters vs Vf for P-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_temp_NH4_Vf.lm = lm(Vf ~ Temp, data = pin_nh4)
+summary(pin_temp_NH4_Vf.lm)
+rm(pin_temp_NH4_Vf.lm)
+
+pin_PAR_NH4_Vf.lm = lm(Vf ~ PAR, data = pin_nh4)
+summary(pin_PAR_NH4_Vf.lm)
+rm(pin_PAR_NH4_Vf.lm)
+
+pin_Q_NH4_Vf.lm = lm(Vf ~ Q, data = pin_nh4)
+summary(pin_Q_NH4_Vf.lm)
+rm(pin_Q_NH4_Vf.lm)
+
+pin_N_NH4_Vf.lm = lm(Vf ~ Conc, data = pin_nh4)
+summary(pin_N_NH4_Vf.lm)
+rm(pin_N_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at P-In
+pin_temp_NO3_Vf.lm = lm(Vf ~ Temp, data = pin_no3)
+summary(pin_temp_NO3_Vf.lm)
+rm(pin_temp_NO3_Vf.lm)
+
+pin_PAR_NO3_Vf.lm = lm(Vf ~ PAR, data = pin_no3)
+summary(pin_PAR_NO3_Vf.lm)
+rm(pin_PAR_NO3_Vf.lm)
+
+pin_Q_NO3_Vf.lm = lm(Vf ~ Q, data = pin_no3)
+summary(pin_Q_NO3_Vf.lm)
+rm(pin_Q_NO3_Vf.lm)
+
+pin_N_NO3_Vf.lm = lm(Vf ~ Conc, data = pin_no3)
+summary(pin_N_NO3_Vf.lm)
+rm(pin_N_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at P-In
+pin_temp_PVf.lm = lm(Vf ~ Temp, data = pin_po4)
+summary(pin_temp_PVf.lm)
+rm(pin_temp_PVf.lm)
+
+pin_PAR_PVf.lm = lm(Vf ~ PAR, data = pin_po4)
+summary(pin_PAR_PVf.lm)
+rm(pin_PAR_PVf.lm)
+
+pin_Q_PVf.lm = lm(Vf ~ Q, data = pin_po4)
+summary(pin_Q_PVf.lm)
+rm(pin_Q_PVf.lm)
+
+pin_P_PVf.lm = lm(Vf ~ Conc, data = pin_po4)
+summary(pin_P_PVf.lm)
+rm(pin_P_PVf.lm)
+
+
+```
+
+
+Aggregate regression analyses on physical params for NH4
+```{r}
+
+nh4 <- data %>% 
+  filter(nutrient == 'NH4-N')
+
+nh4_temp_Vf.lm = lm(Vf ~ Temp, data = nh4)
+summary(nh4_temp_Vf.lm)
+rm(nh4_temp_Vf.lm)
+
+nh4_PAR_Vf.lm = lm(Vf ~ PAR, data = nh4)
+summary(nh4_PAR_Vf.lm)
+rm(nh4_PAR_Vf.lm)
+
+nh4_Q_Vf.lm = lm(Vf ~ Q, data = nh4)
+summary(nh4_Q_Vf.lm)
+rm(nh4_Q_Vf.lm)
+
+nh4_conc_Vf.lm = lm(Vf ~ Conc, data = nh4)
+summary(nh4_conc_Vf.lm)
+rm(nh4_conc_Vf.lm)
+
+```
+
+
+Aggregate regression analyses on physical params for NO3
+```{r}
+
+no3 <- data %>% 
+  filter(nutrient == 'NO3-N')
+
+no3_temp_Vf.lm = lm(Vf ~ Temp, data = no3)
+summary(no3_temp_Vf.lm)
+rm(no3_temp_Vf.lm)
+
+no3_PAR_Vf.lm = lm(Vf ~ PAR, data = no3)
+summary(no3_PAR_Vf.lm)
+rm(no3_PAR_Vf.lm)
+
+no3_Q_Vf.lm = lm(Vf ~ Q, data = no3)
+summary(no3_Q_Vf.lm)
+rm(no3_Q_Vf.lm)
+
+no3_conc_Vf.lm = lm(Vf ~ Conc, data = no3)
+summary(no3_conc_Vf.lm)
+rm(no3_conc_Vf.lm)
+
+```
+
+
+Aggregate regression analyses on physical params for PO4
+```{r}
+
+po4 <- data %>% 
+  filter(nutrient == 'PO4-P')
+
+po4_temp_Vf.lm = lm(Vf ~ Temp, data = po4)
+summary(po4_temp_Vf.lm)
+rm(po4_temp_Vf.lm)
+
+po4_PAR_Vf.lm = lm(Vf ~ PAR, data = po4)
+summary(po4_PAR_Vf.lm)
+rm(po4_PAR_Vf.lm)
+
+po4_Q_Vf.lm = lm(Vf ~ Q, data = po4)
+summary(po4_Q_Vf.lm)
+rm(po4_Q_Vf.lm)
+
+po4_conc_Vf.lm = lm(Vf ~ Conc, data = po4)
+summary(po4_conc_Vf.lm)
+rm(po4_conc_Vf.lm)
+
+```
+
+
+Here are the regressions for Vf and metabolism at I8-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-In
+i8in_ER_NH4_Vf.lm = lm(Vf ~ ER, data = i8in_nh4)
+summary(i8in_ER_NH4_Vf.lm)
+rm(i8in_ER_NH4_Vf.lm)
+
+i8in_GPP_NH4_Vf.lm = lm(Vf ~ GPP, data = i8in_nh4)
+summary(i8in_GPP_NH4_Vf.lm)
+rm(i8in_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-In
+i8in_ER_NO3_Vf.lm = lm(Vf ~ ER, data = i8in_no3)
+summary(i8in_ER_NO3_Vf.lm)
+rm(i8in_ER_NO3_Vf.lm)
+
+i8in_GPP_NO3_Vf.lm = lm(Vf ~ GPP, data = i8in_no3)
+summary(i8in_GPP_NO3_Vf.lm)
+rm(i8in_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_ER_PVf.lm = lm(Vf ~ ER, data = i8in_po4)
+summary(i8in_ER_PVf.lm)
+rm(i8in_ER_PVf.lm)
+
+i8in_GPP_PVf.lm = lm(Vf ~ GPP, data = i8in_po4)
+summary(i8in_GPP_PVf.lm)
+rm(i8in_GPP_PVf.lm)
+```
+
+
+Here are the regressions for Vf and metabolism at I8-Out
+```{r}
+
+#Get summary stats for lm on NH4_Vf at I8-Out
+i8out_ER_NH4_Vf.lm = lm(Vf ~ ER, data = i8out_nh4)
+summary(i8out_ER_NH4_Vf.lm)
+rm(i8out_ER_NH4_Vf.lm)
+
+i8out_GPP_NH4_Vf.lm = lm(Vf ~ GPP, data = i8out_nh4)
+summary(i8out_GPP_NH4_Vf.lm)
+rm(i8out_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NO3_Vf at I8-Out
+i8out_ER_NO3_Vf.lm = lm(Vf ~ ER, data = i8out_no3)
+summary(i8out_ER_NO3_Vf.lm)
+rm(i8out_ER_NO3_Vf.lm)
+
+i8out_GPP_NO3_Vf.lm = lm(Vf ~ GPP, data = i8out_no3)
+summary(i8out_GPP_NO3_Vf.lm)
+rm(i8out_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_ER_PVf.lm = lm(Vf ~ ER, data = i8out_po4)
+summary(i8out_ER_PVf.lm)
+rm(i8out_ER_PVf.lm)
+
+i8out_GPP_PVf.lm = lm(Vf ~ GPP, data = i8out_po4)
+summary(i8out_GPP_PVf.lm)
+rm(i8out_GPP_PVf.lm)
+
+```
+
+
+Here are the regressions for Vf and metabolism at P-In
+```{r}
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_ER_NH4_Vf.lm = lm(Vf ~ ER, data = pin_nh4)
+summary(pin_ER_NH4_Vf.lm)
+rm(pin_ER_NH4_Vf.lm)
+
+pin_GPP_NH4_Vf.lm = lm(Vf ~ GPP, data = pin_nh4)
+summary(pin_GPP_NH4_Vf.lm)
+rm(pin_GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NH4_Vf at P-In
+pin_ER_NO3_Vf.lm = lm(Vf ~ ER, data = pin_no3)
+summary(pin_ER_NO3_Vf.lm)
+rm(pin_ER_NO3_Vf.lm)
+
+pin_GPP_NO3_Vf.lm = lm(Vf ~ GPP, data = pin_no3)
+summary(pin_GPP_NO3_Vf.lm)
+rm(pin_GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at P-In
+pin_ER_PVf.lm = lm(Vf ~ ER, data = pin_po4)
+summary(pin_ER_PVf.lm)
+rm(pin_ER_PVf.lm)
+
+pin_GPP_PVf.lm = lm(Vf ~ GPP, data = pin_po4)
+summary(pin_GPP_PVf.lm)
+rm(pin_GPP_PVf.lm)
+
+```
+
+
+Here are the aggregated regressions for Vf and metabolism
+```{r}
+
+#Get summary stats for lm on NH4_Vf
+ER_NH4_Vf.lm = lm(Vf ~ ER, data = nh4)
+summary(ER_NH4_Vf.lm)
+rm(ER_NH4_Vf.lm)
+
+GPP_NH4_Vf.lm = lm(Vf ~ GPP, data = nh4)
+summary(GPP_NH4_Vf.lm)
+rm(GPP_NH4_Vf.lm)
+
+#Get summary stats for lm on NH4_Vf at P-In
+ER_NO3_Vf.lm = lm(Vf ~ ER, data = no3)
+summary(ER_NO3_Vf.lm)
+rm(ER_NO3_Vf.lm)
+
+GPP_NO3_Vf.lm = lm(Vf ~ GPP, data = no3)
+summary(GPP_NO3_Vf.lm)
+rm(GPP_NO3_Vf.lm)
+
+#Get summary stats for lm on P_Vf at P-In
+ER_PVf.lm = lm(Vf ~ ER, data = po4)
+summary(ER_PVf.lm)
+rm(ER_PVf.lm)
+
+GPP_PVf.lm = lm(Vf ~ GPP, data = po4)
+summary(GPP_PVf.lm)
+rm(GPP_PVf.lm)
+
+```
+

@@ -1,0 +1,157 @@
+---
+title: "csasn_tascc_nh4"
+author: "tim covino"
+date: "9/25/2020"
+output: html_document
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(viridis) 
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(dplyr)
+install.packages("psych")          
+library("psych")                   
+```
+
+##Load data
+```{r}
+df <- read_csv(here('data', 'i8_in_6_6_11b.csv'))
+Site = 'I8-In'
+Date = '6/6/11'
+Chart_title = 'I8-In 6/6/11'
+
+```
+
+
+##Let's declare some variables
+```{r}
+Q <- 63
+w <- 2.5
+dist <- 555
+
+NaCl_inj <- 2038.13
+NH4Cl <- 103.55
+
+cl_inj <- NaCl_inj*(0.6066) + NH4Cl*(0.6627) 
+nh4_n_inj <- NH4Cl*(0.261908)
+
+nh4_cl_inj <- (nh4_n_inj/cl_inj)
+log_nh4_cl_inj <- log(nh4_cl_inj)
+
+```
+
+
+##Truncate data set to clip tails if needed
+```{r}
+ggplotly(ggplot(df,aes(x = Time, y = NH4_N)) +
+  geom_point() + 
+  geom_line() +
+  theme_few())
+
+df <- df %>%  
+  mutate(Time = as_hms(Time)) %>% 
+      filter(Time >= hms::as_hms('14:16:00'),
+             Time <= hms::as_hms('16:17:00'))
+
+```
+
+
+
+##Background corrections
+```{r}
+#Now background correct the BTC data
+bg_nh4 <- min(df$NH4_N, na.rm = TRUE)
+df <- mutate(df, cor_nh4 = NH4_N - bg_nh4*0.9975)
+
+
+df <- mutate(df, cl_ug = Cl*1000)
+bg_cl <- min(df$cl_ug, na.rm = TRUE)
+df <- mutate(df, cor_cl = cl_ug - bg_cl*0.9975) 
+
+```
+
+##Calculate total concentration
+```{r}
+df <- mutate(df, con_nh4 = nh4_cl_inj * cor_cl)
+df <- mutate(df, con_amb_nh4 = con_nh4 + bg_nh4)
+
+df <- df %>%
+  rowwise() %>% 
+  mutate(tot_nh4 = geometric.mean(c(con_amb_nh4, NH4_N), na.rm=T)) 
+```
+
+##Make TASCC calcs
+```{r}
+#create a vector of nutrient to conservative tracer ratios and calculate Sw-add values
+
+df <- mutate(df, nh4_cl = cor_nh4/cor_cl)
+df <- mutate(df, nh4_cl = replace (nh4_cl, which(nh4_cl>nh4_cl_inj), NA))
+df <- mutate(df, log_nh4_cl = log(nh4_cl))
+df <- mutate(df, diff = log_nh4_cl - log_nh4_cl_inj)
+df <- mutate(df, kw_nh4 = diff/dist) 
+df <- mutate(df, sw_nh4 = -1/kw_nh4)
+
+```
+
+
+##Plot Sw vs. concentration and inspect relationship
+```{r}
+
+ggplotly(ggplot(df, aes(x = Time, y = sw_nh4)) +
+  geom_point(size = 3) +
+  theme(legend.title=element_blank()) +
+  geom_line() +
+  theme_few())
+
+ggplotly(ggplot(df, aes(x =tot_nh4, y = sw_nh4)) +
+  geom_point() +
+  theme(legend.title=element_text()) +
+  theme_few() +
+  stat_smooth(aes(group = 1), method='lm', color = 'black') + 
+  ggtitle(Chart_title) +
+  expand_limits(x = 0, y = 0))
+
+ggsave('figs/i8in_72110_nh4.png', width = 5, height = 5)
+
+```
+
+
+##Remove outliers through visual inspection. It is often necessary to remove values on the tails. 
+```{r}
+
+##If they exist, remove high outliers in the NH4 data set
+df <- mutate(df, sw_nh4 = replace (sw_nh4, which(sw_nh4>20000), NA)) 
+
+```
+
+
+##Fit linear model and retrieve paramater values for NH4
+```{r}
+sw_nh4.lm = lm(sw_nh4 ~ tot_nh4, data=df)
+summary(sw_nh4.lm)
+
+#get Sw-amb value from summary of sw_nh4.lm
+Sw_amb_nh4 = coef(sw_nh4.lm)['(Intercept)']  # units are m
+
+#Convert Sw-amb to U-amb
+U_amb_nh4 = ((Q * bg_nh4)/(Sw_amb_nh4 *w)) * 60  # units are ug/m2/min
+
+#Convert U-amb to Vf-amb
+Vf_amb_nh4 = U_amb_nh4/bg_nh4  # units are mm/mi
+
+sum_nh4 <- c('Vf_amb_nh4'= Vf_amb_nh4, Date, Site) 
+print(sum_nh4)   
+
+```
+
+
+

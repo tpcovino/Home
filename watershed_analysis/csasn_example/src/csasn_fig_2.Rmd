@@ -1,0 +1,431 @@
+---
+title: "q_c_fig_2"
+author: "tim covino"
+date: "11/2/2020"
+output: html_document
+---
+
+```{r setup, echo = FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(stringsAsFactors = FALSE)
+
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggthemes)
+library(scales)
+library(cowplot)
+library(hablar)
+
+```
+
+
+```{r}
+data <- read_csv(here('/data', 'csasn_vf_metab_env_p_values_long_11_13_20.csv'))
+
+df <- read_csv(here('/data/q_c_11_2_20.csv'))
+
+q <- read_csv(here('/data/csasn_q_2011.csv'))
+
+p <- read_csv(here('/data/precip.csv'))
+
+c <- read_csv(here('/data/doc.csv'))
+
+```
+
+
+```{r}
+data <- data %>%
+  mutate(Date = mdy(Date)) %>% 
+  mutate(year = year(Date))
+
+df <- df %>%
+  mutate(Date = mdy(Date)) %>% 
+  mutate(year = year(Date))
+
+q <- q %>%
+  mutate(Date = mdy(Date)) 
+
+
+p <- p %>%
+  mutate(Date = mdy(Date))
+
+df_elev <- df %>%
+  filter(year == 2011)
+
+data_elev <- data %>% 
+  filter(year == 2011)
+
+i8_in <- df_elev %>% 
+  filter(Site == 'I8-In')
+
+i8_out <- df_elev %>% 
+  filter(Site == 'I8-Out')
+
+i8_in_q <- q %>% 
+  filter(Site == 'I8-In')
+
+i8_out_q <- q %>% 
+  filter(Site == 'I8-Out')
+
+p_in <- df_elev %>% 
+  filter(Site == 'P-In')
+
+p_q <- q %>% 
+  filter(Site == 'P-In')
+
+
+```
+
+
+Plot for generating legends
+```{r}
+png(filename = 'ms/response_to_review/figs/nutrient_legend.png',width=6, height=3,
+    units='in',res=300)
+
+ggplot(data_elev, aes(x = Date, y = Conc, color = nutrient)) +
+  geom_point() +
+  geom_line(linetype = 'dashed') +
+  theme_few(base_size = 20) +
+  labs(y = "NO3", x = "Date") +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme(legend.position= 'right') +
+  scale_color_manual(values = c("dodgerblue", "darkgreen", "deeppink")) 
+
+dev.off()
+
+```
+
+
+```{r}
+
+ggplot(i8_in_q, aes(x = Date, y = Q, color = Site)) +
+  geom_spline() +
+  theme_few(base_size = 20) +
+  labs(y = "NO3", x = "Date") +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme(legend.position= 'right') +
+  scale_color_manual(values = c("dodgerblue", "darkgreen", "deeppink"))
+```
+
+
+
+```{r}
+
+p1 <- ggplot () +
+  geom_point(data = i8_in, aes(x = Date, y = NO3*2.7), color = 'darkgreen', shape = 16, size = 2) +
+  geom_line(data = i8_in, aes(x = Date, y = NO3*2.7), color = 'darkgreen', linetype = 'dashed') +
+  geom_point(data = i8_in, aes(x = Date, y = PO4*2.7), color = 'deeppink', shape = 15, size = 2) +
+  geom_line(data = i8_in, aes(x = Date, y = PO4*2.7), color = 'deeppink', linetype = 'dashed') +
+  geom_point(data = i8_in, aes(x = Date, y = NH4*2.7), color = 'dodgerblue', shape = 17, size = 2) +
+  geom_line(data = i8_in, aes(x = Date, y = NH4*2.7), color = 'dodgerblue', linetype = 'dashed') +
+  geom_line(data = i8_in_q, aes(x = Date, y = Q), color = 'blue') +
+  labs(color = "y", y = "", x = "") +
+  theme(legend.position = 'bottom', labels = c("Q", "NH4-N", "NO3-N", "PO4-P")) +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme_few()
+
+
+png(filename = 'ms/response_to_review/figs/f2_i8in.png',width=6, height=3,
+    units='in',res=300)
+
+p1 + scale_y_continuous(sec.axis = sec_axis(~ . / 2.7,
+                                            breaks = c(0, 150, 300)), 
+                                            breaks = c(0, 400, 800)) +
+  theme_few(base_size = 20) +
+  scale_color_identity(guide = "legend") +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed'))
+
+dev.off()
+
+```
+
+
+```{r}
+
+p2 <- ggplot () +
+  geom_point(data = i8_out, aes(x = Date, y = NO3*6.2), color = 'darkgreen', shape = 16, size = 2) +
+  geom_line(data = i8_out, aes(x = Date, y = NO3*6.2), color = 'darkgreen', linetype = 'dashed') +
+  geom_point(data = i8_out, aes(x = Date, y = PO4*6.2), color = 'deeppink', shape = 15, size = 2) +
+  geom_line(data = i8_out, aes(x = Date, y = PO4*6.2), color = 'deeppink', linetype = 'dashed') +
+  geom_point(data = i8_out, aes(x = Date, y = NH4*6.2), color = 'dodgerblue', shape = 17, size = 2) +
+  geom_line(data = i8_out, aes(x = Date, y = NH4*6.2), color = 'dodgerblue', linetype = 'dashed') +
+  geom_line(data = i8_out_q, aes(x = Date, y = Q), color = 'blue') +
+  labs(y = "", x = "") +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme_few()
+
+png(filename = 'ms/response_to_review/figs/f2_i80out.png',width=6, height=3,
+    units='in',res=300)
+
+p2 + scale_y_continuous(sec.axis = sec_axis(~ . / 6.2, 
+                                            breaks = c(0, 30, 60)), 
+                                            breaks = c(0, 200, 400)) +
+  theme_few(base_size = 20) +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) 
+
+dev.off()
+
+```
+
+
+```{r}
+
+p3 <- ggplot () +
+  geom_point(data = p_in, aes(x = Date, y = NO3*6.4), color = 'darkgreen', shape = 16, size = 2) +
+  geom_line(data = p_in, aes(x = Date, y = NO3*6.4), color = 'darkgreen', linetype = 'dashed') +
+  geom_point(data = p_in, aes(x = Date, y = PO4*6.4), color = 'deeppink', shape = 15, size = 2) +
+  geom_line(data = p_in, aes(x = Date, y = PO4*6.4), color = 'deeppink', linetype = 'dashed') +
+  geom_point(data = p_in, aes(x = Date, y = NH4*6.4), color = 'dodgerblue', shape = 17, size = 2) +
+  geom_line(data = p_in, aes(x = Date, y = NH4*6.4), color = 'dodgerblue', linetype = 'dashed') +
+  geom_line(data = p_q, aes(x = Date, y = Q), color = 'blue') +
+  labs(y = "", x = "") +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme_few()
+
+png(filename = 'ms/response_to_review/figs/f2_pin.png',width=6, height=3,
+    units='in',res=300)
+
+p3 + scale_y_continuous(sec.axis = sec_axis(~ . / 6.4, breaks = c(0, 40, 80)), breaks = c(0, 250, 500)) +
+  theme_few(base_size = 20) +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed'))
+
+dev.off()
+
+str(p_in)
+```
+
+
+```{r}
+
+png(filename = 'ms/response_to_review/figs/fig_2.png',width=6, height=9,
+    units='in',res=300)
+
+plot_grid(p1a, p2a, p3a, ncol = 1, nrow = 3)
+
+
+dev.off()
+```
+
+
+
+```{r}
+
+min <- as.Date('2011-06-01')
+max <- as.Date('2011-10-10')
+
+png(filename = 'ms/response_to_review/figs/rain_f2.png', width=6, height=2,
+    units='in',res=300)
+
+
+ggplot(p, aes(x = Date, y = P_mm)) +
+  geom_col(size = 2, color = 'blue') +
+  theme_few(base_size = 20) +
+  scale_y_reverse(breaks = c(0, 5, 10)) +
+  ylab(expression(Rain~(mm~d^-1))) +
+  xlab('') +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  scale_x_date(limits = c(min, max)) 
+
+
+
+dev.off()
+
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/qc1_f3.png', width=3, height=3,
+    units='in',res=300)
+
+qc1 <- ggplot(i8_in, aes(x = Q, y = NO3, color = Date)) +
+  geom_point() +
+  theme_few(base_size = 16) + 
+  ylab('') +
+  xlab('') +
+  scale_color_gradient(low = 'cyan', high = 'deeppink') +
+  theme(plot.margin = margin(0, 0, 0, 0, unit = 'cm')) +
+  theme(legend.position = 'none')
+
+qc1
+dev.off()
+```
+
+```{r}
+png(filename = 'ms/response_to_review/figs/qc2_f3.png', width=3, height=3,
+    units='in',res=300)
+
+qc2 <- ggplot(i8_out, aes(x = Q, y = NO3, color = Date)) +
+  geom_point() +
+  theme_few(base_size = 16) + 
+  ylab('') +
+  xlab('') +
+  scale_color_gradient(low = 'cyan', high = 'deeppink')
+
+qc2
+str(i8_out)
+  
+dev.off()
+
+```
+
+
+```{r}
+ggplot(i8_in, aes(x = Q, y = NO3, color= Date)) + 
+  geom_point() + 
+  scale_colour_gradient(limits=(as.Date(c("2011-06-01","2011-10-10"))),
+                        low="white", high="blue") 
+```
+
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/qc3_f3.png', width=3, height=3,
+    units='in',res=300)
+
+qc3 <- ggplot(p_in, aes(x = Q, y = NO3, color = Date)) +
+  geom_point(size = 4) +
+  theme_few(base_size = 16) + 
+  ylab('') +
+  xlab(expression(Q~(L~s^-1))) +
+  theme(plot.margin = margin(0, 0, 0, 0, unit = 'cm')) +
+  theme(legend.position = 'right') +
+  scale_color_gradient(low = 'cyan', high = 'deeppink', trans = "date")
+
+qc3
+
+dev.off()
+```
+
+```{r}
+
+png(filename = 'ms/response_to_review/figs/qc_fig_3.png',width=3, height=9,
+    units='in',res=300)
+
+plot_grid(qc1, qc2, qc3, ncol = 1, nrow = 4)
+
+dev.off()
+```
+
+
+```{r}
+
+ggplot(df_elev, aes(x = Date, y = NH4, color = Site)) +
+  geom_point() +
+  geom_line ()
+
+```
+
+
+```{r}
+
+ggplotly(ggplot(c_all, aes(x = date, y = c_av, color = site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed"))
+
+```
+
+
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_no3.png',width=5, height=3,
+    units='in',res=300)
+
+n1 <- ggplot(df_elev, aes(x = Date, y = NO3, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 10)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(NO[3]-N~(mu*g~L^-1)))
+
+dev.off()
+```
+
+
+ylab(expression(NH[4]-N~~NO[3]-N~~or~~PO[4]-P~(mu*g~L^-1)))
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_nh4.png',width=5, height=3,
+    units='in',res=300)
+
+n2 <- ggplot(df_elev, aes(x = Date, y = NH4, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  scale_y_continuous(breaks = c(0, 20, 40)) +
+  ylab(expression(NH[4]-N~(mu*g~L^-1)))
+
+dev.off()
+
+
+```
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_po4.png',width=5, height=3,
+    units='in',res=300)
+
+n3 <- ggplot(df_elev, aes(x = Date, y = PO4, color = Site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(PO[4]-P~(mu*g~L^-1)))
+
+dev.off()
+```
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_doc.png',width=5, height=3,
+    units='in',res=300)
+
+n4 <- ggplot(c_all, aes(x = date, y = c_av, color = site)) +
+  geom_point(size = 2) +
+  geom_line(linetype = "dashed") +
+  theme_few(base_size = 18) +
+  theme(legend.position = "none") +
+  theme(legend.text=element_text(size = 18)) +
+  theme(legend.title = element_blank()) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  xlab("") +
+  ylab(expression(DOC~(mg~L^-1))) +
+  scale_y_continuous(limits = c(0, 7), breaks = c(0, 2, 4, 6))
+
+dev.off()
+
+```
+
+
+
+```{r}
+png(filename = 'ms/response_to_review/figs/fig_conc.png',width=9, height=5,
+    units='in',res=300)
+
+plot_grid(n4, n2, n1, n3, ncol = 2, nrow = 2, align = "hv")
+
+dev.off()
+
+
+```
+

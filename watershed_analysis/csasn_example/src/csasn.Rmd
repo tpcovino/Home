@@ -1,0 +1,668 @@
+---
+title: "csasn_10_28_19"
+author: "Tim Covino"
+date: "October 28, 2019"
+output: word_document
+---
+
+```{r setup, echo=F, message=F }
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(rnoaa)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(dplyr)
+```
+
+## R Markdown
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+data <- read_csv(here('ms/data', 'csasn_vf_metab_env.csv'))
+
+zero <- read_csv(here('ms/data', 'csasn_vf_metab_env_zero.csv')) #this includes the 0 uptake measurements
+```
+
+
+#Plot N_Vf vs ER
+```{r}
+png(filename = 'ms/Figs/N_Vf_ER.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = ER, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(ER~(mg~O[2]/m^2/d))) +
+  theme(legend.position = 'none') +
+  #theme(legend.position = c(0.15, 0.8)) +
+  theme(text = element_text(size=20)) +
+  scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+#Get summary stats for lm
+ER_NVf.lm = lm(N_Vf ~ ER, data = zero)
+summary(ER_NVf.lm)
+```
+
+
+#Plot N_Vf vs GPP
+```{r}
+png(filename = 'ms/Figs/N_Vf_GPP.png',width=4, height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = GPP, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(GPP~(mg~O[2]/m^2/d))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  #scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+#Get summary stats for lm
+GPP_NVf.lm = lm(N_Vf ~ GPP, data = zero)
+summary(GPP_NVf.lm)
+```
+
+
+#Plot P_Vf vs GPP
+```{r}
+png(filename = 'ms/Figs/P_Vf_GPP.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = GPP, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(GPP~(mg~O[2]/m^2/d))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  #scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+GPP_PVf.lm = lm(P_Vf ~ GPP, data = zero)
+summary(GPP_PVf.lm)
+```
+
+
+#Plot P_Vf vs ER
+```{r}
+png(filename = 'ms/Figs/P_Vf_ER.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = ER, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(ER~(mg~O[2]/m^2/d))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_x_reverse() +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+ER_P_Vf.lm = lm(P_Vf ~ ER, data=zero)
+summary(ER_P_Vf.lm)
+tidy(ER_P_Vf.lm)
+```
+
+
+Plot Vf vs NH4 concentration
+```{r}
+png(filename = 'ms/Figs/N_conc_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = NH4, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(Ambient~NH[4]-N~(mu*g/L))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+N_conc_Vf.lm = lm(N_Vf ~ NH4, data=zero)
+summary(N_conc_Vf.lm)
+
+```
+
+
+Plot Vf vs PO4 concentration
+```{r}
+png(filename = 'ms/Figs/P_conc_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = PO4, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(Ambient~PO[4]-P~(mu*g/L))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+P_conc_Vf.lm = lm(P_Vf ~ PO4, data=zero)
+summary(P_conc_Vf.lm)
+
+```
+
+
+Plot N-Vf vs Temperature
+```{r}
+png(filename = 'ms/Figs/temp_N_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = Temp, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(Temperature~(degree*C))) +
+  theme(legend.position = 'none') +
+  theme(legend.position = c(0.15, 0.8)) +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) +
+  stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+temp_plus_site_N_Vf.lm = lm(N_Vf ~ Temp + Site, data=zero)
+tidy(temp_plus_site_N_Vf.lm)
+
+temp_times_site_N_Vf.lm = lm(N_Vf ~ Temp * Site, data=zero)
+tidy(temp_times_site_N_Vf.lm)
+
+temp_N_Vf.lm = lm(N_Vf ~ Temp, data=zero)
+summary(temp_N_Vf.lm)
+glance(temp_N_Vf.lm)
+tidy(temp_N_Vf.lm)
+```
+
+
+Plot P-Vf vs Temperature
+```{r}
+png(filename = 'ms/Figs/temp_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = Temp, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(Temperature~(degree*C))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+temp_P_Vf.lm = lm(P_Vf ~ Temp, data=zero)
+summary(temp_P_Vf.lm)
+
+```
+
+
+Plot N-Vf vs PAR
+```{r}
+png(filename = 'ms/Figs/PAR_N_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = PAR, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(PAR~(mu*mol/m^2/d))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+PAR_N_Vf.lm = lm(N_Vf ~ Temp, data=zero)
+summary(PAR_N_Vf.lm)
+```
+
+
+Plot P-Vf vs PAR
+```{r}
+png(filename = 'ms/Figs/PAR_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = PAR, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(PAR~(mu*mol/m^2/d))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+PAR_P_Vf.lm = lm(P_Vf ~ Temp, data=zero)
+summary(PAR_P_Vf.lm)
+```
+
+Plot N-Vf vs Q
+```{r}
+png(filename = 'ms/Figs/Q_N_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = Q, y = N_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) +
+  xlab(expression(Q~(L/s))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink')) 
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+Q_N_Vf.lm = lm(N_Vf ~ Q, data=zero)
+summary(Q_N_Vf.lm)
+```
+
+Plot P-Vf vs Q
+```{r}
+png(filename = 'ms/Figs/Q_P_Vf.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = Q, y = P_Vf, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) +
+  xlab(expression(Q~(L/s))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))  
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+PAR_P_Vf.lm = lm(P_Vf ~ Temp, data=zero)
+summary(PAR_P_Vf.lm)
+```
+
+
+Plot Q vs NO3
+```{r}
+png(filename = 'ms/Figs/Q_NO3.png',width=4,height=4,
+    units='in',res=300)
+
+ggplot(zero, aes(x = Q, y = NO3, shape = Site, color = Site)) +
+  geom_point(size = 3) +
+  theme_few() +
+  theme(legend.title=element_blank()) +
+  ylab(expression(NO[3]-N~(mu*g/L))) +
+  xlab(expression(Q~(L/s))) +
+  theme(legend.position = 'none') +
+  theme(text = element_text(size=20)) +
+  scale_shape_manual(values = c(16,15,17)) +
+  scale_color_manual(values = c('darkgreen', 'dodgerblue', 'deeppink'))  
+  #stat_smooth(aes(group = 1), method='lm', color = 'black')
+
+dev.off()
+
+Q_NO3.lm = lm(NO3 ~ Q, data=zero)
+summary(Q_NO3.lm)
+```
+
+The chunks above are used for the figures in the paper. The chunks below are to evaluate the linear models at each individual site, as opposed to linear regressions on aggregated data. 
+
+Do regressions for I8-In alone
+```{r}
+i8in <- zero %>%
+  filter(Site == 'I8-In')
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-In
+```{r}
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_temp_PVf.lm = lm(P_Vf ~ Temp, data = i8in)
+summary(i8in_temp_PVf.lm)
+
+
+i8in_PAR_PVf.lm = lm(P_Vf ~ PAR, data = i8in)
+summary(i8in_PAR_PVf.lm)
+
+i8in_Q_PVf.lm = lm(P_Vf ~ Q, data = i8in)
+summary(i8in_Q_PVf.lm)
+
+i8in_P_PVf.lm = lm(P_Vf ~ PO4, data = i8in)
+summary(i8in_P_PVf.lm)
+
+#Get summary stats for lm on N_Vf at I8-In
+i8in_temp_NVf.lm = lm(N_Vf ~ Temp, data = i8in)
+summary(i8in_temp_NVf.lm)
+
+
+i8in_PAR_NVf.lm = lm(N_Vf ~ PAR, data = i8in)
+summary(i8in_PAR_NVf.lm)
+
+i8in_Q_NVf.lm = lm(N_Vf ~ Q, data = i8in)
+summary(i8in_Q_NVf.lm)
+
+i8in_N_NVf.lm = lm(N_Vf ~ NH4, data = i8in)
+summary(i8in_N_NVf.lm)
+
+```
+
+
+Generic plotting for visual assessment of data
+```{r}
+
+ggplot(i8in,aes(x=PAR, y=P_Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm', color = "black")
+
+```
+
+
+Do regressions for I8-Out alone
+```{r}
+i8out <- zero %>%
+  filter(Site == 'I8-Out')
+
+i8out_all <- data %>%
+  filter(Site == 'I8-Out')
+```
+
+
+Here are the regressions of physical parameters vs Vf for I8-Out
+```{r}
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_temp_PVf.lm = lm(P_Vf ~ Temp, data = i8out)
+summary(i8out_temp_PVf.lm)
+
+i8out_PAR_PVf.lm = lm(P_Vf ~ PAR, data = i8out)
+summary(i8out_PAR_PVf.lm)
+
+i8out_Q_PVf.lm = lm(P_Vf ~ Q, data = i8out)
+summary(i8out_Q_PVf.lm)
+
+i8out_P_PVf.lm = lm(P_Vf ~ PO4, data = i8out)
+summary(i8out_P_PVf.lm)
+
+#Get summary stats for lm on N_Vf at I8-Out
+i8out_temp_NVf.lm = lm(N_Vf ~ Temp, data = i8out)
+summary(i8out_temp_NVf.lm)
+
+i8out_PAR_NVf.lm = lm(N_Vf ~ PAR, data = i8out)
+summary(i8out_PAR_NVf.lm)
+
+i8out_Q_NVf.lm = lm(N_Vf ~ Q, data = i8out)
+summary(i8out_Q_NVf.lm)
+
+i8out_N_NVf.lm = lm(N_Vf ~ NH4, data = i8out)
+summary(i8out_N_NVf.lm)
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(i8out, aes(x=NH4, y=N_Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression(Temperature~(degree*C))) +
+  geom_smooth(method='lm')
+
+```
+
+
+Do regressions for P-In alone
+```{r}
+pin <- zero %>%
+  filter(Site == 'P-In')
+
+```
+
+
+Here are the regressions of physical parameters vs Vf for P-In
+```{r}
+
+#Get summary stats for lm on P_Vf at P-In
+pin_temp_PVf.lm = lm(P_Vf ~ Temp, data = pin)
+summary(pin_temp_PVf.lm)
+
+pin_PAR_PVf.lm = lm(P_Vf ~ PAR, data = pin)
+summary(pin_PAR_PVf.lm)
+
+pin_Q_PVf.lm = lm(P_Vf ~ Q, data = pin)
+summary(pin_Q_PVf.lm)
+
+pin_P_PVf.lm = lm(P_Vf ~ PO4, data = pin)
+summary(pin_P_PVf.lm)
+
+#Get summary stats for lm on N_Vf at P-In
+pin_temp_NVf.lm = lm(N_Vf ~ Temp, data = pin)
+summary(pin_temp_NVf.lm)
+
+pin_PAR_NVf.lm = lm(N_Vf ~ PAR, data = pin)
+summary(pin_PAR_NVf.lm)
+
+pin_Q_NVf.lm = lm(N_Vf ~ Q, data = pin)
+summary(pin_Q_NVf.lm)
+
+pin_N_NVf.lm = lm(N_Vf ~ NH4, data = pin)
+summary(pin_N_NVf.lm)
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(pin, aes(x=PAR, y=P_Vf, color = Site)) + geom_point() + 
+  #ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  #xlab(expression(Temperature~(degree*C))) +
+  geom_smooth(method='lm')
+
+```
+
+
+Here are the regressions for Vf and metabolism at I8-In
+```{r}
+
+#Get summary stats for lm on P_Vf at I8-In
+i8in_ER_PVf.lm = lm(P_Vf ~ ER, data = i8in)
+summary(i8in_ER_PVf.lm)
+
+i8in_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8in)
+summary(i8in_GPP_PVf.lm)
+
+
+#Get summary stats for lm on N_Vf at I8-In
+i8in_ER_NVf.lm = lm(N_Vf ~ ER, data = i8in)
+summary(i8in_ER_NVf.lm)
+
+i8in_GPP_NVf.lm = lm(N_Vf ~ GPP, data = i8in)
+summary(i8in_GPP_NVf.lm)
+
+```
+
+
+Generic plotting for visualizing data
+```{r}
+ggplot(i8in, aes(x=GPP, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+```
+
+
+Here are the regressions for Vf and metabolism at I8-Out
+```{r}
+
+#Get summary stats for lm on P_Vf at I8-Out
+i8out_ER_PVf.lm = lm(P_Vf ~ ER, data = i8out)
+summary(i8out_ER_PVf.lm)
+
+i8out_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_PVf.lm)
+
+
+#Get summary stats for lm on N_Vf at I8-Out
+i8out_ER_NVf.lm = lm(N_Vf ~ ER, data = i8out)
+summary(i8out_ER_NVf.lm)
+
+i8out_GPP_NVf.lm = lm(N_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_NVf.lm)
+
+```
+
+
+Here are the regressions for Vf and metabolism at P-In
+```{r}
+
+#Get summary stats for lm on P_Vf at P-In
+pin_ER_PVf.lm = lm(P_Vf ~ ER, data = pin)
+summary(pin_ER_PVf.lm)
+
+pin_GPP_PVf.lm = lm(P_Vf ~ GPP, data = pin)
+summary(pin_GPP_PVf.lm)
+
+
+#Get summary stats for lm on N_Vf at I8-Out
+pin_ER_NVf.lm = lm(N_Vf ~ ER, data = pin)
+summary(pin_ER_NVf.lm)
+
+pin_GPP_NVf.lm = lm(N_Vf ~ GPP, data = pin)
+summary(pin_GPP_NVf.lm)
+
+```
+
+
+
+Below this is plotting and older stuff as of 9/14/20
+
+Regression for Vf and metabolism at I8-Out
+```{r}
+ggplot(i8out, aes(x=GPP, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_GPP_NVf.lm = lm(N_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_NVf.lm)
+
+ggplot(i8out, aes(x=ER, y=N_Vf, color = Site)) + geom_point() + 
+  ylab(expression(NH[4]-N~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("ER (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_ER_NVf.lm = lm(N_Vf ~ ER, data = i8out)
+summary(i8out_ER_NVf.lm)
+```
+
+
+```{r}
+ggplot(i8out, aes(x=GPP, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+
+#Get summary stats for lm
+i8out_GPP_PVf.lm = lm(P_Vf ~ GPP, data = i8out)
+summary(i8out_GPP_PVf.lm)
+```
+
+
+
+```{r}
+ggplot(i8out, aes(x=ER, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("ER (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+#Get summary stats for lm
+i8out_ER_PVf.lm = lm(P_Vf ~ ER, data = i8out)
+summary(i8out_ER_PVf.lm)
+```
+
+
+
+```{r}
+ggplot(i8in, aes(x=GPP, y=P_Vf, color = Site)) + geom_point() + 
+  ylab(expression(PO[4]-P~V[f-amb]~(mm/min))) + 
+  theme_bw(base_size = 16) +
+  xlab(expression ("GPP (g/m"^2*"/d)")) +
+  geom_smooth(method='lm')
+
+#Get summary stats for lm
+i8in_ER_PVf.lm = lm(P_Vf ~ ER, data = i8in)
+summary(i8in_ER_PVf.lm)
+```
+
+
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+---
+title: "csasn_tascc"
+author: "tim covino"
+date: "9/19/2020"
+output: html_document
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(here)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(dplyr)
+install.packages("psych")          # Install psych package
+library("psych")                   # Load psych package
+```
+
+##Load data
+```{r}
+i8a <- read_csv(here('data', 'I8_out_9_2_11_a.csv'))
+Date = '9/2/11'
+Site = 'I8-Out'
+```
+
+
+
+## Some TASCC stuff: here is Inj-A, which is Cl, NO3, and PO4
+```{r}
+#Let's declare some variables
+NaCl_inj <- 4017
+Cl_inj <- NaCl_inj*(0.6066)
+KH2PO4_inj <- 78
+PO4_P_inj <- KH2PO4_inj*(0.2276)
+NaNO3_inj <- 46
+NO3-N_inj <- NaNO3_inj*(0.1648)
+Q <- 43.8
+w <- 2.5
+dist <- 260
+p_cl_inj <- (PO4_P_inj/Cl_inj)
+log_p_cl_inj <- log(p_cl_inj)
+
+#Now background correct the BTC data
+bg_no3 <- min(i8a$NO3_N, na.rm = TRUE)
+i8a <- mutate(i8, cor_no3 = NO3_N - bg_no3)
+
+bg_p <- min(i8a$PO4_P, na.rm = TRUE)
+i8a <- mutate(i8a, cor_p = PO4_P - bg_p*0.9975)  #i8 <- mutate(i8, cor_p = PO4_P - 2.5)
+
+i8a <- mutate(i8a, Cl = Cl*1000)
+bg_cl <- min(i8a$Cl, na.rm = TRUE)
+i8a <- mutate(i8a, cor_cl = Cl - bg_cl*0.9975) #i8 <- mutate(i8, cor_cl = Cl - 2450)
+
+
+#create a vector of nutrient to conservative tracer ratios and calculate Sw-add values
+i8a <- mutate(i8a, p_cl = cor_p/cor_cl)
+i8a <- mutate(i8a, p_cl = replace (p_cl, which(p_cl>p_cl_inj), NA))
+i8a <- mutate(i8a, log_p_cl = log(p_cl))
+i8a <- mutate(i8a, diff = log_p_cl - log_p_cl_inj)
+i8a <- mutate(i8a, kw = diff/dist) 
+i8a <- mutate(i8a, sw = -1/kw)
+```
+
+##Calculate total concentration
+```{r}
+i8a <- mutate(i8a, con_p = p_cl_inj * cor_cl)
+i8a <- mutate(i8a, con_amb_p = con_p + bg_p)
+
+
+i8a <- i8a %>%
+  rowwise() %>% 
+  mutate(tot_p = geometric.mean(c(con_amb_p, PO4_P), na.rm=T)) 
+
+```
+
+
+##Plot Sw vs. concentration and inspect relationship
+```{r}
+ggplot(i8a, aes(x = tot_p, y = sw)) +
+  geom_point(size = 3) +
+  theme_few() +
+  stat_smooth(aes(group = 1), method='lm', color = 'black') +
+  ylim(0, 200)
+
+```
+
+
+##Remove outliers through visual inspection. It is often necessary to remove values on the tails. 
+```{r}
+
+i8a <- mutate(i8a, sw = replace (sw, which(sw<0), NA))
+i8a <- mutate(i8a, sw = replace (sw, which(sw>800), NA))
+```
+
+
+##Fit linear model and retrieve paramater values
+```{r}
+sw.lm = lm(sw ~ tot_p, data=i8a)
+summary(sw.lm)
+```
+
+
+##Do conversions to get other ambient spiralling metrics
+```{r}
+#get Sw-amb value from summary of sw.lm
+Sw_amb = 108.2  # units are m
+
+#Convert Sw-amb to U-amb
+U_amb = ((Q * bg_p)/(Sw_amb *w)) * 60  # units are ug/m2/min
+
+#Convert U-amb to Vf-amb
+Vf_amb = U_amb/bg_p  # units are mm/min
+
+print(Vf_amb)
+print(Date)
+print(Site)
+
+
+```
+
+

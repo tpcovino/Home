@@ -1,0 +1,55 @@
+---
+title: "Term project (70 pts)"
+author: 
+date: "Due Friday 5/12/2022"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+# Overview:
+Create a module (similar to the ones you have been working through for this course) about a watershed measurement approach that we have **NOT** covered in this course. You will work in groups to create this module.
+
+<br>
+
+## Potential Project Topics:
+Watershed boundaries, delineation and terrain analysis.
+
+Hydrologic processes, climate and water balance. Trend detection and analysis, non-parametric approaches.
+
+Precipitation variability, interpolation schemes and data sources.
+
+Groundwater, physical processes, data availability, and modeling approaches.
+
+Erosional processes and modeling.
+
+Water quality: analysis and prediction.
+
+<br>
+
+## Project Proposal (Total 10 pts, in-class on 4/21):
+Create a project outline in order to organize your thoughts before you distill the information into the module format. Then, present this outline to the class in a brief 5 minute presentation. 
+
+The proposal includes the following:
+What is the topic?
+
+Is it focused on data collection, analysis, or both?
+
+What is your idea for the assessment section?
+
+Do you have access to data for the assessment?
+
+## Final Project Module (60 pts, online submission 5/22):
+Your module should include the following sections:
+
+1. Summary (10 pts): Overview including the highlights of the measurement technique (what, why, and how).
+
+2. Overall Learning Objectives (10 pts): Brief summary of what students should take away after reviewing your module
+
+3. Measurement details (20 pts): A few sections that describe in-depth when you would use this technique, how the data are used, what equipment are needed (if any), and how to make the measurement in the field. Of course if your module is focued on analysis of existing (e.g., USGS) data you can adjust by covering how USGS collects flow data. Also, if your module is focues on wathershed delineation you could focus this section on how DEM data are developed by USGS. 
+
+4. Assessment (20 pts): Create an activity that practices the analysis and addresses the learning objectives. Provide data and specify what the students would submit for grading. Be sure to include both the sample data and answer key for the assessment.
+
+Note: While you are welcome to add in pre-made youtube videos, you do not need to record your own lecture or field videos. Although you can if you wish. 
