@@ -48,9 +48,9 @@ df <- df %>%
 
 df %>% 
   ggplot() +
-  geom_point(aes(x = Width_m, y = new_height, color = Location)) +
+  geom_point(aes(x = Width_m, y = new_height, color = Location), alpha = 0.5, size = 3) +
   geom_line(aes(x = Width_m, y = new_height, color = Location)) +
-  geom_point(aes(x = Width_m, y = new_water), color = "blue")+ 
+  geom_point(aes(x = Width_m, y = new_water), color = "blue", alpha = 0.5, size = 3)+ 
   geom_line(aes(x = Width_m, y = new_water), color = "blue") +
   ylab("Height (m)") +
   xlab("Width (m)") +
