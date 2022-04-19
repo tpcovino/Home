@@ -1,0 +1,94 @@
+---
+title: "Channel cross section"
+author: "Tim Covino"
+date: "4/19/2022"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+```
+
+```{r}
+#Packages needed for this project
+
+library(tidyverse)
+library(here)
+
+```
+
+## Read in the data frame.
+```{r}
+df <- read_csv(here('hydrology/src_classes_spring_2022/data/channel_df.csv'))
+```
+
+## Let's plot the raw data
+```{r}
+df %>% 
+  ggplot(aes(x = Width_m, y = Channel_height_m, color = Location)) +
+  geom_point() +
+  geom_line()
+```
+
+## Now lets invert the channel height.
+```{r}
+df %>% 
+  mutate(new_height = 1 - Channel_height_m) %>% 
+  ggplot(aes(x = Width_m, y = new_height, color = Location)) +
+  geom_point() +
+  geom_line()
+  
+```
+
+## That is starting to look OK. Now let's add the water level.
+```{r}
+df <- df %>% 
+  mutate(new_height = 1 - Channel_height_m, new_water = Water_level_m + new_height) 
+
+df %>% 
+  ggplot() +
+  geom_point(aes(x = Width_m, y = new_height, color = Location)) +
+  geom_line(aes(x = Width_m, y = new_height, color = Location)) +
+  geom_point(aes(x = Width_m, y = new_water), color = "blue")+ 
+  geom_line(aes(x = Width_m, y = new_water), color = "blue") +
+  ylab("Height (m)") +
+  xlab("Width (m)") +
+  theme_linedraw() +
+  theme(legend.title = element_blank())
+```
+
+## And if you wanted to calculate the area of the channel. 
+```{r}
+df <- df %>% 
+  mutate(area_m2 = (lead(df$Width_m) - lag(df$Width_m)) / 2 *
+  df$Channel_height_m)
+
+total_area <- sum(df$area_m2, na.rm = TRUE)
+```
+
+
+## We could also calculate the wetted area, mean BF-depth, etc. I don't have the notes on location of BF, so I'll just do wetted area. 
+```{r}
+df <- df %>% 
+  mutate(wetted_area_m2 = (lead(df$Width_m) - lag(df$Width_m)) / 2 *
+  df$Water_level_m)
+
+total_wetted_area <- sum(df$wetted_area_m2, na.rm = TRUE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

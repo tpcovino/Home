@@ -64,7 +64,7 @@ n1 <- coef(model)[2]
 #Now we can plot the data and add a geom_smooth. This is just for visual, it isn't the actual model we just fit. Next we annotate the figure with the equations (i.e., the rating curve).
 ggplot(meas, aes(x = gage_height, y = discharge, color = Date)) +
   geom_point() +
-  theme_linedraw(base_size = 16) +
+  theme_bw(base_size = 16) +
   xlab("Gage height (ft)") +
   ylab("Discharge (cfs)") +
   geom_smooth(color = "red") +

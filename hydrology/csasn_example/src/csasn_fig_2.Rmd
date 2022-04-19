@@ -22,15 +22,15 @@ library(hablar)
 
 
 ```{r}
-data <- read_csv(here('/data', 'csasn_vf_metab_env_p_values_long_11_13_20.csv'))
+data <- read_csv(here('hydrology/csasn_example/data', 'csasn_vf_metab_env_p_values_long_11_13_20.csv'))
 
-df <- read_csv(here('/data/q_c_11_2_20.csv'))
+df <- read_csv(here('hydrology/csasn_example/data/q_c_11_2_20.csv'))
 
-q <- read_csv(here('/data/csasn_q_2011.csv'))
+q <- read_csv(here('hydrology/csasn_example/data/csasn_q_2011.csv'))
 
-p <- read_csv(here('/data/precip.csv'))
+p <- read_csv(here('hydrology/csasn_example/data/precip.csv'))
 
-c <- read_csv(here('/data/doc.csv'))
+c <- read_csv(here('hydrology/csasn_example/data/doc.csv'))
 
 ```
 
@@ -120,7 +120,7 @@ p1 <- ggplot () +
   geom_line(data = i8_in, aes(x = Date, y = PO4*2.7), color = 'deeppink', linetype = 'dashed') +
   geom_point(data = i8_in, aes(x = Date, y = NH4*2.7), color = 'dodgerblue', shape = 17, size = 2) +
   geom_line(data = i8_in, aes(x = Date, y = NH4*2.7), color = 'dodgerblue', linetype = 'dashed') +
-  geom_line(data = i8_in_q, aes(x = Date, y = Q), color = 'blue') +
+  geom_line(data = i8_in_q, aes(x = Date, y = Q_L_s), color = 'blue') +
   labs(color = "y", y = "", x = "") +
   theme(legend.position = 'bottom', labels = c("Q", "NH4-N", "NO3-N", "PO4-P")) +
   theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
@@ -139,7 +139,33 @@ p1 + scale_y_continuous(sec.axis = sec_axis(~ . / 2.7,
 
 dev.off()
 
+
+p1
 ```
+
+```{r}
+p1 <- ggplot () +
+  geom_point(data = i8_in, aes(x = Date, y = NO3*2.7), color = 'darkgreen', shape = 16, size = 2) +
+  geom_line(data = i8_in, aes(x = Date, y = NO3*2.7), color = 'darkgreen', linetype = 'dashed') +
+  geom_line(data = i8_in_q, aes(x = Date, y = Q_L_s), color = 'blue') +
+  labs(color = "y", y = "", x = "") +
+  theme(legend.position = 'bottom', labels = c("Q", "NH4-N", "NO3-N", "PO4-P")) +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  theme_few()
+
+p1 + scale_y_continuous(sec.axis = sec_axis(~ . / 2.7,
+                                            breaks = c(0, 150, 300)), 
+                                            breaks = c(0, 400, 800)) +
+  theme_few(base_size = 20) +
+  scale_color_identity(guide = "legend") +
+  theme(panel.grid.major.x = element_line( size = 0.3, color= 'black', linetype = 'dashed')) +
+  ylab("Q (L/s)")
+
+```
+
+
+
+
 
 
 ```{r}
