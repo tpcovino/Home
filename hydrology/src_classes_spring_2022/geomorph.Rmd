@@ -61,24 +61,22 @@ df %>%
 ## And if you wanted to calculate the area of the channel. 
 ```{r}
 df <- df %>% 
-  mutate(area_m2 = (lead(df$Width_m) - lag(df$Width_m)) / 2 *
-  df$Channel_height_m)
+  mutate(area_m2 = (lead(Width_m) - lag(Width_m)) / 2 *
+  Channel_height_m)
 
 total_area <- sum(df$area_m2, na.rm = TRUE)
 ```
 
 
 ## We could also calculate the wetted area, mean BF-depth, etc. I don't have the notes on location of BF, so I'll just do wetted area. 
+
 ```{r}
 df <- df %>% 
-  mutate(wetted_area_m2 = (lead(df$Width_m) - lag(df$Width_m)) / 2 *
-  df$Water_level_m)
+  mutate(wetted_area_m2 = (lead(Width_m) - lag(Width_m)) / 2 *
+  Water_level_m)
 
 total_wetted_area <- sum(df$wetted_area_m2, na.rm = TRUE)
-
 ```
-
-
 
 
 
