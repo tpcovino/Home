@@ -42,7 +42,8 @@ df %>%
 ```
 
 ## That is starting to look OK. Now let's add the water level.
-```{r}
+```{r, fig.cap = "Figure 1. Cross-sectional data for the Poudre River at the Environmental Learning Center April 2022."}
+
 df <- df %>% 
   mutate(invert_height = 1 - Channel_height_m, new_water = Water_level_m + invert_height) 
 
@@ -56,6 +57,8 @@ df %>%
   xlab("Width (m)") +
   theme_linedraw() +
   theme(legend.title = element_blank())
+
+
 ```
 
 ## And to calculate the area of the channel. The first part is the linear interpolation.You will note that cor_d does have one negative value. You could remove that with a filter. 
