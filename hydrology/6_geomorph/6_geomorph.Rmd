@@ -71,7 +71,7 @@ Manning’s roughness coefficient (n) is commonly determined in the field by the
 
 See supplemental reading [here](https://www.dropbox.com/s/z9j4isaf8smr9du/Milhous_paper.pdf?dl=0):
 
-Limerinos online [calculator](https://il.water.usgs.gov/proj/nvalues/equations.shtml?equation=08-limerinos). Can cal
+Limerinos online [calculator](https://il.water.usgs.gov/proj/nvalues/equations.shtml?equation=08-limerinos)
 
 
 To use the comparative method, photographs of channel segments for which n values have been verified can be used as a comparison standard to aid in assigning n values to similar channels. Refer to the USGS and USFS guides for selecting roughness coefficients:
@@ -152,13 +152,13 @@ Materials:
 
 ### 2.2: Manning’s Roughness Coefficient
 
-1. Use both the comparative and analytical methods to make two estimates of Manning's "n" for the area immediately around your cross section.  First, you will use the provided picture books to select the best match while keeping in mind substrate size and type, vegetation, and the width and depth of flow. Then you will use the analytical Cowan’s method to estimate a base n value and associated adjustments for your site. Be sure to reference the provided tables when making these estimates.
+1. Use the analytical Cowan’s method to estimate a base n value and associated adjustments for your site. Be sure to reference the provided tables when making these estimates.
 
 ### 2.3: Wolman Pebble Count
 
 1.	Briefly walk along the stream and record the dominant channel material (i.e. bedrock, boulders, cobble, gravel, sand, or silt/clay). 
 
-2.	Do a pebble count (~ 20 pebbles per team member; 100 pebbles per group) along your cross-section. You will need 3-4 transects across the stream in order to obtain the necessary sample size (each additional transect should be ~5-10 meters upstream/downstream of the previous count). Sampling transects should extend from bankfull to bankfull and sampling should be random.
+2.	Do a pebble count (100 pebbles per group) along your cross-section. You will need 3-4 transects across the stream in order to obtain the necessary sample size (each additional transect should be ~5-10 meters upstream/downstream of the previous count). Sampling transects should extend from bankfull to bankfull and sampling should be random.
 
 # Assessment: Calculations using pre-collected data (20 pts total)
 
@@ -219,9 +219,8 @@ a.	Using the cross-section data that you collected and the roughness coefficient
 
     i.	Q using the depth at the thalweg and channel area 
     ii.	Q at bankfull stage 
-    iii.	Q at maximum stage as estimated from the elevation of the high water marks
 
-b.	Rearrange and solve Manning's equation for n using the discharge you measured with the Velocity-Area module (i.e., what value would Manning's n have to be for the calculated discharge to equal the measured discharge?) and include in the table outlined below.
+
 
 **4.	Rosgen Stream Classification: calculate the following and include in the table outlined below (10 pts)**
 
@@ -247,7 +246,7 @@ a.	Use the following equations to calculate the LRBS and include the table.
 
 Summary table-for sections 2-5 above:
 
-![](images/table_1.jpg)
+![](images/table_1.JPG)
 
 **Synthesis questions:**
 
