@@ -34,8 +34,8 @@ df %>%
 ## Now lets invert the channel height.
 ```{r}
 df %>% 
-  mutate(new_height = 1 - Channel_height_m) %>% 
-  ggplot(aes(x = Width_m, y = new_height, color = Location)) +
+  mutate(invert_height = 1 - Channel_height_m) %>% 
+  ggplot(aes(x = Width_m, y = invert_height, color = Location)) +
   geom_point() +
   geom_line()
   
@@ -44,12 +44,12 @@ df %>%
 ## That is starting to look OK. Now let's add the water level.
 ```{r}
 df <- df %>% 
-  mutate(new_height = 1 - Channel_height_m, new_water = Water_level_m + new_height) 
+  mutate(invert_height = 1 - Channel_height_m, new_water = Water_level_m + invert_height) 
 
 df %>% 
   ggplot() +
-  geom_point(aes(x = Width_m, y = new_height, color = Location), alpha = 0.5, size = 3) +
-  geom_line(aes(x = Width_m, y = new_height, color = Location)) +
+  geom_point(aes(x = Width_m, y = invert_height, color = Location), alpha = 0.5, size = 3) +
+  geom_line(aes(x = Width_m, y = invert_height, color = Location)) +
   geom_line(aes(x = Width_m, y = new_water), color = "blue", size = 1.5) +
   geom_point(aes(x = Width_m, y = new_water), color = "blue", alpha = 0.5, size = 3)+ 
   ylab("Height (m)") +
@@ -58,11 +58,15 @@ df %>%
   theme(legend.title = element_blank())
 ```
 
-## And if you wanted to calculate the area of the channel. 
+## And to calculate the area of the channel. The first part is the linear interpolation.You will note that cor_d does have one negative value. You could remove that with a filter. 
 ```{r}
+seq <- seq(from = 0.02, to = 0.17, length.out = 61)
+
+df <- cbind(df, seq) %>% 
+  mutate(cor_d = Channel_height_m - seq)
+
 df <- df %>% 
-  mutate(area_m2 = (lead(Width_m) - lag(Width_m)) / 2 *
-  Channel_height_m)
+  mutate(area_m2 = (lead(Width_m) - lag(Width_m)) / 2 *cor_d)
 
 total_area <- sum(df$area_m2, na.rm = TRUE)
 ```
@@ -77,9 +81,6 @@ df <- df %>%
 
 total_wetted_area <- sum(df$wetted_area_m2, na.rm = TRUE)
 ```
-
-
-
 
 
 
