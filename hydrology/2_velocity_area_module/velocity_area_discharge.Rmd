@@ -15,10 +15,11 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = F
 ```{r}
 library(tidyverse)
 library(plotly)
+library(here)
 ```
-### This part you will need to change. Remember that it is best practice to work from projects. If you have a WR696 project with sub-folders you would open the project then navige to the velo_area (for example) folder and open your R markdown. The reason this is nice is that project will open with WR696 as the "working directory". Problems loading data are generally due to thinking you are in a different wd than you actually are. Projects essentially eliminate this issue. 
+### This part you will need to change. Remember that it is best practice to work from projects. If you have a class project with sub-folders you would open the project then navige to the velo_area (for example) folder and open your R markdown. The reason this is nice is that project will open with WR696 as the "working directory". Problems loading data are generally due to thinking you are in a different wd than you actually are. Projects essentially eliminate this issue. 
 ```{r}
-cross <- read_csv("data/velo_area_data_R.csv")
+cross <- read_csv(here("hydrology/2_velocity_area_module/data/velo_area_data_R.csv"))
 ```
 
 ```{r}
@@ -32,6 +33,9 @@ cross <- cross %>%
   cross$depth_m, q = area_m2 * velo_m_s)
 
 tot_q <- sum(cross$q, na.rm = TRUE)
+
+cross <- cross %>% 
+  mutate(q_per = (q/tot_q)*100)
 
 ```
 

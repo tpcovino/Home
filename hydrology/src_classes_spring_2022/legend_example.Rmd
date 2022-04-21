@@ -1,0 +1,58 @@
+---
+title: "Legend example"
+author: "Tim Covino"
+date: "4/19/2022"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+```
+
+```{r}
+#Packages needed for this project
+
+library(tidyverse)
+library(here)
+```
+
+
+```{r}
+df <- read_csv(here('hydrology/src_classes_spring_2022/data/legend_data.csv'))
+```
+
+```{r}
+df %>% 
+  ggplot(aes(x = x, y = y, color = Site)) +
+  geom_point() + 
+  scale_colour_manual(values = c('magenta', 'cyan')) +
+  theme(legend.title = element_blank())
+  
+```
+
+```{r}
+df_a <- read_csv(here('hydrology/src_classes_spring_2022/data/df_a.csv'))
+
+
+df_b <- read_csv(here('hydrology/src_classes_spring_2022/data/df_b.csv'))
+```
+
+```{r}
+df_c <- rbind(df_a, df_b) 
+
+
+df_c %>% 
+  ggplot(aes(x = x, y = y, color = Site)) +
+  geom_point() + 
+  scale_colour_manual(values = c('magenta', 'cyan')) +
+  theme(legend.title = element_blank())
+  
+```
+
+
+
+
+
