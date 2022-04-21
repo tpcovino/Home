@@ -242,6 +242,28 @@ total_area &lt;- sum(df$area_m2, na.rm = TRUE)</code></pre>
 
 total_wetted_area &lt;- sum(df$wetted_area_m2, na.rm = TRUE)</code></pre>
 </div>
+<div id="here-we-can-do-some-bankfull-calculations.-left-bankfull-lbf-was-at-1.3-and-rbf-was-at-28.5." class="section level2">
+<h2>Here we can do some bankfull calculations. Left bankfull (LBF) was at 1.3 and RBF was at 28.5.</h2>
+<pre class="r"><code>bf_df &lt;- df %&gt;% 
+  filter(Width_m %in% c(1.5:28.5)) %&gt;% 
+  select(-Water_level_m, -new_water, -invert_height)
+
+seq_bf &lt;- seq(from = 0.14, to = 0.25, length.out = 28)
+
+bf_df &lt;- cbind(bf_df, seq_bf) %&gt;% 
+  mutate(cor_d_bf = Channel_height_m - seq_bf)
+  
+bf_df$cor_d_bf[bf_df$cor_d_bf &lt; 0] &lt;- 0
+
+mean_bf_d &lt;- mean(bf_df$cor_d_bf)
+
+bf_df &lt;- bf_df %&gt;% 
+  mutate(bf_area_m2 = (lead(Width_m) - lag(Width_m)) / 2 *cor_d_bf)  
+
+tot_bf_area &lt;- sum(bf_df$bf_area_m2, na.rm = TRUE)
+
+bf_df$bf_area_m2[bf_df$bf_area_m2 &lt; 0] &lt;- 0</code></pre>
+</div>
 
 
 
