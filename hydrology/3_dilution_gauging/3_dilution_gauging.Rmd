@@ -13,6 +13,8 @@ output:
 
 In this lab we will be using injected tracers to quantify some measures of stream hydrodynamics. To do so we will be using a conservative tracer (NaCl). A conservative tracer is not affected by biological uptake and does not sorb (stick) to sediments. As such, conservative tracers move as water does and indicate the physical movement of water and solutes through the system. By injecting a known mass of NaCl and measuring the arrival of that tracer at a downstream location, many properties of the flow can be calculated. The arrival of injected tracer at a downstream location is referred to as the breakthrough curve (BTC). The shape of the BTC is controlled by the channel hydrodynamics, which are in turn a function of climate (flow state) and channel morphology. One of the useful parameters that can be calculated from a tracer injection is stream discharge (Q). This approach, called dilution gauging, is particularly useful for small streams where the velocity-area method for measuring stream discharge is less accurate. In general, dilution gauging is more accurate in small streams and the velocity-area method is more accurate in larger streams/rivers with less turbulent flow and more regular channels. In this lab you will be using injected NaCl to quantify: Q and four velocities (5% arrival, modal, median, and 95% departure velocities). With dilution gauging it is important that you recover all mass in order to correctly calculate Q. The 2 main assumptions involved in dilution gauging are: 1. No significant mass loss to the GW system; and 2. Complete mixing of the tracer vertically and laterally across the stream as the pulse reaches the logger. Because of this, when doing dilution gauging we keep the length from injection to logger station just long enough to get complete mixing, but short enough to minimize any loss to the GW system. 
 
+**Question**: *Look at equation 1 to determine how mass loss of tracer (NaCl) to the GW system would influence your estimate of Q?* 
+
 ### Overall Learning Objectives: 
 
 At the end of this module, students will be able to accurately collect field data and calculate stream discharge and four velocities (5% arrival, modal, median, and 95% departure velocities) using the dilution gauging method.
@@ -108,7 +110,7 @@ Materials:
 
 8.	Allow the NaCl pulse to pass through the downstream observation point. The injection is done when the NaCl slug has completely passed by the sampling site and the electrical conductivity (μS/cm) has returned to background (i.e. pre-injection) levels. You can watch the Graph to see if the Conductivity is back to background.
 
-9.	Repeat Steps 4- 8 2 more times in order to have a variety of injection data.
+9.	Repeat Steps 4-8 2 more times in order to have a variety of injection data.
 
 ## 2.2: Campbell Scientific Data logger Instructions
 
@@ -169,7 +171,7 @@ The logger will ask if you really want to do this – because when you send the 
 
 10.	Disconnect from the device by selecting **Disconnect** (the chain icon) on the Main Screen before disconnecting the USB.
 
-# Assessment (20 pts)
+# Assessment (10 pts)
 
 Calculations using pre-collected data provided [here](https://www.dropbox.com/s/hkpucfp1g7lhlj3/DG_Assessment.xlsx?dl=0){target="_blank"}:
 
@@ -179,34 +181,34 @@ And a cleaner data set for use with R:
 
 <!-- If you wish to work in R, this [example code](https://www.dropbox.com/sh/082lpm94i4kwv3t/AABiRSMTD3Q6QyO2YHplJo2ja?dl=0) will help you -->
 
-## Breakthrough Curve Analysis (10 pts)
+## Breakthrough Curve Analysis
 
-Use the provided conductivity breakthrough curve timeseries data to calculate discharge with the dilution gauging method. Note highlighted green rows and columns are data that have been collected in the field. Yellow highlighted rows and columns are what you will be filling in following the directions below:
+Use the provided conductivity breakthrough curve timeseries data to calculate discharge with the dilution gauging method following the directions below:
 
 
-a.	It is useful to convert the timestamp to time since injection (in second) for calculations (column E). Subtract the Start Time from each Timestamp then convert from fractional days to seconds (hint: there are 86400 seconds/day).
+a.	It is useful to convert the timestamp to time since injection (in second) for calculations. Subtract the Start Time from each Timestamp then convert from fractional days to seconds (hint: there are 86400 seconds/day).
 
-b.	When working with tracers you first need to correct for background (i.e. pre-arrival) levels. To do this plot the conductivity data vs. time and determine the background conductivity. You want to capture an average pre-arrival conductivity value. However, it takes some time for conductivity sensors to adapt to local stream conditions. This is because of the temperature influence on conductivity. It takes some time for the conductivity to equilibrate to the temperature of the stream, and during that time the conductivity data are not accurate. Once the sensor has equilibrated, the data are usable. Keep in mind that when we are using conductivity data we generally want to use data that are temperature compensated (i.e., corected to 25 degrees C). Data from Campbell data loggers will by default call this temperature corrected data "COND". When you are determining your background conductivity you should not include data that are rapidly increasing or decreasing pre-arrival, rather pick a relatively stable pre-arrival period. Once you have decided on the background value, subtract this number from all of the recorded conductivity values to provide background corrected values (Column G). Note that when you subtract the average background value from the BTC data you may return negative values. You will need to remove any negative values which can be done with an ‘if statement’.
+b.	When working with tracers you first need to correct for background (i.e. pre-arrival) levels. To do this plot the conductivity data vs. time and determine the background conductivity. You want to capture an average pre-arrival conductivity value. However, it takes some time for conductivity sensors to adapt to local stream conditions. This is because of the temperature influence on conductivity. It takes some time for the conductivity to equilibrate to the temperature of the stream, and during that time the conductivity data are not accurate. Once the sensor has equilibrated, the data are usable. Keep in mind that when we are using conductivity data we generally want to use data that are temperature compensated (i.e., corected to 25 degrees C). Data from Campbell data loggers will by default call this temperature corrected data "COND". When you are determining your background conductivity you should not include data that are rapidly increasing or decreasing pre-arrival, rather pick a relatively stable pre-arrival period. Once you have decided on the background value, subtract this number from all of the recorded conductivity values to provide background corrected values. Note that when you subtract the average background value from the BTC data you may return negative values. You will need to remove any negative values.
 
-c.	Now that you have background corrected conductivity you will need to convert that to NaCl using a concentration factor of 2 (Column H). Keep in mind that the NaCl values prior to arrival of the tracer should be near zero (because this is background corrected). To do this use the following equation:
+c.	Now that you have background corrected conductivity you will need to convert that to NaCl using a concentration factor of 2. Keep in mind that the NaCl values prior to arrival of the tracer should be near zero (because this is background corrected). To convert from conductivity to NaCl (mg/L) use the following equation:
 
 ![](images/equation_2.jpg)
 
-d.	Graph your NaCl (mg/L) breakthrough curve (i.e. time since injection (s), vs background corrected NaCl values).
+d.	Graph the NaCl (mg/L) breakthrough curve (i.e., time since injection (s), vs background corrected NaCl values).
 
 e.	To integrate the breakthrough curve (BTC), assign the first timestep a value of 0 and use the following equation to calculate the integrated NaCl for each cell. 
 
 ![](images/equation_3.jpg)
 
-f.	Using your breakthrough curve (BTC) determine Q. If you do the unit analysis you will see this yields Q in L/s. Remember the BTC needs to be background corrected before you integrate it. Note that the denominator would be the maximum value in column I. 
+f.	Using the breakthrough curve (BTC) determine Q. If you do the unit analysis you will see this yields Q in L/s. Remember the BTC needs to be background corrected before you integrate it.
 
 ![](images/equation_4.jpg)
 
-g.	From your BTC calculate tracer velocities. First, determine the time of the BTC peak. Calculate the time (in seconds) from injection to the peak of the BTC. The distance of injection divided by time to peak is the modal velocity.
+g.	From the BTC calculate tracer velocities. First, determine the time of the BTC peak. Calculate the time (in seconds) from injection to the peak of the BTC. The distance of injection divided by time to peak is the modal velocity.
 
 h.	To determine the other 3 velocities integrate the BTC and normalize the integrated BTC to 1 by dividing each value by the maximum value of the integrated BTC.
 
-i.	Find the time (in seconds) from injection time to 5%, 50%, and 95% arrival times. To do so, plot time since injection against normalized integrated NaCl BTC. Use this graph to determine the time at 0.05, 0.5, and 0.95 recovery. The distance of injection divided by the time to 5, 50, and 95% are the 5, 50 (median), and 95% velocities.
+i.	Find the time (in seconds) from injection time to 5%, 50%, and 95% arrival times. The reach length (distance from injection site to monitoring site) divided by the time to 5, 50, and 95% are the 5%, 50% (median), and 95% velocities.
 
 j.	Generate the table below to submit for your assessment (10 pts)
 
@@ -214,11 +216,11 @@ j.	Generate the table below to submit for your assessment (10 pts)
 
 ## Field Data Analysis and Synthesis Questions: Using your field-collected data
 
-Use the data you collected in the field work section to answer the following questions
+Use the data we collected in the field work section to answer the following questions
 
 **Dilution Gauging Questions (45 pts)**
 
-a.	Provide a table with the following information for each of the 3 dilution gauging replicates that you completed in the field (5 pts):
+a.	Provide a table with the following information for each of the 3 dilution gauging injections that we completed in the field (5 pts):
 
     +	Discharge (L/s), 
     +	modal velocity (m/s), 
@@ -226,18 +228,18 @@ a.	Provide a table with the following information for each of the 3 dilution gau
     
 ![](images/table_2.jpg)
 
-b.	Explain what is responsible for these differences in velocities (i.e modal vs. 5% vs. 50% vs. 95%)? (10 pts)
+b.	Explain what is responsible for the differences in velocities (i.e modal vs. 5% vs. 50% vs. 95%) in the injection your group completed? (10 pts)
 
 
-c.	Do the discharge values vary between the injections? Explain why these values may change? (5 pts)
+c.	Explain what is responsible for the differences in velocities between the 3 injections we completed? (10 pts)
+
+d. Do the discharge values vary between the injections? Explain why these values may change? (5 pts)
 
 d.	How would mass loss affect your calculation of Q and why? (5 pts)
 
-e.	Provide a figure with one of your three slug injection BTC (5 pts)
+e.	Provide a figure with the three normalized integrated slug BTCs with a y-scale that varies from 0-1. Explain differences in the shape of these curves (these are called cumulative density functions, CDFs) in terms of channel morphology and hydrodynamics.  (10 pts)
 
-f.	Provide a figure with one of your three normalized integrated slug BTC with a y-scale that varies from 0-1 (5 pts)
-
-g.	Imagine 2 systems - a natural stream and a cement lined straight channel. Predict what the BTCs of a slug injection in each would look like. Can you draw an illustration to demonstrate? (10 pts)
+g.	Imagine 2 systems - a natural stream and a cement lined straight channel. Predict what the BTCs of a slug injection in each would look like. You can draw an illustration to demonstrate if you'd like. (5 pts)
 
 
 
