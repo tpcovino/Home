@@ -15,6 +15,10 @@ https://tpcovino.github.io/Git_home/hydrology/index.html
 
 # Hydrology labs and assignments
 
+### Multi-scale assessment
+
+  - [Multi-scale assessment](Multi_scale_assessment/Multi_scale_assessment.html){target="_blank"}
+
 ### Meteorological Measurements 
 
   - [Meteorological Measurements lecture and text](5_met_lab/5_met_lab.html){target="_blank"}
