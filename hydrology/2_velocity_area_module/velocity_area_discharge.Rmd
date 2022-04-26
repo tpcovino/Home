@@ -57,14 +57,14 @@ total_area <- cross %>%
 
 ```{r}
 fig <- cross %>% 
-  mutate(neg_depth = depth_m * -1) %>% 
-  ggplot(aes(x = width_m, y = neg_depth)) +
+  mutate(new_depth = 1 - depth_m) %>% 
+  ggplot(aes(x = width_m, y = new_depth)) +
   geom_point() +
   geom_line() +
   ylab("Depth (m)") +
   xlab("Width (m)") +
   theme_linedraw(base_size = 16) +
-  ylim(-0.5, 0)
+  ylim(0.5, 1)
 
 ggplotly(fig)
 

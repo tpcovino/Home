@@ -88,7 +88,7 @@ total_wetted_area <- sum(df$wetted_area_m2, na.rm = TRUE)
 ## Here we can do some bankfull calculations. Left bankfull (LBF) was at 1.3 and RBF was at 28.5. 
 ```{r}
 bf_df <- df %>% 
-  filter(Width_m %in% c(1.5:28.5)) %>% 
+  filter(Width_m %in% c(1.5:28.5)) #%>% 
   select(-Water_level_m, -new_water, -invert_height)
 
 seq_bf <- seq(from = 0.14, to = 0.25, length.out = 28)
@@ -109,6 +109,15 @@ bf_df$bf_area_m2[bf_df$bf_area_m2 < 0] <- 0
 
 ```
 
+## Manning's Q at bankfull
+```{r}
+bf_R <- mean(bf_df$cor_d_bf)
+
+bf_V <- (1/0.03)*((bf_R)^(2/3))*((0.016)^(1/2))
+
+bf_man_Q <- bf_V * tot_bf_area
+
+```
 
 
 

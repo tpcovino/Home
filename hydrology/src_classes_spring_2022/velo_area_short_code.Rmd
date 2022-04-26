@@ -1,0 +1,66 @@
+---
+title: "Velocity-area Q"
+author: "Tim Covino"
+date: "4/21/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(here)
+```
+
+```{r}
+cross <- read_csv(here("hydrology/2_velocity_area_module/data/velo_area_data_R.csv"))
+
+```
+
+```{r}
+cross <- cross %>% 
+  mutate(depth_m = depth_cm/100)
+```
+
+```{r}
+cross <- cross %>% 
+  mutate(area_m2 = (lead(cross$width_m) - lag(cross$width_m)) / 2 *
+  cross$depth_m)
+
+cross <- cross %>% 
+  mutate(q_m3 = area_m2 * velo_m_s)
+
+total_q <- sum(cross$q_m3, na.rm = TRUE)
+```
+
+```{r}
+cross <- cross %>% 
+  mutate(per_q = (q_m3/total_q)*100)
+```
+
+```{r}
+cross %>% 
+  ggplot(aes(x = width_m, y = per_q)) +
+  geom_point()+
+  geom_line()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

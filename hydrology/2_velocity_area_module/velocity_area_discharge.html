@@ -203,14 +203,14 @@ mean_velo &lt;- cross %&gt;%
 total_area &lt;- cross %&gt;% 
   summarize(total_area = sum(area_m2, na.rm = TRUE))</code></pre>
 <pre class="r"><code>fig &lt;- cross %&gt;% 
-  mutate(neg_depth = depth_m * -1) %&gt;% 
-  ggplot(aes(x = width_m, y = neg_depth)) +
+  mutate(new_depth = 1 - depth_m) %&gt;% 
+  ggplot(aes(x = width_m, y = new_depth)) +
   geom_point() +
   geom_line() +
   ylab(&quot;Depth (m)&quot;) +
   xlab(&quot;Width (m)&quot;) +
   theme_linedraw(base_size = 16) +
-  ylim(-0.5, 0)
+  ylim(0.5, 1)
 
 ggplotly(fig)</code></pre>
 </div>
