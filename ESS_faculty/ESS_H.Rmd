@@ -53,10 +53,11 @@ ggplotly(bar_df %>%
 
 
 ```{r}
-ggplotly(bar_df %>% 
+bar_df_unique <- read_csv(here('ESS_faculty/data/H_bar_unique_year.csv'))
+ggplotly(bar_df_unique %>% 
             ggplot() +
             geom_col(aes(x = Years, y = H, fill = Name)) +
-           labs(y = 'Years since PhD', x = 'H index') +
+           labs(x = 'Years since PhD', y = 'H index') +
            theme_linedraw() +
            theme(legend.title = element_blank())
          )
