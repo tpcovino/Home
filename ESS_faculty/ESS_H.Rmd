@@ -45,6 +45,17 @@ ggplotly(bar_df %>%
 ggplotly(bar_df %>% 
             ggplot(aes(x = Years, y = H, color = Name)) +
             geom_point() +
+           labs(y = 'H index', x = 'Years since PhD') +
+           theme_linedraw() +
+           theme(legend.title = element_blank())
+         )
+```
+
+
+```{r}
+ggplotly(bar_df %>% 
+            ggplot() +
+            geom_col(aes(x = Years, y = H, fill = Name)) +
            labs(y = 'Years since PhD', x = 'H index') +
            theme_linedraw() +
            theme(legend.title = element_blank())
