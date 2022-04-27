@@ -63,11 +63,15 @@ Did your measurement conform to USGS standards? If so, explain. If not, explain.
 
 ### Watershed scale results (15 points)
 
-Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
+Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} 
+
+and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
 
 ## Synthesis (35 pts)
 
-Compare your measured discharge to the discharge at the same time at the nearest [USGS gauge](https://nwis.waterdata.usgs.gov/nwis/uv?site_no=06752260). Is your Q the same, more, or less than the Q at the USGS gauge? If it is diffenert provide a plausible explanation for why. (10 pts)
+Compare your measured discharge to the discharge at the same time at the nearest [USGS gauge](https://nwis.waterdata.usgs.gov/nwis/uv?site_no=06752260){target="_blank"}. 
+
+Is your Q the same, more, or less than the Q at the USGS gauge? If it is diffenert provide a plausible explanation for why. (10 pts)
 
 Using the biotic index, wadable habitat assessment and RBS give an assessment of the overall condition of the stream. (10 pts)
 
