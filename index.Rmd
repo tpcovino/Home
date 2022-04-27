@@ -8,3 +8,5 @@ output: html_document
 [Online modules](hydrology/index.html){target="_blank"}
 
 [Watershed Analysis (ENSC 445/545)](watershed_analysis/index.html){target="_blank"}
+
+[ESS H](ESS_faculty/ESS_H.html){target="_blank"}

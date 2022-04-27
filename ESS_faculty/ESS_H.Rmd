@@ -1,0 +1,64 @@
+---
+title: "ESS H"
+author: "Tim Covino"
+date: "4/27/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = TRUE)
+
+```
+
+```{r}
+library(tidyverse)
+library(here)
+library(plotly)
+```
+
+```{r}
+df <- read_csv(here('ESS_faculty/data/ESS_H.csv'))
+```
+
+```{r}
+ ggplotly(df %>% 
+ 
+    ggplot(aes(x = Years, y = H, color = Name)) +
+  geom_point() +
+    theme_linedraw() +
+    labs(x = "Years since PhD", y = "H index")
+  )
+```
+
+
+```{r}
+bar_df <- read_csv(here('ESS_faculty/data/H_bar.csv'))
+
+ggplotly(bar_df %>% 
+  ggplot() +
+  geom_col(aes(x = Name, y = H, fill = Years)) +
+  theme_linedraw() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(y = 'H index', x = ''))
+  
+ggplotly(bar_df %>% 
+            ggplot(aes(x = Years, y = H, color = Name)) +
+            geom_point() +
+           labs(y = 'Years since PhD', x = 'H index') +
+           theme_linedraw() +
+           theme(legend.title = element_blank())
+         )
+```
+
+
+
+
+
+
+
+
+
+
+
+
