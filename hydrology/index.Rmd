@@ -18,6 +18,8 @@ https://tpcovino.github.io/Git_home/hydrology/index.html
 ### Multi-scale assessment
 
   - [Multi-scale assessment](Multi_scale_assessment/Multi_scale_assessment.html){target="_blank"}
+  
+  - [Multi-scale assessment field work](Multi_scale_assessment/Multi_scale_assessment_field_work.html){target="_blank"}
 
 ### Meteorological Measurements 
 

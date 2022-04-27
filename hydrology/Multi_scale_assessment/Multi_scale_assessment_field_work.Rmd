@@ -1,0 +1,55 @@
+---
+title: "Multi-scale assessment field work"
+author: "Tim Covino"
+date: "4/27/2022"
+output: html_document
+---
+## Safety! 
+The river is starting to come up. During this lab we need to be very careful and select cross sections that we know are shallow and not too swift. I was at the site this weekend and the water was dark (potentially still stuff coming off the fire). Murky rivers are dangerous because you cannot see the bottom. Do not wade in any part of the river that looks deeper than about knee height or lower. If you can't see the bottom use a stadia rod to probe the depth before wading into the water. 
+
+### Macroinvertebrate sampling
+
+1.	Select a stream reach for your macroinvertebrate sampling that includes a variety of habitat types. Record site metadata in your field book. Include your names, the stream name and location, and the date and time of your sampling. 
+
+2.	You should sample 3 habitat types along your stream reach. Examples of habitat types include riffles, pools, undercut banks, and thalweg. Perform a kick sample at each of your selected habitat types with the same net (i.e. one sample).
+
+3.	To perform kick net sampling, you position the kick net flat against the streambed so the net is open to incoming flow. Stand just upstream of your open net and kick the streambed vigorously for 30 seconds. This will cause any attached macro-invertebrates to detach and float downstream into your net. 
+
+4.	Place all macroinvertebrates from your 3 kick net samples into one white tub by turning the net inside out and rinsing with water. Add water as necessary so your sample is suspended in thin layer of water. Remove any large debris (i.e. leaves, rocks, sticks) from your tub after removing all macroinvertebrates from those surfaces. 
+
+5.	Fill ice cube tray half-full with water
+
+6.	Use a plastic spoon, tweezers, or a paintbrush to move macroinvertebrates from the white tub to the ice cube tray. Try to place macroinvertebrates that look alike in the same compartment. This will help you with both identification and counting. 
+
+7.	Use the key to identify macroinvertebrates. On the worksheet, circle the animals that match those found in your sample. You do not need to count the number of individual animals in your sample. Rather you will count the number of animals within each sensitivity group (i.e. sensitive, semi-sensitive, semi-tolerant, and tolerant) on the associated worksheet. For example, if you found a bunch of stonefly larva and 1 alderfly larva in your sample, your number of group 1 animals circled would only be 2 because you found 2 different sensitive species – the stonefly and alderfly larva. 
+
+### Qualitative stream habitat assessment
+
+1.	Draw a field sketch of your stream reach. Be sure to take note of riparian buffers, dominant vegetation types, bank erosion, fish refuge, riffles, pools, etc. 
+
+2.	Measure out a stream length that is 40 times the wetted width and divide it into 10 segments. Then do the physical assessment in #3 at each of the 10 segments. 
+
+3.	At each transect evaluate: riparian buffer, bank erosion, pool area, width/depth ratio, % fine sediments, and fish cover according to the associated worksheet. Select the rating that appears most commonly in each category.
+
+4.	Be sure to record site metadata include station name and location, collection date and time, stream width, stream length, water level, water clarity, and channel condition.
+
+### Cross section and gradient measurements
+
+1.	Mark your cross section with rebar stakes beyond the bankfull width and extend 10 meters into the flood-prone area (if possible). Run a field tape spanning the cross section and tie tightly to rebar. 
+
+2.	Survey your cross section using a stadia rod and engineers level. You will want to record measurements at a consistent interval (~0.5 meters) as well as each key location (i.e., edges of flood-prone area, bankfull edges, wetted width edges, the thalweg and any other areas with a significant change in slope). At each location, you need to record: 1) the distance of each measurement location on the field tape; and, 2) the height on the stadia rod as seen through the engineers level. In this lab you do not need to meausre the water depth as you will do that in your velocity-area measurement.
+
+3.	Measure the channel bed and water surface slopes longitudinally (up and down) the reach you are working on using the engineers level and stadia rod. Select a length that is long enough to get a representative average slope. 
+
+4. Measure channel sinuosity (stream length/valley length). You will need to select a sufficient length of stream to measure sinuosity. Sinuosity is channel length/valley length. You can measure channel length on the bank as opposed to walking up the river. This is the safer option as flows are starting to come up and there may be sections of the river that are too deep to safely wade.  
+
+
+### Wolman pebble count
+
+1.	Briefly walk along the stream and record the dominant channel material (i.e. bedrock, boulders, cobble, gravel, sand, or silt/clay). 
+
+2.	Do a pebble count (100 pebbles per group) along your cross-section. You will need 3-4 transects across the stream in order to obtain the necessary sample size (each additional transect should be ~5-10 meters upstream/downstream of the previous count). Sampling transects should extend from bankfull to bankfull and sampling should be random.
+
+### Velocity-area discharge
+
+1. Measure the stream discharge at your designated cross-section, using about 25 subsections, and velocity measurements at 0.6 times the depth at each subsection. If the stream or river you are measuring is more than 2.5 feet deep you should take velocity measurements at 0.2 and 0.8 depths. You should aim for no more than 5% of the flow in any one segment of your cross-section.
