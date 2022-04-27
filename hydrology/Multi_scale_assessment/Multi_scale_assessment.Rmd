@@ -15,9 +15,9 @@ See [here](https://www.fcgov.com/poudrereportcard/pdf/sopr2016.pdf) and [here](h
 
 ## Site
 
-We will be working on a reach at the [Watson Lake State Wildlife Area](https://poudreheritage.org/locations/watson-lake-state-wildlife-area/)
+We will be working on a reach at the [Watson Lake State Wildlife Area](https://poudreheritage.org/locations/watson-lake-state-wildlife-area/){target="_blank"}
 
-Here is the [Google map location](https://goo.gl/maps/yWJXf5rMgv5iG8Hk9)
+Here is the [Google map location](https://goo.gl/maps/yWJXf5rMgv5iG8Hk9){target="_blank"}
 
 
 With your group find a location to perform the field work. In the field you will collect the data necessary to do the following:
@@ -63,7 +63,7 @@ Did your measurement conform to USGS standards? If so, explain. If not, explain.
 
 ### Watershed scale results (15 points)
 
-Go to [StreamStats](https://streamstats.usgs.gov/ss/) and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
+Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
 
 ## Synthesis (35 pts)
 
