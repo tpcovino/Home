@@ -63,9 +63,7 @@ Did your measurement conform to USGS standards? If so, explain. If not, explain.
 
 ### Watershed scale results (15 points)
 
-Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} 
-
-and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
+Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
 
 ## Synthesis (35 pts)
 
