@@ -1,0 +1,148 @@
+---
+title: "Dilution gauging"
+author: "Tim Covino"
+date: "9/30/2021"
+output: html_document
+---
+```{r}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, results = FALSE)
+```
+
+
+## The libraries we will need. Remember to install the packages if you need. 
+```{r}
+library(tidyverse)
+library(here)
+library(plotly)
+library(lubridate)
+library(tibbletime)
+```
+
+## Load data and make the time a tbl time to allow for indexing. We will use that later to return times to 5%, 50%, and 95% recovery of tracer. 
+```{r}
+df_assess <- read_csv(here('hydrology/3_dilution_gauging/R/data/corrected_conductivity_working.csv'))
+
+df <- read_csv(here('hydrology/3_dilution_gauging/R/data/COND_data_4_26_22.csv'))
+
+df_assess_tt <- as_tbl_time(df_assess, index = Time)
+df_tt <- as_tbl_time(df, index = Time) 
+
+```
+
+## Do a plotly to look at data
+```{r}
+ggplotly(df_assess_tt %>%
+  ggplot(aes(x = Time, y = Cond_cor)) +
+  geom_point()
+    )
+```
+ 
+## Let's add in metadata
+```{r}
+dist <- 20 
+
+## injection 1
+mass1<-223.8
+injTime1 <- "15:11:35"
+endTime1 <- "15:24:00"
+## injection 2
+mass2<-418.4
+injTime2 <- "15:21:40"
+## injection 3
+mass3<-312.6
+injTime3 <- "15:41:45"
+```
+
+## Here we will filter the data frame down to the data for each injection. 
+```{r}
+inj_1 <- df_assess_tt %>% 
+  filter_time(injTime1 ~ endTime1) %>% 
+  mutate(time_since_inj = Run_time - 2045)
+
+```
+
+## We need to correct the tracer data for background concentrations. So let's look at the data and determine background. 
+```{r}
+ggplotly(inj_1 %>% 
+  ggplot() +
+  geom_point(aes(x = time_since_inj, y = Cond_cor))
+)
+
+inj_1 <- inj_1 %>% 
+  mutate(bg_sc = Cond_cor - 0.75) %>% 
+  filter(bg_sc > 0)
+
+```
+
+## And then we should plot that to make sure it looks good. 
+```{r}
+ggplotly(inj_1 %>% 
+  ggplot(aes(x = time_since_inj, y = bg_sc)) +
+  geom_point() +
+    labs(x = 'Time since injection (s)', y = 'SC (uS/cm)')
+  )
+```
+
+## Next we need to do the integration.
+```{r}
+inj_1 <- inj_1 %>% 
+  mutate(NaCl = bg_sc/2) %>% # convert from conductivity (mS/cm) to concentration NaCl (g/L)
+  mutate(IntC_s1 = NaCl+lag(NaCl, default=0)) %>% # begin integration through addition 
+  mutate(IntC = cumsum(IntC_s1*.5*5)) %>% # complete integration
+  mutate(recovery = IntC/max(IntC)) # Convert to relative recovery vayring from 0 to 1
+
+```
+
+```{r}
+ggplotly(inj_1 %>% 
+  ggplot() +
+  geom_point(aes(x = time_since_inj, recovery)) +
+  theme_linedraw() +
+  labs(x = 'Time since injection (s)', y = 'Relative tracer recovery (-)') 
+)
+```
+
+## We can use those data to make some velocity calculations. Recall that we will calculate the arrival, peak, median, and exit travel times. 
+```{r}
+# We can use the ggplotly to determine time to peak, which is the modal velocity. 
+
+ttp <- 210
+
+fiveRecovery.idx1<- which.min(abs(inj_1$recovery-.05)) # find the index of the point that has recovery equal to .05 (or 5%)
+fiftyRecovery.idx1<- which.min(abs(inj_1$recovery-0.5))
+ninetyfiveRecoery.idx1<- which.min(abs(inj_1$recovery-0.95))
+
+five_time <- inj_1[26, 4]
+#fifty_time <- inj_1[]
+#ninety_five_time <- inj_1[]
+
+
+five_vel <- dist/five_time
+#fifty_vel <- dist/fifty_time
+#ninety_five_vel <- dist/ninety_five_time
+
+```
+
+
+```{r}
+# Determine flow
+Q1 <- mass1/max(inj_1$IntC)
+
+```
+
+
+## Now you can repeat these steps for slugs 2 and 3. 
+
+inj_2 <- df_tt %>% 
+  filter_time(injTime2 ~ endTime2) #%>% 
+  mutate(time_since_inj = Run_time - 2650)
+
+inj_3 <- df_tt %>% 
+  filter_time(injTime3 ~ endTime3) #%>% 
+  mutate(time_since_inj = Run_time - 3855)
+
+
+
+
+
+

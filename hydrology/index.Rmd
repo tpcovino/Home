@@ -91,6 +91,10 @@ https://tpcovino.github.io/Git_home/hydrology/index.html
 ### Some channel cross-section code
 
   - [Plotting channel cross sectional data](src_classes_spring_2022/geomorph.html){target="_blank"}
+  
+### Dilution gauging 5/3/22
+
+  - [Dilution gauging 5/3/22](3_dilution_gauging/R/dilution_5_3_22.Rmd){target="_blank"}
 
 
 

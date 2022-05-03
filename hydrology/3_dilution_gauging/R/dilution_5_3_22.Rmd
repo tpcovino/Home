@@ -1,0 +1,128 @@
+---
+title: "Dilution gauging"
+author: "Tim Covino"
+date: "5/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, results = TRUE)
+
+```
+
+```{r}
+library(tidyverse)
+library(here)
+library(plotly)
+library(lubridate)
+library(tibbletime)
+```
+
+```{r}
+df <- read_csv(here('hydrology/3_dilution_gauging/R/data/COND_data_4_26_22.csv'))
+
+df_tt <- as_tbl_time(df, index = Time)
+
+```
+
+```{r}
+ggplotly(df_tt %>% 
+           ggplot(aes(x = Time, y = Cond_cor)) +
+           geom_point()
+         )
+```
+
+# Meta data for injection 3
+```{r}
+dist3 <- 13.15 
+mass3 <- 335.8
+injTime3 <- "13:12:40"
+endTime3 <- "13:19:00"  
+#field_bg <- 954
+  
+```
+
+```{r}
+inj_3 <- df_tt %>% 
+  filter_time(injTime3 ~ endTime3)
+```
+
+```{r}
+ggplotly(inj_3 %>% 
+  ggplot() +
+  geom_point(aes(x = Time, Cond_cor))
+)
+```
+
+# Create time since injection column with mutate call. 
+```{r}
+inj_3 <- inj_3 %>% 
+  mutate(time_since_inj = Run_time - 715)
+```
+
+
+# Background correct the breakthrough curve (BTC)
+```{r}
+inj_3 <- inj_3 %>% 
+  mutate(bg_sc = Cond_cor - 960)
+```
+
+```{r}
+ggplotly(inj_3 %>% 
+  ggplot() +
+  geom_point(aes(x = time_since_inj, bg_sc))
+)
+```
+
+# Modal velocity in m/s
+```{r}
+time_to_peak <- 110
+modal_velocity_3 <- dist3/time_to_peak
+
+```
+
+# Convert micro to milliSiemans and then g/L NaCl
+```{r}
+inj_3 <- inj_3 %>% 
+  mutate(NaCl = bg_sc/2) %>% 
+  mutate(IntC_s1 = NaCl+lag(NaCl, default = 0)) %>% 
+  mutate(IntC = cumsum(IntC_s1*.5*5)) %>% 
+  mutate(recovery = IntC/max(IntC))
+
+
+q3 <- max(inj_3$IntC/mass3)
+
+```
+
+# Pull out the 5, 50 and 95% velocites
+```{r}
+fiveRecovery.idx3 <- which.min(abs(inj_3$recovery - 0.05)) 
+five_time_3 <- inj_3[18, 4]
+five_velo_3 <- dist3/five_time_3
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

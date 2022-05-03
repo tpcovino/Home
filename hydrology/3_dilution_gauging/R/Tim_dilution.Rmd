@@ -18,7 +18,7 @@ df <- read_csv('hydrology/3_dilution_gauging/R/data/corrected_conductivity_worki
 
 df_tt <- as_tbl_time(df, index = Time)
 
-df_tt <- df_tt %>% 
+#df_tt <- df_tt %>% 
   mutate(time_s= as.numeric(Run_time)) %>% 
   mutate(Time = as.POSIXct(Time,format="%H:%M:%S"))
 ```
@@ -61,7 +61,7 @@ inj_3 <- df_tt %>%
 
 ```{r}
 ggplotly(inj_3 %>% 
-  ggplot(aes(x = time_since_inj, y = recovery)) +
+  ggplot(aes(x = time_since_inj, y = bg_sc)) +
   geom_point())
 ```
 
@@ -73,13 +73,20 @@ inj_3 <- inj_3 %>%
 
 ```{r}
 peak = 45
-median = 
+median = 65
   
 fiveRecovery.idx1<- which.min(abs(inj_3$recovery-.05)) # find the index of the point that has recovery equal to .05 (or 5%)
+fiftyRecovery.idx1<- which.min(abs(inj_3$recovery-0.5))
+ninetyfiveRecoery.idx1<- which.min(abs(inj_3$recovery-0.95))
 
 five_time <- inj_3[5, 6]
+fifty_time <- inj_3[13, 6]
+ninety_five_time <- inj_3[35, 6]
+
 
 five_vel <- dist/five_time
+fifty_vel <- dist/fifty_time
+ninety_five_vel <- dist/ninety_five_time
 
 ```
 
@@ -94,6 +101,12 @@ inj_3 <- inj_3 %>%
 Q1<-mass1/max(inj_3$IntC)
 ```
 
+```{r}
+ggplotly(inj_3 %>% 
+  ggplot() +
+  geom_point(aes(x = time_since_inj, recovery))
+)
+```
 
 
 
