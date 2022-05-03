@@ -21,7 +21,7 @@ library(here)
 ### Read in field data and enter metadata
 ```{r}
 # Read in data from datalogger
-cond <- read.csv("data/corrected conductivity.csv", skip = 3, header = T)[ ,1:6]
+cond <- read.csv("hydrology/3_dilution_gauging/R/data/corrected_conductivity.csv", skip = 3, header = T)[ ,1:6]
 
 names(cond) <- c("Timestamp", "time_s", "RN", "Cond_cor_mS", "Ct_raw_mS", "Temp_C")
 

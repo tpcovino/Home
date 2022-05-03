@@ -289,9 +289,32 @@ div.tocify {
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9H-0A3nJabM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1">
 </iframe>
 </div>
+<div id="hands-on-activity-5-pts" class="section level2">
+<h2>Hands-on Activity (5 pts)</h2>
+<p>Similar to a stage-discharge relationship you would make in a stream, you can make a volume-depth relationship with any cup or bowl at your house.</p>
+<p><strong>Materials:</strong></p>
+<ol style="list-style-type: decimal">
+<li>2 different water vessels (i.e. cups, water bottles and bowls). Make sure they vary in size and shape.</li>
+<li>Measuring cup</li>
+<li>Ruler</li>
+<li>Notebook</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Using the measuring cup, add a known amount of water into one of the water vessels.</li>
+<li>Measure the height of the water with your ruler.</li>
+<li>Record the total amount of water in the cup and depth of the water.</li>
+<li>Repeat steps 1 – 3, 5 times. Be sure you have a large range of water depths ranging from almost empty to full.</li>
+<li>Repeat the above steps with your second water vessel.</li>
+<li>Plot your results for each water vessel separately. Put the depth of water on the x-axis and the volume on the y-axis. Add a best fit line to your plot. Include these two plots in your Assessment submission. (2.5 pts)</li>
+<li>Reflect: What are the differences between your two plots? What is the primary factor controlling the difference between the two volume-stage relationships you developed in the hands on activity? (2.5 pts)</li>
+</ol>
+<p><strong>Activity Video:</strong></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/In-J9mHh6rU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1">
+</iframe>
 </div>
-<div id="assessment-30-pts" class="section level1">
-<h1>Assessment: (30 pts)</h1>
+</div>
+<div id="assessment-20-pts" class="section level1">
+<h1>Assessment: (20 pts)</h1>
 <p>We can use the data retrieval package to get data for the gauge on the Poudre near the ELC</p>
 <pre class="r"><code>#Packages needed for this project
 library(dataRetrieval)
@@ -305,9 +328,9 @@ all_meas &lt;- readNWISmeas(siteNumbers = &#39;06752280&#39;)
 all_meas &lt;- all_meas %&gt;% 
   select(measurement_dateTime, gage_height_va, discharge_va,  measured_rating_diff) %&gt;% 
   rename(Date = 1, gage_height = 2, discharge = 3, rating = 4) </code></pre>
-<p>1.Create a rating curve with gage height on the x and discharge on the y using all data. Color the points by date and fit a curve (e.g., geom_smooth). Does the rating curve look consistent through time? Include your figure and comment on the consistency of the rating curve through time. If it is not consistent through time comment on what could have caused any shifts in the rating curve. (10 pts)</p>
+<p>1.Create a rating curve with gage height on the x and discharge on the y using all data. Color the points by date and fit a curve (e.g., geom_smooth). Does the rating curve look consistent through time? Include your figure and comment on the consistency of the rating curve through time. If it is not consistent through time comment on what could have caused any shifts in the rating curve. (5 pts)</p>
 <p><br> 2.Create a second rating curve where you only include measurements taken in years 2008 – 2021 that have a quality rating of Good. Fit a non-linear curve to the data and extract the model parameters.</p>
-<p>Rembmer that stage-discharge relations (the rating curve) are typically non-linear. We will use nls, which you can read up on with “?nls”. In this model a1, C, and n are parameters and we have to give them initial values. After that R will find the best fit for each parameter. The equation will be Q = C(Stage - a1)^n where C is a fitting parameter, a1 is the depth at which flow is 0 (so if flow was zero at 1 ft depth a1 = 1), and n is an exponent that gives the function its concave up shape. Include this figure in your submission. (10 pts) <br></p>
+<p>Rembmer that stage-discharge relations (the rating curve) are typically non-linear. We will use nls, which you can read up on with “?nls”. In this model a1, C, and n are parameters and we have to give them initial values. After that R will find the best fit for each parameter. The equation will be Q = C(Stage - a1)^n where C is a fitting parameter, a1 is the depth at which flow is 0 (so if flow was zero at 1 ft depth a1 = 1), and n is an exponent that gives the function its concave up shape. Include this figure in your submission. (5 pts) <br></p>
 <p>3.Using the rating curve you created, answer the following questions (5 pts):</p>
 <p>What is the discharge at this site for a stage of 3.35 ft? Is it appropriate to estimate discharge for a stage of 8.5 ft with this rating curve? If so, what is the discharge? If not, why? <br><br />
 4.Describe the process to create a rating curve at a stream site be sure to include information on (5 pts):</p>
