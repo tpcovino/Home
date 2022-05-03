@@ -194,7 +194,7 @@ c.	Now that you have background corrected conductivity you will need to convert 
 
 ![](images/equation_2.jpg)
 
-d.	Graph the NaCl (mg/L) breakthrough curve (i.e., time since injection (s), vs background corrected NaCl values).
+d.	Graph the NaCl (g/L) breakthrough curve (i.e., time since injection (s), vs background corrected NaCl values).
 
 e.	To integrate the breakthrough curve (BTC), assign the first timestep a value of 0 and use the following equation to calculate the integrated NaCl for each cell. 
 
