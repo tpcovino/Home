@@ -34,7 +34,9 @@ ggplotly(df_tt %>%
 
 # Meta data for injection 3
 ```{r}
+#Distance in meters
 dist3 <- 13.15 
+#Mass in grams
 mass3 <- 335.8
 injTime3 <- "13:12:40"
 endTime3 <- "13:19:00"  
@@ -84,13 +86,13 @@ modal_velocity_3 <- dist3/time_to_peak
 # Convert micro to milliSiemans and then g/L NaCl
 ```{r}
 inj_3 <- inj_3 %>% 
-  mutate(NaCl = bg_sc/2) %>% 
+  mutate(NaCl = bg_sc/1000/2) %>% 
   mutate(IntC_s1 = NaCl+lag(NaCl, default = 0)) %>% 
   mutate(IntC = cumsum(IntC_s1*.5*5)) %>% 
   mutate(recovery = IntC/max(IntC))
 
 
-q3 <- max(inj_3$IntC/mass3)
+q3 <- mass3/(max(inj_3$IntC))
 
 ```
 
