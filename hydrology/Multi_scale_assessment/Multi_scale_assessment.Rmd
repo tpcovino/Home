@@ -1,5 +1,5 @@
 ---
-title: "Multi-scale assessment (90 pts)"
+title: "Multi-scale assessment (60 pts)"
 author: 
 date: 
 output: html_document
@@ -41,7 +41,7 @@ Remember to take ample notes and photographs!
 
 ## Results
 
-### Reach scale results (40 points)
+### Reach scale results (32.5 points)
 
 What is the biotic index of your stream reach? (5 pts)
 
@@ -53,7 +53,7 @@ Provide a geomorphic cross-section of your reach. Identify the floodplains, left
 
 <br>
 
-What is the Rosgen classification? Justify this by providing the Rosgen entrenchment ratio (<1.4, 1.4-2.2, or >2.2), the bankfull width to bankfull depth ratio, the sinuousity, the slope, and the dominant channel material. (10 pts)
+What is the Rosgen classification? Justify this by providing the Rosgen entrenchment ratio (<1.4, 1.4-2.2, or >2.2), the bankfull width to bankfull depth ratio, the sinuousity, the slope, and the dominant channel material. (5 pts)
 
 ![](images/rosgen_chart.jpeg){width=100%}
 
@@ -61,21 +61,21 @@ What is the D<sub>50</sub>, D<sub>CBF</sub> and RBS? (5 pts)
 
 What is your measured stream discharge? (5 pts)
 
-Did your measurement conform to USGS standards? If so, explain. If not, explain. (5 pts)
+Did your measurement conform to USGS standards? If so, explain. If not, explain. (2.5 pts)
 
-### Watershed scale results (15 points)
+### Watershed scale results (5 points)
 
-Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (15 pts)
+Go to [StreamStats](https://streamstats.usgs.gov/ss/){target="_blank"} and delineate the watershed contributing to your reach (an approximate reach location is sufficient). Select "all basin characteristics" and summarize this information in a table. (5 pts)
 
-## Synthesis (35 pts)
+## Synthesis (22.5 pts)
 
 Compare your measured discharge to the discharge at the same time at the nearest [USGS gauge](https://nwis.waterdata.usgs.gov/nwis/uv?site_no=06752260){target="_blank"}. 
 
-Is your Q the same, more, or less than the Q at the USGS gauge? If it is diffenert provide a plausible explanation for why. (10 pts)
+Is your Q the same, more, or less than the Q at the USGS gauge? If it is diffenert provide a plausible explanation for why. (2.5 pts)
 
 Using the biotic index, wadable habitat assessment and RBS give an assessment of the overall condition of the stream. (10 pts)
 
-Building upon the previous question use your watershed-scale data, your walk around the site to view the local land use, and your expertise as a watershed scientist to explain what local and upstream land cover/land use, water management, etc. may be impacting this reach and resulting in the current condition (good or bad). (15 pts)
+Building upon the previous question use your watershed-scale data, your walk around the site to view the local land use, and your expertise as a watershed scientist to explain what local and upstream land cover/land use, water management, etc. may be impacting this reach and resulting in the current condition (good or bad). (10 pts)
 
 
 
