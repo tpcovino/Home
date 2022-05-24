@@ -1,0 +1,42 @@
+---
+title: "SSFP slug 2020"
+author: "Tim Covino"
+date: "5/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+```
+
+```{r}
+library(tidyverse)
+library(here)
+library(lubridate)
+```
+
+```{r}
+df <- read_csv(here('FEF/SSFP_slug_2020.csv'))
+
+df$Date <- mdy_hm(df$Date)
+
+```
+
+```{r}
+df %>% 
+  ggplot() +
+  geom_point(aes(x = Date, y = SC, color = Site))
+
+```
+
+
+
+
+
+
+
+
+
+
