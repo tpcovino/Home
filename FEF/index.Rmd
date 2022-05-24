@@ -1,0 +1,12 @@
+---
+title: "Landing page for Career project"
+author: "Tim Covino"
+date: "5/24/2022"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+---
+
+[SSFP slug BTCs summer 2020](src/SSFP_slug_2020.html){target="_blank"}

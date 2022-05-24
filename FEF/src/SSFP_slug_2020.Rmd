@@ -18,7 +18,7 @@ library(lubridate)
 ```
 
 ```{r}
-df <- read_csv(here('FEF/SSFP_slug_2020.csv'))
+df <- read_csv(here('FEF/data/SSFP_slug_2020.csv'))
 
 df$Date <- mdy_hm(df$Date)
 
