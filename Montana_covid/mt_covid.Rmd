@@ -1,0 +1,91 @@
+---
+title: "covid"
+author: "Tim Covino"
+date: '2022-07-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = FALSE)
+
+```
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+```{r}
+df <- read_csv(here('Montana_covid/mt_covid.csv')) %>% 
+  mutate(Ratio = Deaths/Cases) %>% 
+  mutate(Percent = Ratio * 100)
+
+```
+
+```{r}
+df %>% 
+  ggplot(aes(x = Location, y = Ratio)) +
+  geom_col()
+
+order_df <- df %>% 
+  arrange(Ratio)
+```
+
+```{r}
+order_df %>% 
+  ggplot(aes(x = reorder(Location, Ratio), y = Ratio)) +
+  geom_col() +
+  labs(y = 'Deaths (-)', x ='') +
+  theme_linedraw() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+```{r}
+order_df %>% 
+  ggplot(aes(x = reorder(Location, Percent), y = Percent)) +
+  geom_col() +
+  labs(y = 'Death rate \n(% of total cases within county)', x ='') +
+  theme_linedraw() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+
+```{r}
+order_df %>% 
+  ggplot(aes(x = reorder(Location, Cases), y = Cases)) +
+  geom_col() +
+  labs(y = 'Death rate \n(% of total cases within county)', x ='') +
+  theme_linedraw() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+```{r}
+order_df %>% 
+  ggplot(aes(x = Cases, y = Percent)) +
+  geom_point() +
+  labs(y = 'Death rate \n(% of total cases within county)', x ='Cases') +
+  theme_linedraw()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

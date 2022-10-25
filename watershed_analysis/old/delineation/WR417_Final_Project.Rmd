@@ -1,0 +1,120 @@
+---
+title: "WR417 Final Project: Delineating Watersheds"
+author: "Marin MacDonald and Alex Merklein"
+date: '2022-05-11'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(sf)
+library(mapview)
+library(nhdplusTools)
+
+mapviewOptions(fgb = FALSE)
+```
+
+# Overview
+This project will focus on how to delineate watersheds using two different methods. The first, using ArcGIS Pro and StreamStats, and the other, using ndhdPlus Tools in R. 
+
+# Packages 
+The packages required for this lesson include: \n
+
+  -Tidyverse, in order to use pipes\n
+
+  -mapview, in order to map the delineated watersheds\n
+
+  -nhdplusTools, to delineate the watershed\n
+
+# Using StreamStats to Delineate Watersheds
+For this method of delineating watersheds, we will be using [StreamStats](https://streamstats.usgs.gov/ss/), a program run by the USGS which allows flowlines to be selected, and returns stats on the chosen watershed. 
+The site that we are going to be using for our watershed delineation is in Greeley, Colorado.
+
+**Station ID:** 06752500
+
+**Station Name:** CACHE LA POUDRE RIVER NEAR GREELEY, CO.
+
+**Latitude:** 40.41776
+
+**Longitude:** -104.64
+
+## Methods in StreamStats
+1. Go to “search for a place”, enter the station ID, and select Colorado as the State. This will
+bring you to the part where you delineate your watershed.
+
+2. Click the Delineate button and then click on one of the blue pixels near our site. This process
+may take a few minutes.
+(Reference Q2_Image)
+
+3. Before we collect the data for Arc select DRNAREA under basin characteristics, continue, and
+open report. How large is the drainage area for this watershed?
+
+4. Once this process is completed you will see a view of the watershed that we are delineating.
+  - You will now click the “Download Basin” button and select the ShapeFile option.
+  - This will give you a zip file containing the data we need for ArcGIS Pro
+  - Extract the layers folder and its contents to a folder of your choice (to make things easier
+you should create a folder in which you will keep your data and ArcGIS project in. This
+will make navigating to the files you’ll need easier)
+(Reference Q4_Image)
+
+## Methods In ArcGIS Pro
+5. Create a new ArcGIS project and import the data from StreamStats by right clicking Map
+under drawing order and select add data. Navigate to your layers file location and select the two.shp files. 
+Now we have our data in Arc!
+
+6. We now want to change the projection of our map so we can take more accurate
+measurements of this watershed. To do this you will want to right-click on map go to **Properties – Coordinate Systems – Projected Coordinate System – State Plane – NAD 1983 (2011) (Meters) – StatePlane Colorado North FIPS 0501**
+(Reference Q6_Image)
+
+7. Now that we have changed the coordinate system, we can now calculate the area for this
+watershed. To do this you will select Measure under the map tab, select Measure Features, and
+click on the watershed boundary polygon (make sure that you select Metric for the units to be
+displayed in). What is the area that you found? How does the area differ from the drainage areacollected from Stream Stats?
+
+# Using ndhPlus Tools in R
+#Downloading the data
+Using the ndhPlus Tools, download the HUC8 for the Cache la Poudre Watershed. 
+```{r}
+# Download the huc 8 for the Poudre River using its USGS code
+poud <- get_huc8(id = "10190007" )
+# This will give you an outline of the Poudre River watershed, with metadata
+
+```
+
+Now that the data has been downloaded, we can add the flowlinesof the watershed, similar to the flowlines in StreamStats.
+```{r}
+# Next, we can get the flowlines (all the streams) in the watershed 
+poud_flowlines <- get_nhdplus(AOI = poud, 
+                         realization='flowline') # selects flowline in the search
+```
+
+Finally, plot your delineated watershed. 
+```{r}
+#Plot your watershed using mapview!
+mapview(poud_flowlines, color = "darkblue") + mapview(poud, color = "lightblue")
+
+```
+Now, we have an interactive map of the Cache la Poudre watershed, with all of the streams within it! 
+
+If we want to make a more in-depth map of our watershed, we can include catchments and water bodies in our map too. 
+
+```{r}
+poud_catchments <- get_nhdplus(AOI=poud, 
+                          realization='catchment') 
+poud_waterbodies <- get_waterbodies(AOI=poud)
+mapview(poud_catchments, color = "purple") + mapview(poud_waterbodies, color = "darkblue")+
+mapview(poud, color = "lightblue") 
+```
+This map includes the catchments within the watershed, as well as the bodies of water located within it. 
+
+# Discussion
+How do these methods differ? 
+Is there one that you think is easier?
+When is each method more useful?
+
+# Practice 
+Select different watersheds in Colorado by searching their HUC 8 codes online. Using the nhdPlus Tools method in R, complete the steps above and map each watershed. 
+Explore the nhdPlus Tools, are there any others that would be useful for delineating watersheds? 
+(Hint: watershed area and elevation are tools in the nhdplus package!)

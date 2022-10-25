@@ -1,0 +1,42 @@
+---
+title: "sensitivity figure"
+author: "Tim Covino"
+date: "3/27/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+```
+
+```{r}
+df <- read_csv("watershed_analysis/sensitivity.csv")
+```
+
+```{r}
+df %>% 
+  ggplot(aes(x = Water_availability_mm, y = Sensitivity, color = Wetland_type)) +
+  geom_point(size = 3) +
+  geom_line()+
+  ylab(expression(Climate~Sensitivity~(beta))) +
+  xlab("Water Availability (mm)") +
+  theme_linedraw(base_size = 22)
+    
+ggsave("watershed_analysis/sensitivity.png")         
+    
+  
+```
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+Wetland_type,Water_availability_mm,Sensitivity
+Woody wetland,-1.5,0.38
+Woody wetland,-1.25,0.41
+Woody wetland,-1,0.37
+Woody wetland,-0.75,0.3
+Woody wetland,-0.5,0.25
+Woody wetland,-0.25,0.21
+Herbaceous wetland,-1.5,NA
+Herbaceous wetland,-1.25,0.47
+Herbaceous wetland,-1,0.465
+Herbaceous wetland,-0.75,0.43
+Herbaceous wetland,-0.5,0.435
+Herbaceous wetland,-0.25,0.405

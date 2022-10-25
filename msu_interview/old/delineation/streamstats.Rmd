@@ -1,0 +1,51 @@
+---
+title: "streamstats"
+author: "Tim Covino"
+date: '2022-09-27'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+devtools::install_github("markwh/streamstats")
+library(streamstats)
+```
+
+```{r}
+ws1 <- delineateWatershed(xlocation = -72.9249, ylocation = 42.3170, crs = 4326, 
+                          includeparameters = "true", includeflowtypes = "true")
+```
+
+```{r}
+leafletWatershed(ws1)
+```
+
+```{r}
+#site conversion
+
+ws2_lat_deg = 45
+ws2_lat_min = 35
+ws2_lat_sec = 49.96
+ws2_lat_dec = ws2_lat_deg + (ws2_lat_min /60) + (ws2_lat_sec/3600)
+
+#Longitude
+ws2_long_deg = 110
+ws2_long_min = 33  
+ws2_long_sec = 59.39
+ws2_long_dec = -1*(ws2_long_deg + (ws2_long_min /60) + (ws2_long_sec/3600))
+
+ws2 <- delineateWatershed(xlocation = -110.566497222222, ylocation = 45.59721111, crs = 4326, 
+                          includeparameters = "true", includeflowtypes = "true")
+
+ws2 <- delineateWatershed(xlocation = ws2_long_dec, ylocation = ws2_lat_dec, crs = 4326, 
+                          includeparameters = "true", includeflowtypes = "true")
+```
+
+
+```{r}
+leafletWatershed(ws2)
+```
+

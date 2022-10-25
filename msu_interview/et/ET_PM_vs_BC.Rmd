@@ -1,0 +1,142 @@
+---
+title: "Estimating Evapotranspiration using Blaney-Criddle and Penman-Monteith methods"
+author: 
+date: 
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+https://tpcovino.github.io/Git_home/watershed_analysis/et/ET_PM_vs_BC.html
+
+# Summary
+
+Evapotranspiration (ET) refers to the combined losses of water from the land surface to the atmosphere via evaporation and transpiration. Transpiration is loss of water from plants to the atmosphere and often accounts for a majority of total ET [(Wei et al., 2017)](https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2016GL072235). Due to challenges in measuring ET, many estimation approaches have been developed. In this lab we will use two common methods: the Blaney-Criddle and FAO-56 Penman-Monteith approaches to estimating ET. Please work through the lab, including required readings and videos, up to the synthesis questions prior to lab on Thursday. During Thursday lab we will work on modeling ET in R and I will get you started on the project. You are welcome to collaborate with your colleagues in class but all work submitted and all responses must be your own.
+
+## Overall learning objectives
+
+At the end of this module, students will understand the key processes driving evaporation and transpiration. Additionally, students will estimate ET using the Blaney-Criddle and FAO-56 Penman-Monteith methods, evaluate differences in ET between sites of different climates, identify how the two ET models differ, and evaluate the advantages and disadvantages of each.
+
+## Required readings
+
+[Evapotranspiration](https://www.fao.org/3/x0490e/x0490e04.htm#chapter%201%20%20%20introduction%20to%20evapotranspiration){target="_blank"}
+
+[Penman-Monteith](https://www.fao.org/3/x0490e/x0490e06.htm#chapter%202%20%20%20fao%20penman%20monteith%20equation){target="_blank"}
+
+[Blaney-Criddle](https://www.dropbox.com/s/kjjazyzvbxgivja/35_Zhan.pdf?dl=0){target="_blank"}
+
+[Step-by-step calculation of refernce ET using the FAO-56  Penman-Monteith](https://edis.ifas.ufl.edu/pdf/AE/AE45900.pdf){target="_blank"}
+
+## Supplemental reading 
+
+[The surface energy budget](http://www.met.reading.ac.uk/~swrhgnrj/teaching/MT23E/mt23e_notes.pdf){target="_blank"}
+
+[Agricultural risks from changing snowmelt (Qin et al., 2020)](https://www.nature.com/articles/s41558-020-0746-8){target="_blank"}
+
+### Evapotranspiration
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4765Sg2mKco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+
+### Gas exchange in plants
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rvyANuytHBU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+
+### Transpiration and Cohesion-Tension Theory
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jLc4JT522VA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+### Understanding ET in irrigated systems is important becaue the large majority of water used globally is for irrigation. See [Qin et al., (2020)](https://www.nature.com/articles/s41558-020-0746-8){target="_blank"} for suplemental reading on changing snowmelt and irrigated agriculture. 
+
+![](images/Qin.png){width=100%} 
+
+![](images/Qin_et_al_2020.png){width=100%} 
+
+
+### Reference evapotranspiration
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gtV_RpXsMJI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+# Modeling reference ET
+
+### Blaney-Criddle
+
+Blaney-Criddle is a relatively simplistic model compared to Penman-Monteith, which is explained below. Blaney-Criddle is commonly used when meteorological data are unavailable and calculates evapotranspiration for a reference crop using mean monthly temperature. 
+
+$ET_o$ = $p$ (0.46 $Tmean$ + 8) 
+
+where, ET$_o$ is reference ET (mm day^-1^) as an average for a one month period, $p$ is the mean daily percentage of annual daytime hours, and $Tmean$ is mean daily temperature (°C). 
+
+The mean daily percentage of annual daytime hours, p, is calculated based on the latitude of the site.
+
+Table 1. Mean daily percentage ($p$) of annual daytime hours for different latitudes. Credit Food and Agricultural Organization of the United Nations (FAO).
+
+![](images/Blaney_table.png)
+
+
+###  Penman-Monteith
+
+The Penman approach is an energy balance and mass transfer method to estimate evaporation from open water, bare soil, and grass using climatological data as input:
+
+![](images/Penman_1.png){width=40%}
+
+Where, $λE$ is evaporative latent heat flux (MJ m^-2^ d^-1^), $Δ$ is the slope of the saturated vapor pressure curve, $R_n$ is net radiation flux (MJ m^-2^ d^-1^), $G$ is ground heat flux (MJ m^-2^ d^-1^), $γ$ is the psychrometric constant (kPa °C^-1^), and $E_a$ is the vapor flux (mm d^-1^) (2)
+
+Including a bulk surface resistance term, Montieth further modified Penman (using daily values):
+
+![](images/Penman_2.png){width=50%}
+
+Where, $ρa$ is air density (kg m^-3^), $C_p$ is the specific heat of dry air (J kg^-1^ K^-1^), $e_s$ is saturated vapor pressure (kPa), $e_a$ is ambient vapor pressure (kPa), $r_av$ is bulk surface aerodynamic resistance for water vapor (s m^-1^), and $r_s$ is the canopy surface resistance (s m^-1^).
+
+Lastly, the Food and Agricultural Organization of the United Nations (FAO) recommended a simplified version, the FAO-56 Penman-Monteith equation, by assuming some constant parameters for a clipped grass reference crop:
+
+![](images/FAO-56.png){width=50%}
+
+Where, $ET_o$ is reference ET (mm day^-1^), T is temperature (^o^C), and $u_2$ is wind speed (m s^-1^) at 2 m above the ground. 
+
+
+###  Data source
+
+[SCAN 808, Gallatin County, MT](https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&elements=&networks=SCAN&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=all&activeOnly=true&activeForecastPointsOnly=false&hucLabels=false&hucIdLabels=false&hucParameterLabels=false&stationLabels=&overlays=&hucOverlays=&basinOpacity=100&basinNoDataOpacity=100&basemapOpacity=100&maskOpacity=0&mode=stations&openSections=dataElement,parameter,date,basin,elements,location,networks&controlsOpen=true&popup=808:MT:SCAN&popupMulti=&popupBasin=&base=esriNgwm&displayType=inventory&basinType=6&dataElement=PREC&depth=-8&parameter=PCTAVG&frequency=DAILY&duration=mtd&customDuration=&dayPart=E&year=2018&month=11&day=1&monthPart=E&forecastPubMonth=6&forecastPubDay=1&forecastExceedance=50&seqColor=1&divColor=3&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1981&referenceEnd=2010&minimumYears=20&hucAssociations=true&lat=44.981&lon=-104.050&zoom=6.0){target="_blank"}
+
+[SCAN 209, Leon County, FL](https://www.nrcs.usda.gov/wps/portal/wcc/home/quicklinks/imap#version=158&elements=&networks=SCAN&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=all&activeOnly=true&activeForecastPointsOnly=false&hucLabels=false&hucIdLabels=false&hucParameterLabels=false&stationLabels=&overlays=&hucOverlays=&basinOpacity=100&basinNoDataOpacity=100&basemapOpacity=100&maskOpacity=0&mode=stations&openSections=dataElement,parameter,date,basin,elements,location,networks&controlsOpen=true&popup=2009:FL:SCAN&popupMulti=&popupBasin=&base=esriNgwm&displayType=inventory&basinType=6&dataElement=PREC&depth=-8&parameter=PCTAVG&frequency=DAILY&duration=mtd&customDuration=&dayPart=E&year=2018&month=11&day=1&monthPart=E&forecastPubMonth=6&forecastPubDay=1&forecastExceedance=50&seqColor=1&divColor=3&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1981&referenceEnd=2010&minimumYears=20&hucAssociations=true&lat=35.243&lon=-81.920&zoom=6.0){target="_blank"}
+
+
+### Overview of the SCAN Network
+- Used to monitor soil health
+- Primarily in an agriculture setting
+- Drought Monitoring
+- Predicting regional shifts in irrigation water requirements
+<br>
+
+###  Sites
+
+We will use 2 SCAN sites that have the necessary data to complete this analysis. We will use each method described above to estimate $ET_o$ for Florida (2009) and Montana (808) SCAN sites. Accordingly, we will be evaluating differences in model estimates across widely differening climate. 
+
+
+###  Analysis
+
+In lab on Thursday I will demonstrate the basic approaches to modeling $ET_o$ using the Blaney-Criddle and FAO-56 Penman-Monteith approaches using R Studio. I will not give you all of the code to do so, but I will give you the building blocks from which you will be able complete the project. 
+
+
+# Synthesis (50 points)
+
+1.   In your own words how do the Blaney-Criddle and FAO-56 Penman-Montieth equations differ? What variables does each consider? (5 points)
+
+2. Provide a time series of monthly values of estimated $ET_o$ derived from the Blaney-Criddle method for the Florida and Montana sites for the 2018-2021 calendar years. (5 points)
+
+3. Sum your data to annual values. Provide a figure displaying annual $ET_o$ totals for each site. (5 points)
+
+4. Provide a time series of daily values of estimated $ET_o$ derived from the FAO-56 Penman-Montieth method for the Florida and Montana sites for the 2018-2021 calendar years. (5 points)
+
+5. Sum your data to monthly and annual values. Provide one figure displaying monthly and one figure displaying annual $ET_o$ totals for each site. (5 points)
+
+6. On an annual basis, which site has more total $ET_o$? Is this consistent through time? Is this consistent between each of the models you have used? (5 points)
+
+7. Use your background understanding and modeling results to discuss under which environmental and meteorological conditions you think the models would provide similar estimates and under which conditions they would diverge. (10 points)
+
+8. Use your background understanding and modeling results to discuss the benefits and advantages to using temperature based vs energy based approaches to modeling $ET_o$. (10 points)
